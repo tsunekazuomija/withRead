@@ -1,5 +1,5 @@
 # Wizardry
-a unity based reading management tool
+a unity based reading management tool  
 <img src="./images/screenshot231118.png" width="300px">
 
 ## Basic Idea
