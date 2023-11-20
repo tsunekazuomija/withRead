@@ -13,6 +13,20 @@
             "author": "渡波郁",
             "num_chapter": "12",
             "progress": [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1]
+        },
+        {
+            "id": "3",
+            "title": "Readable Code",
+            "author": "Dustin Boswell",
+            "num_chapter": "12",
+            "progress": [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1]
+        },
+        {
+            "id": "4",
+            "title": "半導体デバイス入門",
+            "author": "柴田直",
+            "num_chapter": "5",
+            "progress": [1, 1, 1, 0, 0]
         }
     ]
 }
