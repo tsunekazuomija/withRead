@@ -15,7 +15,6 @@ public class ApplyBook : MonoBehaviour
     {
         string inputString = Resources.Load<TextAsset>("data").ToString();
         BookShelf bookShelf = JsonUtility.FromJson<BookShelf>(inputString);
-        Debug.Log(bookShelf.Book.Length);
         for (int i = 0; i < bookShelf.Book.Length; i++)
         {
             Instantiate(BookPrefab, transform);
