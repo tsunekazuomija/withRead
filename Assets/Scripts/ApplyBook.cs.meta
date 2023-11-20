@@ -1,9 +1,10 @@
 fileFormatVersion: 2
-guid: 7e7a412c09a5a440884c24334e258472
+guid: ec63a503508bf42f2903fa1a271f7e0c
 MonoImporter:
   externalObjects: {}
   serializedVersion: 2
-  defaultReferences: []
+  defaultReferences:
+  - BookPrefab: {fileID: 7874733584314137426, guid: 4d21b00ef679a482a9f9c6eb8fcbfd1e, type: 3}
   executionOrder: 0
   icon: {instanceID: 0}
   userData: 
