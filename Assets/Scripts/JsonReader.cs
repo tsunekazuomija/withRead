@@ -1,4 +1,5 @@
 using System;
+using JetBrains.Annotations;
 using UnityEngine;
 
 [Serializable]
@@ -22,11 +23,7 @@ public class JsonReader : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        string inputString = Resources.Load<TextAsset>("data").ToString();
-        BookShelf bookShelf = JsonUtility.FromJson<BookShelf>(inputString);
-        Debug.Log(bookShelf.Book.Length);
-        Debug.Log(bookShelf.Book[0].title);
-        Debug.Log(bookShelf.Book[1].progress[11]);
+
     }
 
     // Update is called once per frame
