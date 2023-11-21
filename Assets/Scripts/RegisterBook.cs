@@ -31,5 +31,8 @@ public class RegisterBook : MonoBehaviour
         bookShelf.Book = bookShelf.Book.Concat(new BookData[] { newBook }).ToArray();
         string outputString = JsonUtility.ToJson(bookShelf, true);
         System.IO.File.WriteAllText(Application.dataPath + "/Resources/data.json", outputString);
+
+        _inputFieldTitle.text = "";
+        _inputFieldNumChapter.text = "";
     }
 }
