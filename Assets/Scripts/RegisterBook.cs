@@ -18,8 +18,8 @@ public class RegisterBook : MonoBehaviour
 
         string inputString = Resources.Load<TextAsset>("data").ToString();
         BookShelf bookShelf = JsonUtility.FromJson<BookShelf>(inputString);
-
-        var newBook = new BookData
+        
+        BookData newBook = new()
         {
             id = bookShelf.Book.Length,
             title = title,
