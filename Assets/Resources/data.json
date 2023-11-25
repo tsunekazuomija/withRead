@@ -1,32 +1,33 @@
 {
-    "Book": [
+    "user": {
+        "name": "てすとだよ",
+        "exp": 0
+    },
+    "characters": [
         {
-            "id": "1",
-            "title": "量子力学I",
-            "author": "小出昌一郎",
-            "num_chapter": "10",
-            "progress": [0, 0, 0, 0, 1, 1, 1, 0, 0, 0]
-        },
+            "id": 0,
+            "name": "kita",
+            "exp": 0
+        }
+    ],
+    "book": [
         {
-            "id": "2",
-            "title": "CPUの創りかた",
-            "author": "渡波郁",
-            "num_chapter": "12",
-            "progress": [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1]
-        },
-        {
-            "id": "3",
-            "title": "Readable Code",
-            "author": "Dustin Boswell",
-            "num_chapter": "12",
-            "progress": [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1]
-        },
-        {
-            "id": "4",
-            "title": "半導体デバイス入門",
-            "author": "柴田直",
-            "num_chapter": "5",
-            "progress": [1, 1, 1, 0, 0]
+            "id": 0,
+            "title": "test",
+            "author": "",
+            "num_chapter": 10,
+            "progress": [
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0
+            ]
         }
     ]
 }

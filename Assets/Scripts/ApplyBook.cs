@@ -9,21 +9,24 @@ public class ApplyBook : MonoBehaviour
     public GameObject BookPrefab;
 
     public JsonReader bookShelf;
+    public JsonReader Data;
+
 
     // Start is called before the first frame update
     void Start()
     {
         string inputString = Resources.Load<TextAsset>("data").ToString();
-        BookShelf bookShelf = JsonUtility.FromJson<BookShelf>(inputString);
-        for (int i = 0; i < bookShelf.Book.Length; i++)
+        SaveData saveData = JsonUtility.FromJson<SaveData>(inputString);
+        BookData[] book = saveData.book;
+        for (int i = 0; i < book.Length; i++)
         {
             Instantiate(BookPrefab, transform);
             GameObject bookTitle = transform.GetChild(i).GetChild(0).gameObject;
-            bookTitle.GetComponent<TextMeshProUGUI>().text = bookShelf.Book[i].title;
+            bookTitle.GetComponent<TextMeshProUGUI>().text = book[i].title;
             string progress = "";
-            for (int j = 0; j < bookShelf.Book[i].progress.Length; ++j)
+            for (int j = 0; j < book[i].progress.Length; ++j)
             {
-                if (bookShelf.Book[i].progress[j] == 0)
+                if (book[i].progress[j] == 0)
                 {
                     progress += "-";
                 }
@@ -40,6 +43,6 @@ public class ApplyBook : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        int _ChildCount = transform.childCount;
+
     }
 }
