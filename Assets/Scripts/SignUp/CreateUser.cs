@@ -50,26 +50,6 @@ public class CreateUser : MonoBehaviour
     {   
     }
 
-    static async void SceneTransition()
-    {
-        AssetDatabase.Refresh();
-        string jsonString = null;
-        while (jsonString == null)
-        {
-            try
-            {
-                jsonString = Resources.Load<TextAsset>("data").ToString();
-            }
-            catch (Exception e)
-            {
-                jsonString = null;
-                Debug.Log(e);
-                await Task.Delay(100);
-            }
-        }
-        SceneManager.LoadScene("BookShelfScene");
-    }
-
     public void OnClickCreateUser()
     {
         SaveData newData = new SaveData();
@@ -97,6 +77,7 @@ public class CreateUser : MonoBehaviour
         string jsonString = JsonUtility.ToJson(newData, true);
         File.WriteAllText(Application.dataPath + "/Resources/data.json", jsonString);
 
-        SceneTransition();
+        AssetDatabase.Refresh();
+        SceneManager.LoadScene("BookShelfScene");
     }
 }
