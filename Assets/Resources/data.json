@@ -1,0 +1,33 @@
+{
+    "user": {
+        "name": "てすとだよ",
+        "exp": 0
+    },
+    "characters": [
+        {
+            "id": 0,
+            "name": "kita",
+            "exp": 0
+        }
+    ],
+    "book": [
+        {
+            "id": 0,
+            "title": "test",
+            "author": "",
+            "num_chapter": 10,
+            "progress": [
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0
+            ]
+        }
+    ]
+}
