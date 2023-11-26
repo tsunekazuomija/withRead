@@ -361,6 +361,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   BookPrefab: {fileID: 7874733584314137426, guid: 4d21b00ef679a482a9f9c6eb8fcbfd1e, type: 3}
   bookShelf: {fileID: 0}
+  Data: {fileID: 0}
 --- !u!1 &421599178
 GameObject:
   m_ObjectHideFlags: 0
