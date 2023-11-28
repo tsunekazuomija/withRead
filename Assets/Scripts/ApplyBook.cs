@@ -24,13 +24,10 @@ public enum ChatColor : uint
 public class ApplyBook : MonoBehaviour
 {
     public GameObject BookPrefab;
-    public JsonReader bookShelf;
-    public JsonReader Data;
 
-    // Start is called before the first frame update
     void Start()
     {
-        // string inputString = Resources.Load<TextAsset>("data").ToString();
+
         string inputString = Resources.Load<TextAsset>("data").ToString();
 
         SaveData saveData = JsonUtility.FromJson<SaveData>(inputString);
