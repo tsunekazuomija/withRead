@@ -6,6 +6,8 @@ using UnityEngine;
 
 public class ApplyBookStudy : MonoBehaviour
 {
+    public GameObject BookPrefab;
+    
     void Start()
     {
         string inputString = Resources.Load<TextAsset>("data").ToString();
