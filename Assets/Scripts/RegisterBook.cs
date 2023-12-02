@@ -21,21 +21,11 @@ public class RegisterBook : MonoBehaviour
         string inputString = Resources.Load<TextAsset>("data").ToString();
         SaveData saveData = JsonUtility.FromJson<SaveData>(inputString);
 
-        // generate initial progress
-        string[] progress = new string[Mathf.CeilToInt(pages / 50f)];
-        for (int i = 0; i < progress.Length - 1; ++i)
-        {
-            progress[i] = GetMultiple("0", 50);
-        }
-        progress[progress.Length - 1] = GetMultiple("0", pages - (progress.Length - 1) * 50);
+        int[] progress = Enumerable.Repeat(0, pages).ToArray();
 
-        // generate initial progress_short
-        string[] progress_short = new string[Mathf.CeilToInt(pages / 100f)];
-        for (int i = 0; i < progress_short.Length - 1; ++i)
-        {
-            progress_short[i] = GetMultiple("0", 10);
-        }
-        progress_short[progress_short.Length - 1] = GetMultiple("0", Mathf.CeilToInt(pages / 10f) - (progress_short.Length - 1) * 10);
+        PageCell progress_short = new PageCell();
+        progress_short.page_cnt = Enumerable.Repeat(0, Mathf.CeilToInt(pages / 10f)).ToArray();
+        progress_short.min_read_times = Enumerable.Repeat(0, Mathf.CeilToInt(pages / 10f)).ToArray();
 
         BookInfo newBook = new()
         {
@@ -55,15 +45,5 @@ public class RegisterBook : MonoBehaviour
         AssetDatabase.Refresh();
 
         SceneManager.LoadScene (SceneManager.GetActiveScene().name);
-    }
-
-    string GetMultiple(string str, int num)
-    {
-        string result = "";
-        for (int i = 0; i < num; ++i)
-        {
-            result += str;
-        }
-        return result;
     }
 }
