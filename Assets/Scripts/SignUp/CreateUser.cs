@@ -28,7 +28,7 @@ public class SaveData
 {
     public User user;
     public Character[] characters;
-    public BookData[] book;
+    public BookInfo[] book;
 }
 
 public class CreateUser : MonoBehaviour
@@ -61,17 +61,16 @@ public class CreateUser : MonoBehaviour
         newData.characters[0].id = 0;
         newData.characters[0].name = "kita";
         newData.characters[0].exp = 0;
-        newData.book = new BookData[1];
-        newData.book[0] = new BookData();
+        newData.book = new BookInfo[1];
+        newData.book[0] = new BookInfo();
         newData.book[0].id = 0;
         newData.book[0].title = "test";
-        newData.book[0].author = "";
-        newData.book[0].num_chapter = 10;
-        newData.book[0].progress = new int[10];
-        for (int i = 0; i < 10; ++i)
-        {
-            newData.book[0].progress[i] = 0;
-        }
+        newData.book[0].pages = 100;
+        newData.book[0].progress = new string[2];
+        newData.book[0].progress[0] = "11111111111111100000000000000000000000000000000000";
+        newData.book[0].progress[1] = "00000000000000000000000000000000000000000000000000";
+        newData.book[0].progress_short = new string[1];
+        newData.book[0].progress_short[0] = "1h00000000";
 
 
         string jsonString = JsonUtility.ToJson(newData, true);

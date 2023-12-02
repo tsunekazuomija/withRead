@@ -2,32 +2,14 @@ using System;
 using TMPro;
 using UnityEngine;
 
-[Serializable]
-public class BookInfo
-{
-    public int id;
-    public string title;
-    public int pages;
-    public string[] progress;
-    public string[] progress_short;
-}
 
-public enum ChatColor : uint
-{
-    RED = 0xFF0000FF, // 赤
-    GRN = 0x00FF00FF, // 緑
-    BLR = 0x0000FFFF, // 青
-    GRY = 0x808080FF, // 灰
-    YEL = 0xFFFF00FF, // 黄
-}
 
-public class ApplyBook : MonoBehaviour
+public class ApplyBookStudy : MonoBehaviour
 {
     public GameObject BookPrefab;
-
+    
     void Start()
     {
-
         string inputString = Resources.Load<TextAsset>("data").ToString();
 
         SaveData saveData = JsonUtility.FromJson<SaveData>(inputString);
@@ -62,6 +44,7 @@ public class ApplyBook : MonoBehaviour
             ((uint) chatColor & 0x000000FF) / 255.0f
         );
     }
+    
 
     string GetColorCode(char progressChar)
     {

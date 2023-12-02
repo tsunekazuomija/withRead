@@ -12,29 +12,31 @@
         {
             "id": 3,
             "name": "kita-chan",
-            "sum-exp": 2500
+            "exp": 2500
         },
         {
             "id": 4,
             "name": "nijika-chan",
-            "sum-exp": 100
+            "exp": 100
         },
         {
             "id": 5,
             "name": "ryo-san",
-            "sum-exp": 200
+            "exp": 200
         }
     ],
     "book": [
         {
             "id": 1,
             "title": "bocchi the rock!",
-            "author": "Aki Hamaji",
             "pages": 120,
             "progress": [
                 "11111111111111110000000000000000000000000000000000",
                 "00000000000000000000000000000000000000000000000000",
                 "00000000000000000000"
+            ],
+            "progress_short": [
+                "1h0000000000"
             ]
         }
     ]
