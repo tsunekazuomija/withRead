@@ -7,6 +7,7 @@ using TMPro;
 using UnityEngine.SceneManagement;
 using System.Threading.Tasks;
 using UnityEditor;
+using System.Linq;
 
 [Serializable]
 public class User
@@ -21,14 +22,6 @@ public class Character
     public int id;
     public string name;
     public int exp;
-}
-
-[Serializable]
-public class SaveData
-{
-    public User user;
-    public Character[] characters;
-    public BookInfo[] book;
 }
 
 public class CreateUser : MonoBehaviour
@@ -52,6 +45,8 @@ public class CreateUser : MonoBehaviour
 
     public void OnClickCreateUser()
     {
+        int pages = 35;
+
         SaveData newData = new SaveData();
         newData.user = new User();
         newData.user.name = _userName.text;
@@ -64,14 +59,14 @@ public class CreateUser : MonoBehaviour
         newData.book = new BookInfo[1];
         newData.book[0] = new BookInfo();
         newData.book[0].id = 0;
-        newData.book[0].title = "test";
-        newData.book[0].pages = 100;
-        newData.book[0].progress = new string[2];
-        newData.book[0].progress[0] = "11111111111111100000000000000000000000000000000000";
-        newData.book[0].progress[1] = "00000000000000000000000000000000000000000000000000";
-        newData.book[0].progress_short = new string[1];
-        newData.book[0].progress_short[0] = "1h00000000";
-
+        newData.book[0].title = "bocchi the rock!";
+        newData.book[0].pages = pages;
+        newData.book[0].progress = Enumerable.Repeat(0, pages).ToArray();
+        
+        PageCell pagecell = new PageCell();
+        pagecell.page_cnt = Enumerable.Repeat(0, Mathf.CeilToInt(pages / 10f)).ToArray();
+        pagecell.min_read_times = Enumerable.Repeat(0, Mathf.CeilToInt(pages / 10f)).ToArray();
+        newData.book[0].progress_short = pagecell;
 
         string jsonString = JsonUtility.ToJson(newData, true);
         File.WriteAllText(Application.dataPath + "/Resources/data.json", jsonString);

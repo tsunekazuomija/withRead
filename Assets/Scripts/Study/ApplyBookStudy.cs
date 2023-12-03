@@ -2,7 +2,30 @@ using System;
 using TMPro;
 using UnityEngine;
 
+[Serializable]
+public class SaveData
+{
+    public User user;
+    public Character[] characters;
+    public BookInfo[] book;
+}
 
+[Serializable]
+public class BookInfo
+{
+    public int id;
+    public string title;
+    public int pages;
+    public int[] progress;
+    public PageCell progress_short;
+}
+
+[Serializable]
+public class PageCell
+{
+    public int[] page_cnt;
+    public int[] min_read_times;
+}
 
 public class ApplyBookStudy : MonoBehaviour
 {
@@ -20,14 +43,10 @@ public class ApplyBookStudy : MonoBehaviour
             GameObject bookTitle = transform.GetChild(i).GetChild(0).gameObject;
             bookTitle.GetComponent<TextMeshProUGUI>().text = book[i].title;
             string progress = "";
-            for (int j = 0; j < book[i].progress_short.Length; ++j)
+            for (int j = 0; j < book[i].progress_short.page_cnt.Length; ++j)
             {
-                for (int k = 0; k < book[i].progress_short[j].Length; ++k)
-                {
-                    char progressChar = book[i].progress_short[j][k];
-                    string colorCode = GetColorCode(progressChar);
-                    progress += $"<color=#{colorCode}>■</color>";
-                }
+                string colorCode = GetColorCode(book[i].progress_short.page_cnt[j], book[i].progress_short.min_read_times[j]);
+                progress += $"<color=#{colorCode}>■</color>";
             }
             GameObject bookProgress = transform.GetChild(i).GetChild(1).gameObject;
             bookProgress.GetComponent<TextMeshProUGUI>().richText = true; // richTextを有効にする
@@ -46,20 +65,23 @@ public class ApplyBookStudy : MonoBehaviour
     }
     
 
-    string GetColorCode(char progressChar)
+    string GetColorCode(int page_cnt, int min_read_times)
     {
-        switch (progressChar)
+        if (page_cnt == 0) // page_cnt: 0-> 未読; 1以上-> 途中or読了
         {
-            case '0':
-                return ColorUtility.ToHtmlStringRGBA(GetColorFromChatColor(ChatColor.GRY));
-            case 'h':
+            return ColorUtility.ToHtmlStringRGBA(GetColorFromChatColor(ChatColor.GRY));
+        }
+        
+        switch (min_read_times)
+        {
+            case 0:
                 return ColorUtility.ToHtmlStringRGBA(GetColorFromChatColor(ChatColor.YEL));
-            case '1':
+            case 1:
                 return ColorUtility.ToHtmlStringRGBA(GetColorFromChatColor(ChatColor.GRN));
-            case '2':
+            case 2:
                 return ColorUtility.ToHtmlStringRGBA(GetColorFromChatColor(ChatColor.BLR));
             default:
-                return "FFFFFF"; // デフォルトは白色
+                return "FFFFFF"; // 全てのページを3回以上読んだ場合は白色
         }
     }
 }

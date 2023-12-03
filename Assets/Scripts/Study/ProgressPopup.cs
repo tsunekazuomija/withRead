@@ -38,12 +38,8 @@ public class ProgressPopup : MonoBehaviour
         string progress = "";
         for (int j=0; j<_book[siblingIndex].progress.Length; ++j)
         {
-            for (int k=0; k<_book[siblingIndex].progress[j].Length; ++k)
-            {
-                char progressChar = _book[siblingIndex].progress[j][k];
-                string colorCode = GetColorCode(progressChar);
-                progress += $"<color=#{colorCode}>■</color>";
-            }
+            string colorCode = GetColorCodeProgress(_book[siblingIndex].progress[j]);
+            progress += $"<color=#{colorCode}>■</color>";
         }
 
         _content.transform.Find("ProgressPlace").transform.Find("Text").GetComponent<TextMeshProUGUI>().text = progress;
@@ -60,20 +56,18 @@ public class ProgressPopup : MonoBehaviour
         );
     }
 
-    string GetColorCode(char progressChar)
+    string GetColorCodeProgress(int progressNum)
     {
-        switch (progressChar)
+        switch (progressNum)
         {
-            case '0':
+            case 0:
                 return ColorUtility.ToHtmlStringRGBA(GetColorFromChatColor(ChatColor.GRY));
-            case 'h':
-                return ColorUtility.ToHtmlStringRGBA(GetColorFromChatColor(ChatColor.YEL));
-            case '1':
+            case 1:
                 return ColorUtility.ToHtmlStringRGBA(GetColorFromChatColor(ChatColor.GRN));
-            case '2':
+            case 2:
                 return ColorUtility.ToHtmlStringRGBA(GetColorFromChatColor(ChatColor.BLR));
             default:
-                return "FFFFFF"; // デフォルトは白色
+                return "FFFFFF"; // 3回以上読んだ場合は白
         }
     }
 }
