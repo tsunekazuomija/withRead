@@ -310,6 +310,7 @@ GameObject:
   - component: {fileID: 6785642730382754582}
   - component: {fileID: 8748376196184768755}
   - component: {fileID: 6764641447660705681}
+  - component: {fileID: -811468166881453055}
   m_Layer: 5
   m_Name: bookForSetting
   m_TagString: Untagged
@@ -480,3 +481,15 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls: []
+--- !u!114 &-811468166881453055
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7874733584314137426}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e386177a2c8c64c20bc3a498985aada2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
