@@ -13,7 +13,6 @@ public class RegisterProgress : MonoBehaviour
 
     int _siblingsIndex;
 
-    // Start is called before the first frame update
     void Start()
     {
         string inputString = Resources.Load<TextAsset>("data").ToString();
@@ -46,9 +45,6 @@ public class RegisterProgress : MonoBehaviour
 
         _startPage = int.Parse(transform.parent.Find("FromPageInput").GetComponent<TMPro.TMP_InputField>().text);
         _endPage = int.Parse(transform.parent.Find("ToPageInput").GetComponent<TMPro.TMP_InputField>().text);
-        Debug.Log(_saveData.book[_siblingsIndex].title);
-        Debug.Log(_startPage);
-        Debug.Log(_endPage);
 
         BookInfo book = _saveData.book[_siblingsIndex];
         int[] progress = book.progress;
