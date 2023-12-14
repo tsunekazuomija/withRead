@@ -4,7 +4,6 @@ using UnityEngine;
 using System;
 using System.IO;
 using TMPro;
-using UnityEditor;
 using UnityEngine.SceneManagement;
 
 public class RegisterProgress : MonoBehaviour
@@ -15,7 +14,8 @@ public class RegisterProgress : MonoBehaviour
 
     void Start()
     {
-        string inputString = Resources.Load<TextAsset>("data").ToString();
+        string filePath = Application.persistentDataPath + "/UserData/data.json";
+        string inputString = File.ReadAllText(filePath);
         _saveData = JsonUtility.FromJson<SaveData>(inputString);
 
     }
@@ -86,8 +86,7 @@ public class RegisterProgress : MonoBehaviour
         _saveData.book[_siblingsIndex] = book;
 
         string outputString = JsonUtility.ToJson(_saveData, true);
-        System.IO.File.WriteAllText(Application.dataPath + "/Resources/data.json", outputString);
-        AssetDatabase.Refresh();
+        File.WriteAllText(Application.persistentDataPath + "/UserData/data.json", outputString);
         SceneManager.LoadScene(SceneManager.GetActiveScene().name);
     }
 

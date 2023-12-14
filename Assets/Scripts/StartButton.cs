@@ -1,13 +1,19 @@
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using System.IO;
 
 public class StartButton : MonoBehaviour
 {
-    private string FilePath = "Assets/Resources/data.json";
+    string filePath;
+
+    public void Start()
+    {
+        filePath = Application.persistentDataPath + "/UserData/data.json";
+    }
 
     public void OnClickStartButton()
     {
-        if (System.IO.File.Exists(FilePath))
+        if (File.Exists(filePath))
         {
             SceneManager.LoadScene("BookShelfScene");
         }

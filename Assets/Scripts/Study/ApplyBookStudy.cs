@@ -1,4 +1,5 @@
 using System;
+using System.IO;
 using TMPro;
 using UnityEngine;
 
@@ -33,7 +34,8 @@ public class ApplyBookStudy : MonoBehaviour
     
     void Start()
     {
-        string inputString = Resources.Load<TextAsset>("data").ToString();
+        string filePath = Application.persistentDataPath + "/UserData/data.json";
+        string inputString = File.ReadAllText(filePath);
 
         SaveData saveData = JsonUtility.FromJson<SaveData>(inputString);
         BookInfo[] book = saveData.book;

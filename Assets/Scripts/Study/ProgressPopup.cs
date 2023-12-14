@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
+using System.IO;
 
 
 public class ProgressPopup : MonoBehaviour
@@ -22,7 +23,8 @@ public class ProgressPopup : MonoBehaviour
             Clicked();   
         } );
 
-        string inputString = Resources.Load<TextAsset>("data").ToString();
+        string filePath = Application.persistentDataPath + "/UserData/data.json";
+        string inputString = File.ReadAllText(filePath);
         _saveData = JsonUtility.FromJson<SaveData>(inputString);
         _book = _saveData.book;
     }
