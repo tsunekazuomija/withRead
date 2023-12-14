@@ -1,10 +1,7 @@
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
-using System.Linq;
-using UnityEditor;
 using UnityEngine.SceneManagement;
 
 public class DeleteBookPopup : MonoBehaviour
@@ -17,7 +14,8 @@ public class DeleteBookPopup : MonoBehaviour
 
     void Start()
     {
-        string inputString = Resources.Load<TextAsset>("data").ToString();
+        string filePath = Application.persistentDataPath + "/UserData/data.json";
+        string inputString = System.IO.File.ReadAllText(filePath);
         _saveData = JsonUtility.FromJson<SaveData>(inputString);
         _book = _saveData.book;
 
@@ -54,9 +52,8 @@ public class DeleteBookPopup : MonoBehaviour
         _book = bookList.ToArray();
         _saveData.book = _book;
         string outputString = JsonUtility.ToJson(_saveData, true);
-        System.IO.File.WriteAllText(Application.dataPath + "/Resources/data.json", outputString);
+        System.IO.File.WriteAllText(Application.persistentDataPath + "/UserData/data.json", outputString);
 
-        AssetDatabase.Refresh();
         SceneManager.LoadScene (SceneManager.GetActiveScene().name);
     }
 }

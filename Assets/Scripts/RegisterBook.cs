@@ -1,8 +1,8 @@
 using UnityEngine;
 using TMPro;
 using System.Linq;
-using UnityEditor;
 using UnityEngine.SceneManagement;
+using System.IO;
 
 public class RegisterBook : MonoBehaviour
 {
@@ -18,14 +18,17 @@ public class RegisterBook : MonoBehaviour
         string title = _inputFieldTitle.text;
         int pages = int.Parse(_inputFieldPages.text);
 
-        string inputString = Resources.Load<TextAsset>("data").ToString();
+        string dataPath = Application.persistentDataPath + "/UserData/data.json";
+        string inputString = File.ReadAllText(dataPath);
         SaveData saveData = JsonUtility.FromJson<SaveData>(inputString);
 
         int[] progress = Enumerable.Repeat(0, pages).ToArray();
 
-        PageCell progress_short = new PageCell();
-        progress_short.page_cnt = Enumerable.Repeat(0, Mathf.CeilToInt(pages / 10f)).ToArray();
-        progress_short.min_read_times = Enumerable.Repeat(0, Mathf.CeilToInt(pages / 10f)).ToArray();
+        PageCell progress_short = new()
+        {
+            page_cnt = Enumerable.Repeat(0, Mathf.CeilToInt(pages / 10f)).ToArray(),
+            min_read_times = Enumerable.Repeat(0, Mathf.CeilToInt(pages / 10f)).ToArray()
+        };
 
         BookInfo newBook = new()
         {
@@ -38,11 +41,10 @@ public class RegisterBook : MonoBehaviour
 
         saveData.book = saveData.book.Concat(new BookInfo[] { newBook }).ToArray();
         string outputString = JsonUtility.ToJson(saveData, true);
-        System.IO.File.WriteAllText(Application.dataPath + "/Resources/data.json", outputString);
+        File.WriteAllText(Application.persistentDataPath + "/UserData/data.json", outputString);
 
         _inputFieldTitle.text = "";
         _inputFieldPages.text = "";
-        AssetDatabase.Refresh();
 
         SceneManager.LoadScene (SceneManager.GetActiveScene().name);
     }

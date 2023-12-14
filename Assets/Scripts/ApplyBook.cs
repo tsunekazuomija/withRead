@@ -1,6 +1,7 @@
 using System;
 using TMPro;
 using UnityEngine;
+using System.IO;
 
 public enum ChatColor : uint
 {
@@ -17,7 +18,8 @@ public class ApplyBook : MonoBehaviour
 
     void Start()
     {
-        string inputString = Resources.Load<TextAsset>("data").ToString();
+        string dataPath = Application.persistentDataPath + "/UserData/data.json";
+        string inputString = File.ReadAllText(dataPath);
 
         SaveData saveData = JsonUtility.FromJson<SaveData>(inputString);
         BookInfo[] book = saveData.book;

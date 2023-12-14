@@ -6,7 +6,6 @@ using System.IO;
 using TMPro;
 using UnityEngine.SceneManagement;
 using System.Threading.Tasks;
-using UnityEditor;
 using System.Linq;
 
 [Serializable]
@@ -47,31 +46,43 @@ public class CreateUser : MonoBehaviour
     {
         int pages = 35;
 
-        SaveData newData = new SaveData();
-        newData.user = new User();
+        SaveData newData = new SaveData
+        {
+            user = new User()
+        };
         newData.user.name = _userName.text;
         newData.user.exp = 0;
         newData.characters = new Character[1];
-        newData.characters[0] = new Character();
-        newData.characters[0].id = 0;
-        newData.characters[0].name = "kita";
-        newData.characters[0].exp = 0;
+        newData.characters[0] = new Character
+        {
+            id = 0,
+            name = "kita",
+            exp = 0
+        };
         newData.book = new BookInfo[1];
-        newData.book[0] = new BookInfo();
-        newData.book[0].id = 0;
-        newData.book[0].title = "bocchi the rock!";
-        newData.book[0].pages = pages;
-        newData.book[0].progress = Enumerable.Repeat(0, pages).ToArray();
-        
-        PageCell pagecell = new PageCell();
-        pagecell.page_cnt = Enumerable.Repeat(0, Mathf.CeilToInt(pages / 10f)).ToArray();
-        pagecell.min_read_times = Enumerable.Repeat(0, Mathf.CeilToInt(pages / 10f)).ToArray();
+        newData.book[0] = new BookInfo
+        {
+            id = 0,
+            title = "bocchi the rock!",
+            pages = pages,
+            progress = Enumerable.Repeat(0, pages).ToArray()
+        };
+
+        PageCell pagecell = new()
+        {
+            page_cnt = Enumerable.Repeat(0, Mathf.CeilToInt(pages / 10f)).ToArray(),
+            min_read_times = Enumerable.Repeat(0, Mathf.CeilToInt(pages / 10f)).ToArray()
+        };
         newData.book[0].progress_short = pagecell;
 
         string jsonString = JsonUtility.ToJson(newData, true);
-        File.WriteAllText(Application.dataPath + "/Resources/data.json", jsonString);
+        // ディレクトリがあるか確認
+        if (!Directory.Exists(Application.persistentDataPath + "/UserData"))
+        {
+            Directory.CreateDirectory(Application.persistentDataPath + "/UserData");
+        }
+        File.WriteAllText(Application.persistentDataPath + "/UserData/data.json", jsonString);
 
-        AssetDatabase.Refresh();
         SceneManager.LoadScene("BookShelfScene");
     }
 }
