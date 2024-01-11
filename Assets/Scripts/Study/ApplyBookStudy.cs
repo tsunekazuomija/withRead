@@ -39,10 +39,11 @@ public class ApplyBookStudy : MonoBehaviour
 
         SaveData saveData = JsonUtility.FromJson<SaveData>(inputString);
         BookInfo[] book = saveData.book;
+
         for (int i = 0; i < book.Length; i++)
         {
             Instantiate(BookPrefab, transform);
-            GameObject bookTitle = transform.GetChild(i).GetChild(0).gameObject;
+            GameObject bookTitle = transform.GetChild(i).GetChild(0).gameObject;  // Todo: 意図しないバグを生みかねない
             bookTitle.GetComponent<TextMeshProUGUI>().text = book[i].title;
             string progress = "";
             for (int j = 0; j < book[i].progress_short.page_cnt.Length; ++j)
@@ -53,6 +54,9 @@ public class ApplyBookStudy : MonoBehaviour
             GameObject bookProgress = transform.GetChild(i).GetChild(1).gameObject;
             bookProgress.GetComponent<TextMeshProUGUI>().richText = true; // richTextを有効にする
             bookProgress.GetComponent<TextMeshProUGUI>().text = progress;
+
+            transform.GetChild(i).gameObject.GetComponent<PopupTrigger>().bookId = book[i].id;
+            Debug.Log("book["+ i + "].id: " + book[i].id);
         }
     }
 
