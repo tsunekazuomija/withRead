@@ -5,47 +5,82 @@ using UnityEngine.UI;
 using TMPro;
 using System.IO;
 
+/// <summary>
+/// This class is assigned to the popup window.
+/// This recieves the book id as a public variable from 
+/// and displays the progress of the book.
+/// </summary>
+
 
 public class ProgressPopup : MonoBehaviour
 {
-    GameObject _canvas;
-    GameObject _progressPopup;
-    GameObject _content;
+    public GameObject content;
+    public int bookId;
 
     SaveData _saveData;
     BookInfo[] _book;
+    BookInfo currentBook;
 
-    void Start()
+    Slider slider1;
+    Slider slider2;
+
+    void Awake()
     {
-        Button button = GetComponent<Button>();
-        button.onClick.AddListener ( () => 
-        {
-            Clicked();   
-        } );
-
         string filePath = Application.persistentDataPath + "/UserData/data.json";
         string inputString = File.ReadAllText(filePath);
         _saveData = JsonUtility.FromJson<SaveData>(inputString);
         _book = _saveData.book;
     }
 
-    void Clicked()
+    void OnEnable()
     {
-        int siblingIndex = transform.GetSiblingIndex();
-        _canvas = transform.parent.parent.parent.parent.gameObject;
-        _progressPopup = _canvas.transform.Find("ProgressPopup").gameObject;
-        _content = _progressPopup.transform.Find("PopupWindow").transform.Find("Scroll View").transform.Find("Viewport").transform.Find("Content").gameObject;
-        _content.transform.Find("TitlePlace").transform.Find("Text").GetComponent<TextMeshProUGUI>().text = _book[siblingIndex].title;
+        // Todo: 不正な値に対する処理(bookIdが適切でない時)
 
-        string progress = "";
-        for (int j=0; j<_book[siblingIndex].progress.Length; ++j)
+        for (int i=0; i<_book.Length; ++i)
         {
-            string colorCode = GetColorCodeProgress(_book[siblingIndex].progress[j]);
-            progress += $"<color=#{colorCode}>■</color>";
+            if (_book[i].id == bookId)
+            {
+                currentBook = _book[i];
+                break;
+            }
         }
 
-        _content.transform.Find("ProgressPlace").transform.Find("Text").GetComponent<TextMeshProUGUI>().text = progress;
-        _progressPopup.SetActive(true);
+        content.transform.Find("TitlePlace").transform.Find("Text").GetComponent<TextMeshProUGUI>().text = currentBook.title;
+
+        // set maxvalue of slider
+        slider1 = content.transform.Find("RegisterPlace/Slider-from").GetComponent<Slider>();
+        slider2 = content.transform.Find("RegisterPlace/Slider-to").GetComponent<Slider>();
+        slider1.maxValue = currentBook.pages;
+        slider2.maxValue = currentBook.pages;
+
+        GameObject textBox1 = content.transform.Find("RegisterPlace/Text-box-from").gameObject;
+        GameObject textBox2 = content.transform.Find("RegisterPlace/Text-box-to").gameObject;
+
+        slider1.onValueChanged.AddListener( (value) => 
+        {
+            textBox1.GetComponent<TextMeshProUGUI>().text = value.ToString();
+        } );
+        slider2.onValueChanged.AddListener( (value) => 
+        {
+            textBox2.GetComponent<TextMeshProUGUI>().text = value.ToString();
+        } );
+
+        // display progress
+        string progress = "";
+        for (int j=0; j<currentBook.progress.Length; ++j)
+        {
+            string colorCode = GetColorCodeProgress(currentBook.progress[j]);
+            progress += $"<color=#{colorCode}>■</color>";
+        }
+        GameObject bookProgress = content.transform.Find("ProgressPlace/Text").gameObject;
+        bookProgress.GetComponent<TextMeshProUGUI>().richText = true; // richTextを有効にする
+        bookProgress.GetComponent<TextMeshProUGUI>().text = progress;
+    }
+
+    void OnDisable()
+    {
+        slider1.value = 1;
+        slider2.value = 1;
     }
 
     Color GetColorFromChatColor(ChatColor chatColor)
