@@ -37,6 +37,7 @@ public class RegisterBook : MonoBehaviour
             pages = pages,
             progress = progress,
             progress_short = progress_short,
+            last_read = 0
         };
 
         saveData.book = saveData.book.Concat(new BookInfo[] { newBook }).ToArray();

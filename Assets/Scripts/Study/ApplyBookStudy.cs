@@ -19,6 +19,7 @@ public class BookInfo
     public int pages;
     public int[] progress;
     public PageCell progress_short;
+    public int last_read;
 }
 
 [Serializable]
