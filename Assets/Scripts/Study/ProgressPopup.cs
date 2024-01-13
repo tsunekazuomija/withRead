@@ -7,7 +7,7 @@ using System.IO;
 
 /// <summary>
 /// This class is assigned to the popup window.
-/// This recieves the book id as a public variable from 
+/// This recieves the book id as a public variable from <c>PopupTrigger.cs</c>
 /// and displays the progress of the book.
 /// </summary>
 
