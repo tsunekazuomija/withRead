@@ -330,8 +330,8 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 70464165}
-        m_TargetAssemblyTypeName: GoBookSetting, Assembly-CSharp
-        m_MethodName: OnclickGoBookSetting
+        m_TargetAssemblyTypeName: SceneTransition, Assembly-CSharp
+        m_MethodName: OnClickButton
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -388,9 +388,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 70464160}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4d0502379b2024313afe20f3e202f7ad, type: 3}
+  m_Script: {fileID: 11500000, guid: 6f287f7fede4249e7ae4d0b727edbdd5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  sceneName: 0
 --- !u!1 &127555580
 GameObject:
   m_ObjectHideFlags: 0
@@ -883,9 +884,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 260476582}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 41c7e4c8a883a46e7a86856cb36e3610, type: 3}
+  m_Script: {fileID: 11500000, guid: ec63a503508bf42f2903fa1a271f7e0c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  popupPurpose: 0
   BookPrefab: {fileID: 7874733584314137426, guid: 267acd631a4a6424cae919ab41b47de9, type: 3}
 --- !u!1 &267625511
 GameObject:
@@ -4085,7 +4087,7 @@ GameObject:
   - component: {fileID: 1524727120}
   - component: {fileID: 1524727119}
   - component: {fileID: 1524727118}
-  - component: {fileID: 1524727117}
+  - component: {fileID: 1524727121}
   m_Layer: 5
   m_Name: HomeButton
   m_TagString: Untagged
@@ -4112,18 +4114,6 @@ RectTransform:
   m_AnchoredPosition: {x: -300, y: -800}
   m_SizeDelta: {x: 80, y: 80}
   m_Pivot: {x: 0.5, y: 0.5}
---- !u!114 &1524727117
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1524727115}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: bde63428eb1474c21a805d3ce96f7ee3, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &1524727118
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4168,9 +4158,9 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1524727117}
-        m_TargetAssemblyTypeName: HomeButton, Assembly-CSharp
-        m_MethodName: OnclickHomeButton
+      - m_Target: {fileID: 1524727121}
+        m_TargetAssemblyTypeName: SceneTransition, Assembly-CSharp
+        m_MethodName: OnClickButton
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -4218,6 +4208,19 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1524727115}
   m_CullTransparentMesh: 1
+--- !u!114 &1524727121
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1524727115}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6f287f7fede4249e7ae4d0b727edbdd5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  sceneName: 2
 --- !u!1 &1652825524
 GameObject:
   m_ObjectHideFlags: 0

@@ -1,7 +1,7 @@
 using System;
+using System.IO;
 using TMPro;
 using UnityEngine;
-using System.IO;
 
 public enum ChatColor : uint
 {
@@ -12,21 +12,50 @@ public enum ChatColor : uint
     YEL = 0xFFFF00FF, // 黄
 }
 
+[Serializable]
+public class SaveData
+{
+    public User user;
+    public Character[] characters;
+    public BookInfo[] book;
+}
+
+[Serializable]
+public class BookInfo
+{
+    public int id;
+    public string title;
+    public int pages;
+    public int[] progress;
+    public PageCell progress_short;
+    public int last_read;
+}
+
+[Serializable]
+public class PageCell
+{
+    public int[] page_cnt;
+    public int[] min_read_times;
+}
+
+
 public class ApplyBook : MonoBehaviour
 {
+    public int popupPurpose;
     public GameObject BookPrefab;
-
+    
     void Start()
     {
-        string dataPath = Application.persistentDataPath + "/UserData/data.json";
-        string inputString = File.ReadAllText(dataPath);
+        string filePath = Application.persistentDataPath + "/UserData/data.json";
+        string inputString = File.ReadAllText(filePath);
 
         SaveData saveData = JsonUtility.FromJson<SaveData>(inputString);
         BookInfo[] book = saveData.book;
+
         for (int i = 0; i < book.Length; i++)
         {
             Instantiate(BookPrefab, transform);
-            GameObject bookTitle = transform.GetChild(i).GetChild(0).gameObject;
+            GameObject bookTitle = transform.GetChild(i).GetChild(0).gameObject;  // Todo: 意図しないバグを生みかねない
             bookTitle.GetComponent<TextMeshProUGUI>().text = book[i].title;
             string progress = "";
             for (int j = 0; j < book[i].progress_short.page_cnt.Length; ++j)
@@ -37,6 +66,16 @@ public class ApplyBook : MonoBehaviour
             GameObject bookProgress = transform.GetChild(i).GetChild(1).gameObject;
             bookProgress.GetComponent<TextMeshProUGUI>().richText = true; // richTextを有効にする
             bookProgress.GetComponent<TextMeshProUGUI>().text = progress;
+
+            if (popupPurpose == 0) // register progress
+            {
+                transform.GetChild(i).gameObject.GetComponent<PopupTrigger>().bookId = book[i].id;
+            }
+            else if (popupPurpose == 1) // delete book
+            {
+                transform.GetChild(i).gameObject.GetComponent<DeletePopupTrigger>().bookId = book[i].id;
+            }
+            Debug.Log("book["+ i + "].id: " + book[i].id);
         }
     }
 
@@ -49,6 +88,7 @@ public class ApplyBook : MonoBehaviour
             ((uint) chatColor & 0x000000FF) / 255.0f
         );
     }
+    
 
     string GetColorCode(int page_cnt, int min_read_times)
     {

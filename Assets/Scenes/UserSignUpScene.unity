@@ -2007,8 +2007,8 @@ GameObject:
   - component: {fileID: 1792129529}
   - component: {fileID: 1792129528}
   - component: {fileID: 1792129527}
-  - component: {fileID: 1792129526}
   - component: {fileID: 1792129530}
+  - component: {fileID: 1792129526}
   m_Layer: 5
   m_Name: CancelButton
   m_TagString: Untagged
@@ -2096,8 +2096,8 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 1792129530}
-        m_TargetAssemblyTypeName: HomeButton, Assembly-CSharp
-        m_MethodName: OnclickHomeButton
+        m_TargetAssemblyTypeName: SceneTransition, Assembly-CSharp
+        m_MethodName: OnClickButton
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -2154,9 +2154,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 1792129524}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: bde63428eb1474c21a805d3ce96f7ee3, type: 3}
+  m_Script: {fileID: 11500000, guid: 6f287f7fede4249e7ae4d0b727edbdd5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  sceneName: 2
 --- !u!1 &1797765150
 GameObject:
   m_ObjectHideFlags: 0

@@ -149,12 +149,12 @@ RectTransform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5571203}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 1970446364}
+  m_Father: {fileID: 1814797820}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
@@ -549,14 +549,14 @@ RectTransform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 170889610}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 1877565070}
   - {fileID: 2088390047}
-  m_Father: {fileID: 1970446364}
+  m_Father: {fileID: 1814797820}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
@@ -777,6 +777,7 @@ GameObject:
   - component: {fileID: 315003500}
   - component: {fileID: 315003499}
   - component: {fileID: 315003498}
+  - component: {fileID: 315003501}
   m_Layer: 5
   m_Name: PopupPanel
   m_TagString: Untagged
@@ -859,6 +860,21 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 315003496}
   m_CullTransparentMesh: 1
+--- !u!114 &315003501
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 315003496}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4bcbb785316b7414e8e06b075a1118f2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  title: {fileID: 361610576}
+  pages: {fileID: 814130069}
+  registerButton: {fileID: 966234256}
 --- !u!1 &319972484
 GameObject:
   m_ObjectHideFlags: 0
@@ -1762,6 +1778,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 648825087}
+  - component: {fileID: 648825088}
   m_Layer: 0
   m_Name: DeleteBookPopup
   m_TagString: Untagged
@@ -1786,6 +1803,20 @@ Transform:
   - {fileID: 1234864690}
   m_Father: {fileID: 1970446364}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &648825088
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 648825086}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e773b0d0c8a2f415783d0ca6e9e6ccfc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  panel: {fileID: 1234864689}
+  bookId: 0
 --- !u!1 &756531333
 GameObject:
   m_ObjectHideFlags: 0
@@ -1949,14 +1980,14 @@ MonoBehaviour:
   m_VerticalScrollbarEventHandler: {fileID: 0}
   m_LayoutGroup: {fileID: 0}
   m_ScrollSensitivity: 1
-  m_ContentType: 0
+  m_ContentType: 2
   m_InputType: 0
   m_AsteriskChar: 42
-  m_KeyboardType: 0
+  m_KeyboardType: 4
   m_LineType: 0
   m_HideMobileInput: 0
   m_HideSoftKeyboard: 0
-  m_CharacterValidation: 0
+  m_CharacterValidation: 2
   m_RegexValue: 
   m_GlobalPointSize: 50
   m_CharacterLimit: 0
@@ -2125,7 +2156,6 @@ GameObject:
   - component: {fileID: 966234257}
   - component: {fileID: 966234256}
   - component: {fileID: 966234255}
-  - component: {fileID: 966234259}
   m_Layer: 5
   m_Name: ConfirmButton
   m_TagString: Untagged
@@ -2211,19 +2241,7 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 966234257}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 966234259}
-        m_TargetAssemblyTypeName: RegisterBook, Assembly-CSharp
-        m_MethodName: OnclickRegisterBook
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
+      m_Calls: []
 --- !u!114 &966234257
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2262,18 +2280,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 966234253}
   m_CullTransparentMesh: 1
---- !u!114 &966234259
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 966234253}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 84ee40eeae3354850a58267e727f62fc, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &1003682573
 GameObject:
   m_ObjectHideFlags: 0
@@ -2324,6 +2330,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ec63a503508bf42f2903fa1a271f7e0c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  popupPurpose: 1
   BookPrefab: {fileID: 7874733584314137426, guid: cdf98ffd691254a8cb9769efefbc25a8, type: 3}
 --- !u!114 &1003682576
 MonoBehaviour:
@@ -3604,7 +3611,10 @@ RectTransform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
-  m_Children: []
+  m_Children:
+  - {fileID: 2111909279}
+  - {fileID: 5571204}
+  - {fileID: 170889611}
   m_Father: {fileID: 1970446364}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
@@ -3851,9 +3861,6 @@ RectTransform:
   m_Children:
   - {fileID: 841132283}
   - {fileID: 1814797820}
-  - {fileID: 2111909279}
-  - {fileID: 5571204}
-  - {fileID: 170889611}
   - {fileID: 648825087}
   - {fileID: 348598802}
   m_Father: {fileID: 0}
@@ -4016,12 +4023,12 @@ RectTransform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2111909278}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 1970446364}
+  m_Father: {fileID: 1814797820}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
@@ -4073,8 +4080,8 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 2111909284}
-        m_TargetAssemblyTypeName: ShelfButton, Assembly-CSharp
-        m_MethodName: OnClickShelfButton
+        m_TargetAssemblyTypeName: SceneTransition, Assembly-CSharp
+        m_MethodName: OnClickButton
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -4131,9 +4138,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 2111909278}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 961d7e99b0445494e89f4badc358639d, type: 3}
+  m_Script: {fileID: 11500000, guid: 6f287f7fede4249e7ae4d0b727edbdd5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  sceneName: 1
 --- !u!1 &2121470756
 GameObject:
   m_ObjectHideFlags: 0
