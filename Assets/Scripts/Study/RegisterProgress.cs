@@ -57,6 +57,7 @@ public class RegisterProgress : MonoBehaviour
 
         targetBook.progress = GetProgress(targetBook.progress, _startPage, _endPage);
         targetBook.progress_short = GetProgressShort(targetBook.progress_short, targetBook.progress, targetBook.pages, _startPage, _endPage);
+        targetBook.last_read = _endPage;
 
         _book[targetIndex] = targetBook;
         _saveData.book = _book;

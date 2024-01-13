@@ -53,17 +53,28 @@ public class ProgressPopup : MonoBehaviour
         slider1.maxValue = currentBook.pages;
         slider2.maxValue = currentBook.pages;
 
-        GameObject textBox1 = content.transform.Find("RegisterPlace/Text-box-from").gameObject;
-        GameObject textBox2 = content.transform.Find("RegisterPlace/Text-box-to").gameObject;
+        TextMeshProUGUI text1 = content.transform.Find("RegisterPlace/Text-box-from").GetComponent<TextMeshProUGUI>();
+        TextMeshProUGUI text2 = content.transform.Find("RegisterPlace/Text-box-to").GetComponent<TextMeshProUGUI>();
 
         slider1.onValueChanged.AddListener( (value) => 
         {
-            textBox1.GetComponent<TextMeshProUGUI>().text = value.ToString();
+            text1.text = value.ToString();
         } );
         slider2.onValueChanged.AddListener( (value) => 
         {
-            textBox2.GetComponent<TextMeshProUGUI>().text = value.ToString();
+            text2.text = value.ToString();
         } );
+
+        if (currentBook.last_read < currentBook.pages)
+        {
+            slider1.value = currentBook.last_read + 1;
+            slider2.value = currentBook.last_read + 1;
+        }
+        else
+        {
+            slider1.value = currentBook.pages;
+            slider2.value = currentBook.pages;
+        }
 
         // display progress
         string progress = "";
@@ -79,8 +90,8 @@ public class ProgressPopup : MonoBehaviour
 
     void OnDisable()
     {
-        slider1.value = 1;
-        slider2.value = 1;
+        slider1.value = currentBook.last_read + 1;
+        slider2.value = currentBook.last_read + 1;
     }
 
     Color GetColorFromChatColor(ChatColor chatColor)
