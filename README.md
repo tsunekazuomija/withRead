@@ -1,7 +1,6 @@
 # Wizardry
 a unity based reading management tool  
 <img src="./images/screenshot1.png" width="300px"/>
-<br/>
 <img src="./images/screenshot2.png" width="300px"/>
 
 ## Basic Idea
