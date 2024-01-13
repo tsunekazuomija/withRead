@@ -1,6 +1,8 @@
 # Wizardry
 a unity based reading management tool  
-<img src="./images/screenshot2023-12-03.png" width="300px">
+<img src="./images/screenshot1.png" width="300px"/>
+<br/>
+<img src="./images/screenshot2.png" width="300px"/>
 
 ## Basic Idea
 This tool will help you to enjoy your study time by providing training game like experience.
