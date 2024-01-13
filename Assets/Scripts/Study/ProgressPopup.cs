@@ -86,8 +86,6 @@ public class ProgressPopup : MonoBehaviour
         GameObject bookProgress = content.transform.Find("ProgressPlace/Text").gameObject;
         bookProgress.GetComponent<TextMeshProUGUI>().richText = true; // richTextを有効にする
         bookProgress.GetComponent<TextMeshProUGUI>().text = progress;
-
-        Debug.Log(currentBook.last_read);
     }
 
     void OnDisable()
