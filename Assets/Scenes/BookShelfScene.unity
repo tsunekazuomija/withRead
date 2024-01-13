@@ -883,9 +883,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 260476582}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 41c7e4c8a883a46e7a86856cb36e3610, type: 3}
+  m_Script: {fileID: 11500000, guid: ec63a503508bf42f2903fa1a271f7e0c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  popupPurpose: 0
   BookPrefab: {fileID: 7874733584314137426, guid: 267acd631a4a6424cae919ab41b47de9, type: 3}
 --- !u!1 &267625511
 GameObject:
