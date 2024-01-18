@@ -75,7 +75,7 @@ public class ProgressPopup : MonoBehaviour
         string progress = "";
         for (int j=0; j<currentBook.progress.Length; ++j)
         {
-            string colorCode = GetColorCodeProgress(currentBook.progress[j]);
+            string colorCode = ColorManager.GetColorCodeProgress(currentBook.progress[j]);
             progress += $"<color=#{colorCode}>■</color>";
         }
         bookProgress.GetComponent<TextMeshProUGUI>().richText = true; // richTextを有効にする
@@ -86,30 +86,5 @@ public class ProgressPopup : MonoBehaviour
     {
         slider1.value = currentBook.last_read + 1;
         slider2.value = currentBook.last_read + 1;
-    }
-
-    Color GetColorFromChatColor(ChatColor chatColor)
-    {
-        return new Color(
-            (((uint) chatColor & 0xFF000000) >> 24) / 255.0f,
-            (((uint) chatColor & 0x00FF0000) >> 16) / 255.0f,
-            (((uint) chatColor & 0x0000FF00) >> 8) / 255.0f,
-            ((uint) chatColor & 0x000000FF) / 255.0f
-        );
-    }
-
-    string GetColorCodeProgress(int progressNum)
-    {
-        switch (progressNum)
-        {
-            case 0:
-                return ColorUtility.ToHtmlStringRGBA(GetColorFromChatColor(ChatColor.GRY));
-            case 1:
-                return ColorUtility.ToHtmlStringRGBA(GetColorFromChatColor(ChatColor.GRN));
-            case 2:
-                return ColorUtility.ToHtmlStringRGBA(GetColorFromChatColor(ChatColor.BLR));
-            default:
-                return "FFFFFF"; // 3回以上読んだ場合は白
-        }
     }
 }
