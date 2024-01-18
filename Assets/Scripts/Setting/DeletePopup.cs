@@ -8,17 +8,19 @@ using UnityEngine.SceneManagement;
 
 public class DeletePopup : MonoBehaviour
 {
-    public GameObject panel;
-
     public int bookId;
 
     SaveData _saveData;
     BookInfo[] _book;
 
+    [SerializeField] private GameObject bookTitle;
+    [SerializeField] private GameObject deleteButton;
+    [SerializeField] private GameObject cancelButton;
+
     void Awake()
     {
         string filePath = Application.persistentDataPath + "/UserData/data.json";
-        string inputString = System.IO.File.ReadAllText(filePath);
+        string inputString = File.ReadAllText(filePath);
         _saveData = JsonUtility.FromJson<SaveData>(inputString);
         _book = _saveData.book;
     }
@@ -36,12 +38,12 @@ public class DeletePopup : MonoBehaviour
             }
         }
 
-        panel.transform.Find("BookTitle").GetComponent<TextMeshProUGUI>().text = _book[targetIndex].title;
-        panel.transform.Find("DeleteButton").GetComponent<Button>().onClick.AddListener ( () => 
+        bookTitle.GetComponent<TextMeshProUGUI>().text = _book[targetIndex].title;
+        deleteButton.GetComponent<Button>().onClick.AddListener ( () => 
         {
             DeleteBook(targetIndex);
         } );
-        panel.transform.Find("CancelButton").GetComponent<Button>().onClick.AddListener ( () => 
+        cancelButton.GetComponent<Button>().onClick.AddListener ( () => 
         {
             gameObject.SetActive(false);
         } );
@@ -55,7 +57,7 @@ public class DeletePopup : MonoBehaviour
         _saveData.book = _book;
         string outputString = JsonUtility.ToJson(_saveData);
         string filePath = Application.persistentDataPath + "/UserData/data.json";
-        System.IO.File.WriteAllText(filePath, outputString);
+        File.WriteAllText(filePath, outputString);
 
         SceneManager.LoadScene (SceneManager.GetActiveScene().name);
     }

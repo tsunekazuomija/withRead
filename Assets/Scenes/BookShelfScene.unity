@@ -244,8 +244,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1d4a3e5411c1145849b1130cf4ac7e61, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  content: {fileID: 1045990880}
   bookId: 0
+  slider1: {fileID: 1438242960}
+  slider2: {fileID: 1711132907}
+  bookTitle: {fileID: 1092071569}
+  bookProgress: {fileID: 1815744333}
+  text1: {fileID: 1141359386}
+  text2: {fileID: 1292758319}
 --- !u!1 &70464160
 GameObject:
   m_ObjectHideFlags: 0
