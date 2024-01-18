@@ -285,6 +285,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 922fda0dc8f5b4c05b3649284d97e57e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  inputUserName: {fileID: 1349320954}
 --- !u!1 &260752613
 GameObject:
   m_ObjectHideFlags: 0
@@ -1150,6 +1151,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 952b7dd29c3b24a8bb8bbf9c450f27eb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  userNameInput: {fileID: 1349320954}
+  popup: {fileID: 936522384}
+  confirmMessage: {fileID: 736440967}
+  warn: {fileID: 260752613}
 --- !u!1 &1152698701
 GameObject:
   m_ObjectHideFlags: 0

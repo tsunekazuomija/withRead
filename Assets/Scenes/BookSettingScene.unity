@@ -1815,8 +1815,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e773b0d0c8a2f415783d0ca6e9e6ccfc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  panel: {fileID: 1234864689}
   bookId: 0
+  bookTitle: {fileID: 486601157}
+  deleteButton: {fileID: 2121470756}
+  cancelButton: {fileID: 1256014400}
 --- !u!1 &756531333
 GameObject:
   m_ObjectHideFlags: 0

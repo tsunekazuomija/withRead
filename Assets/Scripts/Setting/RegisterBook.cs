@@ -19,7 +19,6 @@ public class RegisterBook : MonoBehaviour
 
     SaveData _saveData;
 
-    // Start is called before the first frame update
     void Awake()
     {
         string filePath = Application.persistentDataPath + "/UserData/data.json";

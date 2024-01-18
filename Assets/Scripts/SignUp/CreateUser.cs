@@ -25,28 +25,19 @@ public class Character
 
 public class CreateUser : MonoBehaviour
 {
-    TMP_InputField _userName;
+    private TMP_InputField _userName;
+    [SerializeField] private GameObject inputUserName;
 
-    GameObject _canvas;
-
-    // Start is called before the first frame update
     void Start()
     {
-        //_parent = transform.parent.gameObject;
-        _canvas = transform.parent.parent.parent.gameObject;
-        _userName = _canvas.transform.Find("NameInputField").GetComponent<TMP_InputField>();
-    }
-
-    // Update is called once per frame
-    void Update()
-    {   
+        _userName = inputUserName.GetComponent<TMP_InputField>();
     }
 
     public void OnClickCreateUser()
     {
         int pages = 35;
 
-        SaveData newData = new SaveData
+        SaveData newData = new()
         {
             user = new User()
         };
