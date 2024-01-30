@@ -2,20 +2,18 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
-using TMPro;
-
 
 
 public class IncreDcreButton : MonoBehaviour
 {
     public Slider slider;
 
-    public bool isIncrese;
+    public bool isIncrease;
 
     void Start()
     {
 
-        if (isIncrese)
+        if (isIncrease)
         {
             GetComponent<Button>().onClick.AddListener( () => 
             {
