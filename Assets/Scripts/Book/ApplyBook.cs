@@ -95,17 +95,7 @@ public class ApplyBook : MonoBehaviour
         {
             var bookPanel = Instantiate(BookPrefab, transform);
 
-            GameObject bookTitle = transform.GetChild(i).GetChild(0).gameObject;  // Todo: 意図しないバグを生みかねない
-            bookTitle.GetComponent<TextMeshProUGUI>().text = book[i].title;
-            string progress = "";
-            for (int j = 0; j < book[i].progress_short.page_cnt.Length; ++j)
-            {
-                string colorCode = ColorManager.GetColorCode(book[i].progress_short.page_cnt[j], book[i].progress_short.min_read_times[j]);
-                progress += $"<color=#{colorCode}>■</color>";
-            }
-            GameObject bookProgress = transform.GetChild(i).GetChild(1).gameObject;
-            bookProgress.GetComponent<TextMeshProUGUI>().richText = true; // richTextを有効にする
-            bookProgress.GetComponent<TextMeshProUGUI>().text = progress;
+            bookPanel.GetComponent<BookPanel>().SetBook(book[i]);
 
             bookPanel.GetComponent<PopupTrigger>().SetId(book[i].id);
             bookPanel.GetComponent<PopupTrigger>().SetPopup(popup);

@@ -2345,7 +2345,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ec63a503508bf42f2903fa1a271f7e0c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  popupPurpose: 1
   BookPrefab: {fileID: 7874733584314137426, guid: 267acd631a4a6424cae919ab41b47de9, type: 3}
   popup: {fileID: 648825086}
 --- !u!114 &1003682576
