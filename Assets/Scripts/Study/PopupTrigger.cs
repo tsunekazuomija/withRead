@@ -6,14 +6,17 @@ using UnityEngine.UI;
 
 public class PopupTrigger : MonoBehaviour
 {
-    GameObject canvas;
-    GameObject Popup;
-    public int bookId;
+    private int bookId;
+    private GameObject popup;
 
-    void Start()
+    public void SetId(int id)
     {
-        canvas = transform.parent.parent.parent.parent.gameObject;
-        Popup = canvas.transform.Find("ProgressPopup").gameObject;
+        bookId = id;
+    }
+
+    public void SetPopup(GameObject popupPanel)
+    {
+        popup = popupPanel;
 
         Button button = GetComponent<Button>();
         button.onClick.AddListener ( () => 
@@ -22,9 +25,9 @@ public class PopupTrigger : MonoBehaviour
         } );
     }
 
-    void Clicked()
+    private void Clicked()
     {
-        Popup.GetComponent<ProgressPopup>().bookId = bookId;
-        Popup.SetActive(true);
+        popup.GetComponent<BookIdHolder>().SetId(bookId);
+        popup.SetActive(true);
     }
 }

@@ -208,6 +208,7 @@ GameObject:
   m_Component:
   - component: {fileID: 58449945}
   - component: {fileID: 58449946}
+  - component: {fileID: 58449947}
   m_Layer: 0
   m_Name: ProgressPopup
   m_TagString: Untagged
@@ -244,13 +245,25 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1d4a3e5411c1145849b1130cf4ac7e61, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  bookId: 0
+  bookIdHolder: {fileID: 58449947}
   slider1: {fileID: 1438242960}
   slider2: {fileID: 1711132907}
   bookTitle: {fileID: 1092071569}
   bookProgress: {fileID: 1815744333}
   text1: {fileID: 1141359386}
   text2: {fileID: 1292758319}
+--- !u!114 &58449947
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 58449944}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 008b7433cb7f44145877634ea9b81786, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &70464160
 GameObject:
   m_ObjectHideFlags: 0
@@ -758,6 +771,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   popupPurpose: 0
   BookPrefab: {fileID: 7874733584314137426, guid: 267acd631a4a6424cae919ab41b47de9, type: 3}
+  popup: {fileID: 58449944}
 --- !u!1 &326615033
 GameObject:
   m_ObjectHideFlags: 0
@@ -3834,6 +3848,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   slider1: {fileID: 1438242960}
   slider2: {fileID: 1711132907}
+  popup: {fileID: 58449944}
 --- !u!114 &1703587874
 MonoBehaviour:
   m_ObjectHideFlags: 0

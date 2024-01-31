@@ -20,6 +20,7 @@ public class RegisterProgress : MonoBehaviour
     SaveData _saveData;
     BookInfo[] _book;
 
+    [SerializeField] GameObject popup;
 
     void Awake()
     {
@@ -39,7 +40,7 @@ public class RegisterProgress : MonoBehaviour
             return;
         }
 
-        int _bookId = transform.parent.parent.parent.parent.parent.parent.GetComponent<ProgressPopup>().bookId;
+        int _bookId = popup.GetComponent<BookIdHolder>().GetId();
 
         int targetIndex = 0;
         for (int i=0; i < _book.Length; ++i)

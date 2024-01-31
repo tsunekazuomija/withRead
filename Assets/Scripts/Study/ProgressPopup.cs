@@ -11,7 +11,8 @@ using System.IO;
 
 public class ProgressPopup : MonoBehaviour
 {
-    public int bookId;
+    private int bookId;
+    [SerializeField] BookIdHolder bookIdHolder;
 
     SaveData _saveData;
     BookInfo[] _book;
@@ -35,6 +36,7 @@ public class ProgressPopup : MonoBehaviour
     void OnEnable()
     {
         // Todo: 不正な値に対する処理(bookIdが適切でない時)
+        bookId = bookIdHolder.GetId();
 
         for (int i=0; i<_book.Length; ++i)
         {

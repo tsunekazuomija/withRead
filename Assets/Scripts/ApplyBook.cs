@@ -78,11 +78,10 @@ public class PageCell
     public int[] min_read_times;
 }
 
-
 public class ApplyBook : MonoBehaviour
 {
-    public int popupPurpose;
-    public GameObject BookPrefab;
+    [SerializeField] private GameObject BookPrefab;
+    [SerializeField] private GameObject popup;
     
     void Start()
     {
@@ -94,7 +93,8 @@ public class ApplyBook : MonoBehaviour
 
         for (int i = 0; i < book.Length; i++)
         {
-            Instantiate(BookPrefab, transform);
+            var bookPanel = Instantiate(BookPrefab, transform);
+
             GameObject bookTitle = transform.GetChild(i).GetChild(0).gameObject;  // Todo: 意図しないバグを生みかねない
             bookTitle.GetComponent<TextMeshProUGUI>().text = book[i].title;
             string progress = "";
@@ -107,14 +107,9 @@ public class ApplyBook : MonoBehaviour
             bookProgress.GetComponent<TextMeshProUGUI>().richText = true; // richTextを有効にする
             bookProgress.GetComponent<TextMeshProUGUI>().text = progress;
 
-            if (popupPurpose == 0) // register progress
-            {
-                transform.GetChild(i).gameObject.GetComponent<PopupTrigger>().bookId = book[i].id;
-            }
-            else if (popupPurpose == 1) // delete book
-            {
-                transform.GetChild(i).gameObject.GetComponent<DeletePopupTrigger>().bookId = book[i].id;
-            }
+            bookPanel.GetComponent<PopupTrigger>().SetId(book[i].id);
+            bookPanel.GetComponent<PopupTrigger>().SetPopup(popup);
+
             Debug.Log("book["+ i + "].id: " + book[i].id);
         }
     }
