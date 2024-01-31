@@ -10,7 +10,7 @@ public class ApplyChara : MonoBehaviour
 
     private Character[] characters;
 
-    async void Start()
+    void Start()
     {
         string filePath = Application.persistentDataPath + "/UserData/data.json";
         string inputString = File.ReadAllText(filePath);
@@ -21,8 +21,7 @@ public class ApplyChara : MonoBehaviour
         foreach (var character in characters)
         {
             var chara = Instantiate(charaPrefab, transform);
-            chara.transform.GetChild(0).GetComponent<Image>().sprite = await Addressables.LoadAssetAsync<Sprite>("Thumbnail" + character.id + ".png").Task;
-            chara.transform.GetChild(1).GetChild(0).GetComponent<TextMeshProUGUI>().text = character.exp.ToString();
+            chara.GetComponent<CharacterPanel>().SetCharacter(character);
         }
     }
 }
