@@ -43,11 +43,17 @@ public class CreateUser : MonoBehaviour
         };
         newData.user.name = _userName.text;
         newData.user.exp = 0;
-        newData.characters = new Character[1];
+        newData.characters = new Character[2];
         newData.characters[0] = new Character
         {
-            id = 0,
-            name = "kita",
+            id = 1,
+            name = "dragon",
+            exp = 0
+        };
+        newData.characters[1] = new Character
+        {
+            id = 2,
+            name = "kero",
             exp = 0
         };
         newData.book = new BookInfo[1];

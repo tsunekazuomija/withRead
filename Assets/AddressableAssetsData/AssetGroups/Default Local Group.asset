@@ -18,12 +18,12 @@ MonoBehaviour:
   m_GUID: ef3dd8fa441db44ebb88b098bff2e97f
   m_SerializeEntries:
   - m_GUID: a5666d389ac474d2799a201d36438966
-    m_Address: character1.png
+    m_Address: Thumbnail1.png
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: b903742a2107e490b939ae816f0c6287
-    m_Address: character2.png
+    m_Address: Thumbnail2.png
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
