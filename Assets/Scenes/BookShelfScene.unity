@@ -2631,10 +2631,10 @@ RectTransform:
   - {fileID: 1971928242}
   - {fileID: 1831635380}
   - {fileID: 1524727116}
-  - {fileID: 70464161}
-  - {fileID: 58449945}
   - {fileID: 1898537494}
+  - {fileID: 70464161}
   - {fileID: 1600176093}
+  - {fileID: 58449945}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
