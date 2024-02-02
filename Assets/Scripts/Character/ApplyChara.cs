@@ -7,6 +7,7 @@ using TMPro;
 public class ApplyChara : MonoBehaviour
 {
     [SerializeField] private GameObject charaPrefab;
+    [SerializeField] private GameObject stage;
 
     private Character[] characters;
 
@@ -20,8 +21,9 @@ public class ApplyChara : MonoBehaviour
 
         foreach (var character in characters)
         {
-            var chara = Instantiate(charaPrefab, transform);
+            GameObject chara = Instantiate(charaPrefab, transform);
             chara.GetComponent<CharacterPanel>().SetCharacter(character);
+            chara.GetComponent<CharacterPanel>().SetStage(stage);
         }
     }
 }
