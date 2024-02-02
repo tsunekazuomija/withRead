@@ -1779,6 +1779,7 @@ GameObject:
   m_Component:
   - component: {fileID: 648825087}
   - component: {fileID: 648825088}
+  - component: {fileID: 648825089}
   m_Layer: 0
   m_Name: DeleteBookPopup
   m_TagString: Untagged
@@ -1815,10 +1816,22 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e773b0d0c8a2f415783d0ca6e9e6ccfc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  bookId: 0
+  bookIdHolder: {fileID: 648825089}
   bookTitle: {fileID: 486601157}
   deleteButton: {fileID: 2121470756}
   cancelButton: {fileID: 1256014400}
+--- !u!114 &648825089
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 648825086}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 008b7433cb7f44145877634ea9b81786, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &756531333
 GameObject:
   m_ObjectHideFlags: 0
@@ -2332,8 +2345,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ec63a503508bf42f2903fa1a271f7e0c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  popupPurpose: 1
-  BookPrefab: {fileID: 7874733584314137426, guid: cdf98ffd691254a8cb9769efefbc25a8, type: 3}
+  BookPrefab: {fileID: 7874733584314137426, guid: 267acd631a4a6424cae919ab41b47de9, type: 3}
+  popup: {fileID: 648825086}
 --- !u!114 &1003682576
 MonoBehaviour:
   m_ObjectHideFlags: 0

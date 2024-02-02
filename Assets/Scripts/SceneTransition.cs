@@ -10,7 +10,8 @@ public class SceneTransition : MonoBehaviour
         BookSettingScene,
         BookShelfScene,
         MainScene,
-        UserSignUpScene
+        UserSignUpScene,
+        CharacterScene,
     }
 
     [SerializeField] private SCENE sceneName;

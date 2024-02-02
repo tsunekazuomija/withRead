@@ -8,7 +8,8 @@ using UnityEngine.SceneManagement;
 
 public class DeletePopup : MonoBehaviour
 {
-    public int bookId;
+    private int bookId;
+    [SerializeField] BookIdHolder bookIdHolder;
 
     SaveData _saveData;
     BookInfo[] _book;
@@ -28,7 +29,9 @@ public class DeletePopup : MonoBehaviour
     void OnEnable()
     {
         int targetIndex = 0;
+        bookId = bookIdHolder.GetId();
 
+        // Todo: 不正な値に対する処理(bookIdが適切でない時)
         for (int i=0; i<_book.Length; ++i)
         {
             if (_book[i].id == bookId)
@@ -59,6 +62,6 @@ public class DeletePopup : MonoBehaviour
         string filePath = Application.persistentDataPath + "/UserData/data.json";
         File.WriteAllText(filePath, outputString);
 
-        SceneManager.LoadScene (SceneManager.GetActiveScene().name);
+        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
     }
 }

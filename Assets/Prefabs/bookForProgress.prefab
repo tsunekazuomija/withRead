@@ -311,6 +311,7 @@ GameObject:
   - component: {fileID: 8748376196184768755}
   - component: {fileID: 6764641447660705681}
   - component: {fileID: 7786872326859793967}
+  - component: {fileID: 4650368818640167985}
   m_Layer: 5
   m_Name: bookForProgress
   m_TagString: Untagged
@@ -517,4 +518,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0dbfcf1bb759042a1a6b62d0a220b07e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  bookId: 0
+--- !u!114 &4650368818640167985
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7874733584314137426}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d516adb6eeb4f407b902e16783354b6c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  title: {fileID: 6731193253129975626}
+  progress: {fileID: 5613417076089670906}
