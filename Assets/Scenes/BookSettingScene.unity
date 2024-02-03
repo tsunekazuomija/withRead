@@ -876,6 +876,8 @@ MonoBehaviour:
   pages: {fileID: 814130069}
   registerButton: {fileID: 966234256}
   playerData: {fileID: 2060195417}
+  popup: {fileID: 348598801}
+  bookList: {fileID: 1003682573}
 --- !u!1 &319972484
 GameObject:
   m_ObjectHideFlags: 0
@@ -1822,6 +1824,7 @@ MonoBehaviour:
   deleteButton: {fileID: 2121470756}
   cancelButton: {fileID: 1256014400}
   playerData: {fileID: 2060195417}
+  bookDisplay: {fileID: 1003682573}
 --- !u!114 &648825089
 MonoBehaviour:
   m_ObjectHideFlags: 0
