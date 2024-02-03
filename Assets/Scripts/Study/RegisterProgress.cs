@@ -13,18 +13,15 @@ public class RegisterProgress : MonoBehaviour
     public Slider slider1; // from
     public Slider slider2; // to
 
-    private SaveData _saveData;
     private BookInfo[] _book;
 
     [SerializeField] private GameObject popup;
     [SerializeField] private GameObject bookDisplay;
     [SerializeField] private GameObject playerData;
+    [SerializeField] private GameObject messageBoard;
 
     public void OnClickRegisterProgress()
     {
-        _saveData = playerData.GetComponent<PlayerData>().GetData();
-        _book = _saveData.book;
-
         int _startPage = (int) slider1.value;
         int _endPage = (int) slider2.value;
         if (_endPage < _startPage)
@@ -35,27 +32,25 @@ public class RegisterProgress : MonoBehaviour
 
         int _bookId = popup.GetComponent<BookIdHolder>().GetId();
 
-        int targetIndex = 0;
-        for (int i=0; i < _book.Length; ++i)
-        {
-            if (_book[i].id == _bookId)
-            {
-                targetIndex = i;
-                break;
-            }
-        }
-
-        // Todo: targetIndexが見つからなかった場合の処理
-
+        // register book progress
+        _book = playerData.GetComponent<PlayerData>().GetData().book;
+        int targetIndex = GetBookIndex(_bookId);
         BookInfo targetBook = _book[targetIndex];
         targetBook.progress = GetProgress(targetBook.progress, _startPage, _endPage);
         targetBook.progress_short = GetProgressShort(targetBook.progress_short, targetBook.progress, targetBook.pages, _startPage, _endPage);
         targetBook.last_read = _endPage;
-
         _book[targetIndex] = targetBook;
-        _saveData.book = _book;
+        playerData.GetComponent<PlayerData>().SetBookData(_book);
 
-        playerData.GetComponent<PlayerData>().SetData(_saveData);
+        // register experience point
+        int readPage = _endPage - _startPage + 1;
+        int exp = readPage * 10;
+        string charaName = playerData.GetComponent<PlayerData>().GetCharaName();
+        playerData.GetComponent<PlayerData>().SetExp(exp);
+        string message = targetBook.title + "を" + readPage + "ページよんだ。\n";
+        message +=  charaName + "のかしこさが" + exp + "あがった。";
+        messageBoard.GetComponent<Console>().SetMessage(message);
+
 
         popup.GetComponent<ProgressPopup>().ReloadSaveData();
         popup.SetActive(false);
@@ -111,6 +106,20 @@ public class RegisterProgress : MonoBehaviour
         progress_s.page_cnt = page_cnt;
         progress_s.min_read_times = min_read_times;
         return progress_s;
+    }
+
+    private int GetBookIndex(int _bookId)
+    {
+        int targetIndex = 0;
+        for (int i = 0; i < _book.Length; ++i)
+        {
+            if (_book[i].id == _bookId)
+            {
+                targetIndex = i;
+                break;
+            }
+        }
+        return targetIndex;
     }
 }
 

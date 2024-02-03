@@ -84,7 +84,17 @@ public class ApplyBook : MonoBehaviour
     
     void Start()
     {
-        Reload();
+        SaveData saveData = playerData.GetComponent<PlayerData>().GetData();
+        BookInfo[] book = saveData.book;
+
+        for (int i = 0; i < book.Length; i++)
+        {
+            var bookPanel = Instantiate(BookPrefab, transform);
+
+            bookPanel.GetComponent<BookPanel>().SetBook(book[i]);
+            bookPanel.GetComponent<PopupTrigger>().SetId(book[i].id);
+            bookPanel.GetComponent<PopupTrigger>().SetPopup(popup);
+        }
     }
 
     public void Reload()
@@ -102,7 +112,6 @@ public class ApplyBook : MonoBehaviour
             var bookPanel = Instantiate(BookPrefab, transform);
 
             bookPanel.GetComponent<BookPanel>().SetBook(book[i]);
-
             bookPanel.GetComponent<PopupTrigger>().SetId(book[i].id);
             bookPanel.GetComponent<PopupTrigger>().SetPopup(popup);
         }

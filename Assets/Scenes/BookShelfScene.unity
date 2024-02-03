@@ -816,7 +816,7 @@ MonoBehaviour:
   m_ChildForceExpandWidth: 1
   m_ChildForceExpandHeight: 1
   m_ChildControlWidth: 0
-  m_ChildControlHeight: 0
+  m_ChildControlHeight: 1
   m_ChildScaleWidth: 0
   m_ChildScaleHeight: 0
   m_ReverseArrangement: 0
@@ -833,7 +833,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_HorizontalFit: 0
-  m_VerticalFit: 1
+  m_VerticalFit: 2
 --- !u!114 &260476586
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4155,6 +4155,7 @@ MonoBehaviour:
   popup: {fileID: 58449944}
   bookDisplay: {fileID: 260476582}
   playerData: {fileID: 317593990}
+  messageBoard: {fileID: 1450149142}
 --- !u!114 &1703587874
 MonoBehaviour:
   m_ObjectHideFlags: 0

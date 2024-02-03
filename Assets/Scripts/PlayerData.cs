@@ -38,4 +38,36 @@ public class PlayerData : MonoBehaviour
         string outputString = JsonUtility.ToJson(data);
         File.WriteAllText(Application.persistentDataPath + "/UserData/data.json", outputString);
     }
+
+    public void SetBookData(BookInfo[] book)
+    {
+        _saveData.book = book;
+        SetData(_saveData);
+    }
+
+    public void SetExp(int exp)
+    {
+        int charaId = PlayerPrefs.GetInt("charaId", 1);
+        int Idx = GetCharaIndexFromId(charaId);
+        _saveData.characters[Idx].exp += exp;
+    }
+
+    private int GetCharaIndexFromId(int charaId)
+    {
+        for (int i = 0; i < _saveData.characters.Length; i++)
+        {
+            if (_saveData.characters[i].id == charaId)
+            {
+                return i;
+            }
+        }
+        return -1;
+    }
+
+    public string GetCharaName()
+    {
+        int charaId = PlayerPrefs.GetInt("charaId", 1);
+        int Idx = GetCharaIndexFromId(charaId);
+        return _saveData.characters[Idx].name;
+    }
 }
