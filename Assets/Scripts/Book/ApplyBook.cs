@@ -1,6 +1,4 @@
 using System;
-using System.IO;
-using TMPro;
 using UnityEngine;
 
 public enum ChatColor : uint
@@ -82,14 +80,22 @@ public class ApplyBook : MonoBehaviour
 {
     [SerializeField] private GameObject BookPrefab;
     [SerializeField] private GameObject popup;
+    [SerializeField] private GameObject playerData;
     
     void Start()
     {
-        string filePath = Application.persistentDataPath + "/UserData/data.json";
-        string inputString = File.ReadAllText(filePath);
+        Reload();
+    }
 
-        SaveData saveData = JsonUtility.FromJson<SaveData>(inputString);
+    public void Reload()
+    {
+        SaveData saveData = playerData.GetComponent<PlayerData>().GetData();
         BookInfo[] book = saveData.book;
+
+        foreach (Transform n in gameObject.transform)
+        {
+            Destroy(n.gameObject);
+        }
 
         for (int i = 0; i < book.Length; i++)
         {
@@ -99,8 +105,6 @@ public class ApplyBook : MonoBehaviour
 
             bookPanel.GetComponent<PopupTrigger>().SetId(book[i].id);
             bookPanel.GetComponent<PopupTrigger>().SetPopup(popup);
-
-            Debug.Log("book["+ i + "].id: " + book[i].id);
         }
     }
 }

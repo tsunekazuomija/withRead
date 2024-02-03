@@ -1,7 +1,7 @@
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
-using System.IO;
+using System.Collections;
 
 /// <summary>
 /// This class is assigned to the popup window.
@@ -24,13 +24,22 @@ public class ProgressPopup : MonoBehaviour
     [SerializeField] private GameObject bookProgress;
     [SerializeField] private TextMeshProUGUI text1;
     [SerializeField] private TextMeshProUGUI text2;
+    [SerializeField] private GameObject playerData;
 
     private void Awake()
     {
-        string filePath = Application.persistentDataPath + "/UserData/data.json";
-        string inputString = File.ReadAllText(filePath);
-        _saveData = JsonUtility.FromJson<SaveData>(inputString);
+        StartCoroutine(LoadDataIsPossible());
+        _saveData = playerData.GetComponent<PlayerData>().GetData();
         _book = _saveData.book;
+    }
+
+    private IEnumerator LoadDataIsPossible()
+    {
+        while (!playerData.GetComponent<PlayerData>().IsLoadingDone())
+        {
+            yield return null;
+        }
+        yield break;
     }
 
     private void OnEnable()
@@ -86,5 +95,11 @@ public class ProgressPopup : MonoBehaviour
             s1.value = book.pages;
             s2.value = book.pages;
         }
+    }
+
+    public void ReloadSaveData()
+    {
+        _saveData = playerData.GetComponent<PlayerData>().GetData();
+        _book = _saveData.book;
     }
 }

@@ -1,10 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using System;
-using System.IO;
-using TMPro;
-using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 /// <summary>
@@ -17,21 +13,18 @@ public class RegisterProgress : MonoBehaviour
     public Slider slider1; // from
     public Slider slider2; // to
 
-    SaveData _saveData;
-    BookInfo[] _book;
+    private SaveData _saveData;
+    private BookInfo[] _book;
 
-    [SerializeField] GameObject popup;
-
-    void Awake()
-    {
-        string filePath = Application.persistentDataPath + "/UserData/data.json";
-        string inputString = File.ReadAllText(filePath);
-        _saveData = JsonUtility.FromJson<SaveData>(inputString);
-        _book = _saveData.book;
-    }
+    [SerializeField] private GameObject popup;
+    [SerializeField] private GameObject bookDisplay;
+    [SerializeField] private GameObject playerData;
 
     public void OnClickRegisterProgress()
     {
+        _saveData = playerData.GetComponent<PlayerData>().GetData();
+        _book = _saveData.book;
+
         int _startPage = (int) slider1.value;
         int _endPage = (int) slider2.value;
         if (_endPage < _startPage)
@@ -55,7 +48,6 @@ public class RegisterProgress : MonoBehaviour
         // Todo: targetIndexが見つからなかった場合の処理
 
         BookInfo targetBook = _book[targetIndex];
-
         targetBook.progress = GetProgress(targetBook.progress, _startPage, _endPage);
         targetBook.progress_short = GetProgressShort(targetBook.progress_short, targetBook.progress, targetBook.pages, _startPage, _endPage);
         targetBook.last_read = _endPage;
@@ -63,12 +55,14 @@ public class RegisterProgress : MonoBehaviour
         _book[targetIndex] = targetBook;
         _saveData.book = _book;
 
-        string outputString = JsonUtility.ToJson(_saveData, true);
-        File.WriteAllText(Application.persistentDataPath + "/UserData/data.json", outputString);
-        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+        playerData.GetComponent<PlayerData>().SetData(_saveData);
+
+        popup.GetComponent<ProgressPopup>().ReloadSaveData();
+        popup.SetActive(false);
+        bookDisplay.GetComponent<ApplyBook>().Reload();
     }
 
-    int[] GetProgress(int[] progress, int _startPage, int _endPage)
+    private int[] GetProgress(int[] progress, int _startPage, int _endPage)
     {
         for (int i = _startPage - 1; i < _endPage; i++)
         {
@@ -77,7 +71,7 @@ public class RegisterProgress : MonoBehaviour
         return progress;
     }
 
-    PageCell GetProgressShort(PageCell progress_s, int[] progress, int pagenum, int startPage, int endPage)
+    private PageCell GetProgressShort(PageCell progress_s, int[] progress, int pagenum, int startPage, int endPage)
     {
         int[] page_cnt = progress_s.page_cnt;
         int[] min_read_times = progress_s.min_read_times;
