@@ -2,9 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
-using System.IO;
 using UnityEngine.UI;
-using UnityEngine.SceneManagement;
 using System.Linq;
 
 /// <summary>
@@ -16,15 +14,15 @@ public class RegisterBook : MonoBehaviour
     public TMP_InputField title;
     public TMP_InputField pages;
     public Button registerButton;
+    [SerializeField] private GameObject playerData;
+    [SerializeField] private GameObject popup;
+    [SerializeField] private GameObject bookList;
 
     SaveData _saveData;
 
-    void Awake()
+    void Start()
     {
-        string filePath = Application.persistentDataPath + "/UserData/data.json";
-        string inputString = File.ReadAllText(filePath);
-        _saveData = JsonUtility.FromJson<SaveData>(inputString);
-
+        _saveData = playerData.GetComponent<PlayerData>().GetData();
         registerButton.onClick.AddListener( () => 
         {
             Register();
@@ -64,9 +62,12 @@ public class RegisterBook : MonoBehaviour
         };
         
         _saveData.book = _saveData.book.Concat(new BookInfo[] { newBook }).ToArray();
-        string outputString = JsonUtility.ToJson(_saveData, true);
-        File.WriteAllText(Application.persistentDataPath + "/UserData/data.json", outputString);
+        playerData.GetComponent<PlayerData>().SetData(_saveData);
 
-        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+        popup.SetActive(false);
+        title.text = "";
+        pages.text = "";
+
+        bookList.GetComponent<ApplyBook>().Reload();
     }
 }

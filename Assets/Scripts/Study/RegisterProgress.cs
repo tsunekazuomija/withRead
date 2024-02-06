@@ -1,10 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using System;
-using System.IO;
-using TMPro;
-using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 /// <summary>
@@ -17,18 +13,12 @@ public class RegisterProgress : MonoBehaviour
     public Slider slider1; // from
     public Slider slider2; // to
 
-    SaveData _saveData;
-    BookInfo[] _book;
+    private BookInfo[] _book;
 
-    [SerializeField] GameObject popup;
-
-    void Awake()
-    {
-        string filePath = Application.persistentDataPath + "/UserData/data.json";
-        string inputString = File.ReadAllText(filePath);
-        _saveData = JsonUtility.FromJson<SaveData>(inputString);
-        _book = _saveData.book;
-    }
+    [SerializeField] private GameObject popup;
+    [SerializeField] private GameObject bookDisplay;
+    [SerializeField] private GameObject playerData;
+    [SerializeField] private GameObject messageBoard;
 
     public void OnClickRegisterProgress()
     {
@@ -42,33 +32,38 @@ public class RegisterProgress : MonoBehaviour
 
         int _bookId = popup.GetComponent<BookIdHolder>().GetId();
 
-        int targetIndex = 0;
-        for (int i=0; i < _book.Length; ++i)
-        {
-            if (_book[i].id == _bookId)
-            {
-                targetIndex = i;
-                break;
-            }
-        }
-
-        // Todo: targetIndexが見つからなかった場合の処理
-
+        // register book progress
+        _book = playerData.GetComponent<PlayerData>().GetData().book;
+        int targetIndex = GetBookIndex(_bookId);
         BookInfo targetBook = _book[targetIndex];
-
         targetBook.progress = GetProgress(targetBook.progress, _startPage, _endPage);
         targetBook.progress_short = GetProgressShort(targetBook.progress_short, targetBook.progress, targetBook.pages, _startPage, _endPage);
         targetBook.last_read = _endPage;
-
         _book[targetIndex] = targetBook;
-        _saveData.book = _book;
+        playerData.GetComponent<PlayerData>().SetBookData(_book);
 
-        string outputString = JsonUtility.ToJson(_saveData, true);
-        File.WriteAllText(Application.persistentDataPath + "/UserData/data.json", outputString);
-        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+        // register experience point
+        int readPage = _endPage - _startPage + 1;
+        int exp = readPage * 10;
+        string charaName = playerData.GetComponent<PlayerData>().GetCharaName();
+        int level = playerData.GetComponent<PlayerData>().SetExp(exp);
+        string message = targetBook.title + " を " + readPage + "ページ よんだ。\n";
+        message += charaName + " の かしこさが " + exp + " あがった。\n";
+
+        if (level > 0)
+        {
+            message += "レベルが " + level + " になった。";
+        }
+
+        messageBoard.GetComponent<Console>().SetMessage(message);
+
+
+        popup.GetComponent<ProgressPopup>().ReloadSaveData();
+        popup.SetActive(false);
+        bookDisplay.GetComponent<ApplyBook>().Reload();
     }
 
-    int[] GetProgress(int[] progress, int _startPage, int _endPage)
+    private int[] GetProgress(int[] progress, int _startPage, int _endPage)
     {
         for (int i = _startPage - 1; i < _endPage; i++)
         {
@@ -77,7 +72,7 @@ public class RegisterProgress : MonoBehaviour
         return progress;
     }
 
-    PageCell GetProgressShort(PageCell progress_s, int[] progress, int pagenum, int startPage, int endPage)
+    private PageCell GetProgressShort(PageCell progress_s, int[] progress, int pagenum, int startPage, int endPage)
     {
         int[] page_cnt = progress_s.page_cnt;
         int[] min_read_times = progress_s.min_read_times;
@@ -85,26 +80,24 @@ public class RegisterProgress : MonoBehaviour
         int startIdx = startPage - 1;
         int endIdx = endPage - 1;
 
-        for (int i = (startIdx) / 10; i < endIdx / 10 + 1; ++i)
+        for (int i = startIdx / 10; i < endIdx / 10 + 1; ++i)
         {
             page_cnt[i] = 0;
             min_read_times[i] = 0;
             for (int j = 0; j < 10; ++j)
             {
-                // finish if exceed maximum page
-                if (i * 10 + j > pagenum - 1)
+                
+                if (i * 10 + j > pagenum - 1)  // finish if exceed maximum page
                 {
                     break;
                 }
 
-                // count studied page
-                if (progress[i * 10 + j] > 0)
+                if (progress[i * 10 + j] > 0)  // count studied page
                 {
                     ++page_cnt[i];
                 }
 
-                // get minimum read times
-                if (j == 0)
+                if (j == 0)  // get minimum read times
                 {
                     min_read_times[i] = progress[i * 10 + j]; // = progress[i * 10]
                 } 
@@ -117,6 +110,20 @@ public class RegisterProgress : MonoBehaviour
         progress_s.page_cnt = page_cnt;
         progress_s.min_read_times = min_read_times;
         return progress_s;
+    }
+
+    private int GetBookIndex(int _bookId)
+    {
+        int targetIndex = 0;
+        for (int i = 0; i < _book.Length; ++i)
+        {
+            if (_book[i].id == _bookId)
+            {
+                targetIndex = i;
+                break;
+            }
+        }
+        return targetIndex;
     }
 }
 
