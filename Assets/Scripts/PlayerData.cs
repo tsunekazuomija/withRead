@@ -45,11 +45,24 @@ public class PlayerData : MonoBehaviour
         SetData(_saveData);
     }
 
-    public void SetExp(int exp)
+    public int SetExp(int exp)
     {
         int charaId = PlayerPrefs.GetInt("charaId", 1);
         int Idx = GetCharaIndexFromId(charaId);
         _saveData.characters[Idx].exp += exp;
+
+        int levelBefore = _saveData.characters[Idx].level;
+
+        // Todo: level max の処理
+        _saveData.characters[Idx].level = _saveData.characters[Idx].exp / 100 + 1 ;
+        SetData(_saveData);
+
+        if (levelBefore != _saveData.characters[Idx].level)
+        {
+            return _saveData.characters[Idx].level;
+        }
+
+        return 0;
     }
 
     private int GetCharaIndexFromId(int charaId)
@@ -61,6 +74,7 @@ public class PlayerData : MonoBehaviour
                 return i;
             }
         }
+        Debug.Log("requested charaId:" + charaId + " was not found in the save data.");
         return -1;
     }
 

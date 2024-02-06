@@ -46,9 +46,15 @@ public class RegisterProgress : MonoBehaviour
         int readPage = _endPage - _startPage + 1;
         int exp = readPage * 10;
         string charaName = playerData.GetComponent<PlayerData>().GetCharaName();
-        playerData.GetComponent<PlayerData>().SetExp(exp);
-        string message = targetBook.title + "を" + readPage + "ページよんだ。\n";
-        message +=  charaName + "のかしこさが" + exp + "あがった。";
+        int level = playerData.GetComponent<PlayerData>().SetExp(exp);
+        string message = targetBook.title + " を " + readPage + "ページ よんだ。\n";
+        message += charaName + " の かしこさが " + exp + " あがった。\n";
+
+        if (level > 0)
+        {
+            message += "レベルが " + level + " になった。";
+        }
+
         messageBoard.GetComponent<Console>().SetMessage(message);
 
 
@@ -74,26 +80,24 @@ public class RegisterProgress : MonoBehaviour
         int startIdx = startPage - 1;
         int endIdx = endPage - 1;
 
-        for (int i = (startIdx) / 10; i < endIdx / 10 + 1; ++i)
+        for (int i = startIdx / 10; i < endIdx / 10 + 1; ++i)
         {
             page_cnt[i] = 0;
             min_read_times[i] = 0;
             for (int j = 0; j < 10; ++j)
             {
-                // finish if exceed maximum page
-                if (i * 10 + j > pagenum - 1)
+                
+                if (i * 10 + j > pagenum - 1)  // finish if exceed maximum page
                 {
                     break;
                 }
 
-                // count studied page
-                if (progress[i * 10 + j] > 0)
+                if (progress[i * 10 + j] > 0)  // count studied page
                 {
                     ++page_cnt[i];
                 }
 
-                // get minimum read times
-                if (j == 0)
+                if (j == 0)  // get minimum read times
                 {
                     min_read_times[i] = progress[i * 10 + j]; // = progress[i * 10]
                 } 
