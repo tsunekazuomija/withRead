@@ -1,25 +1,26 @@
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using System.IO;
+using UnityEngine.UI;
 
 public class StartButton : MonoBehaviour
 {
+    [SerializeField] private SCENE mainScene;
+    [SerializeField] private SCENE signUpScene;
+
+    [SerializeField] Button startButton;
     string filePath;
 
     public void Start()
     {
         filePath = Application.persistentDataPath + "/UserData/data.json";
-    }
-
-    public void OnClickStartButton()
-    {
         if (File.Exists(filePath))
         {
-            SceneManager.LoadScene("BookShelfScene");
+            startButton.onClick.AddListener( () => SceneManager.LoadScene(mainScene.ToString()) );
         }
         else
         {
-            SceneManager.LoadScene("UserSignUpScene");
-        }   
+            startButton.onClick.AddListener( () => SceneManager.LoadScene(signUpScene.ToString()) );
+        }
     }
 }

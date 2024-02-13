@@ -24,7 +24,7 @@ public class RegisterButton : MonoBehaviour
         string userName = _userName.text;
         if (userName != "")
         {
-            confirmMessage.GetComponent<TextMeshProUGUI>().text = "君の名前は\n" + userName + "\n？";
+            confirmMessage.GetComponent<TextMeshProUGUI>().text = "君の名前は\n" + userName + " ？";
             popup.SetActive(true);
         }
         else

@@ -3,16 +3,18 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
+public enum SCENE
+{
+    BookSetting,
+    Study,
+    Start,
+    SignUp,
+    Character,
+    UserStatus,
+}
+
 public class SceneTransition : MonoBehaviour
 {
-    public enum SCENE
-    {
-        BookSettingScene,
-        BookShelfScene,
-        MainScene,
-        UserSignUpScene,
-        CharacterScene,
-    }
 
     [SerializeField] private SCENE sceneName;
 
