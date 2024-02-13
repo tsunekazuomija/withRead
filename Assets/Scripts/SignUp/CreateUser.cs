@@ -29,6 +29,7 @@ public class CreateUser : MonoBehaviour
 {
     private TMP_InputField _userName;
     [SerializeField] private GameObject inputUserName;
+    [SerializeField] private SCENE mainScene;
 
     void Start()
     {
@@ -92,6 +93,6 @@ public class CreateUser : MonoBehaviour
         }
         File.WriteAllText(Application.persistentDataPath + "/UserData/data.json", jsonString);
 
-        SceneManager.LoadScene("BookShelfScene");
+        SceneManager.LoadScene(mainScene.ToString());
     }
 }

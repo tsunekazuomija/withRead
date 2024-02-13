@@ -4,6 +4,8 @@ using System.IO;
 
 public class DeleteUser : MonoBehaviour
 {
+    [SerializeField] private SCENE startScene;
+
     public void OnClickDeleteUser()
     {
         string filePath = Application.persistentDataPath + "/UserData/data.json";
@@ -12,7 +14,7 @@ public class DeleteUser : MonoBehaviour
         {
             File.Delete(filePath);
 
-            SceneManager.LoadScene("MainScene");
+            SceneManager.LoadScene(startScene.ToString());
         }
         else
         {

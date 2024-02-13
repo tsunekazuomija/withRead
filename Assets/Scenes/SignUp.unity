@@ -286,6 +286,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   inputUserName: {fileID: 1349320954}
+  mainScene: 1
 --- !u!1 &260752613
 GameObject:
   m_ObjectHideFlags: 0
