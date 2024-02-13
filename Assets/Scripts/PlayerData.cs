@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using System.IO;
 
@@ -50,11 +48,14 @@ public class PlayerData : MonoBehaviour
         int charaId = PlayerPrefs.GetInt("charaId", 1);
         int Idx = GetCharaIndexFromId(charaId);
         _saveData.characters[Idx].exp += exp;
+        _saveData.user.exp += exp;
 
         int levelBefore = _saveData.characters[Idx].level;
+        int uLevelBefore = _saveData.user.level;
 
         // Todo: level max の処理
         _saveData.characters[Idx].level = _saveData.characters[Idx].exp / 100 + 1 ;
+        _saveData.user.level = _saveData.user.exp / 500 + 1;
         SetData(_saveData);
 
         if (levelBefore != _saveData.characters[Idx].level)
