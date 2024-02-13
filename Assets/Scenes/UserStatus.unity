@@ -180,7 +180,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Are you sure to DELETE your data?
+  m_text: "\u30C7\u30FC\u30BF\u3092\u6D88\u53BB\u3057\u307E\u3059\u304B\uFF1F"
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 4f92b84b498534eef8ae07476741a435, type: 2}
   m_sharedMaterial: {fileID: -299532727058670650, guid: 4f92b84b498534eef8ae07476741a435, type: 2}
@@ -838,6 +838,7 @@ GameObject:
   - component: {fileID: 505819503}
   - component: {fileID: 505819502}
   - component: {fileID: 505819501}
+  - component: {fileID: 505819504}
   m_Layer: 5
   m_Name: ConfirmButton
   m_TagString: Untagged
@@ -908,7 +909,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 505819502}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 505819504}
+        m_TargetAssemblyTypeName: DeleteUser, Assembly-CSharp
+        m_MethodName: OnClickDeleteUser
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &505819502
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -947,6 +960,19 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 505819499}
   m_CullTransparentMesh: 1
+--- !u!114 &505819504
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 505819499}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: edff4b2225d964de2892fea7f7a51d7b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  startScene: 2
 --- !u!1 &574904426
 GameObject:
   m_ObjectHideFlags: 0
