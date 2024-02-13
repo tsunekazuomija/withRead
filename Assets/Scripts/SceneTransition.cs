@@ -12,7 +12,7 @@ public class SceneTransition : MonoBehaviour
         MainScene,
         UserSignUpScene,
         CharacterScene,
-        UserInfo,
+        UserStatus,
     }
 
     [SerializeField] private SCENE sceneName;

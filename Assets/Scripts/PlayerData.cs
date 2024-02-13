@@ -84,4 +84,9 @@ public class PlayerData : MonoBehaviour
         int Idx = GetCharaIndexFromId(charaId);
         return _saveData.characters[Idx].name;
     }
+
+    public User GetUser()
+    {
+        return _saveData.user;
+    }
 }

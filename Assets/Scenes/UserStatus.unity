@@ -695,7 +695,7 @@ Camera:
   m_Enabled: 1
   serializedVersion: 2
   m_ClearFlags: 1
-  m_BackGroundColor: {r: 0.19215687, g: 0.3019608, b: 0.4745098, a: 0}
+  m_BackGroundColor: {r: 0.08235294, g: 0.08235294, b: 0.08235294, a: 0}
   m_projectionMatrixMode: 1
   m_GateFitMode: 2
   m_FOVAxisMode: 0
@@ -1607,7 +1607,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: User Info
+  m_text: Status
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 4f92b84b498534eef8ae07476741a435, type: 2}
   m_sharedMaterial: {fileID: -299532727058670650, guid: 4f92b84b498534eef8ae07476741a435, type: 2}
@@ -2889,6 +2889,7 @@ GameObject:
   - component: {fileID: 2072815955}
   - component: {fileID: 2072815954}
   - component: {fileID: 2072815956}
+  - component: {fileID: 2072815957}
   m_Layer: 5
   m_Name: MainPanel
   m_TagString: Untagged
@@ -2972,6 +2973,22 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b968225aae6374e31849db1acb6eec5a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &2072815957
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2072815952}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4311417be4c414d1682a6051fecc5d56, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  playerData: {fileID: 2072815952}
+  uName: {fileID: 149667336}
+  uLevel: {fileID: 234303711}
+  uExp: {fileID: 574904428}
 --- !u!1 &2145172666
 GameObject:
   m_ObjectHideFlags: 0
