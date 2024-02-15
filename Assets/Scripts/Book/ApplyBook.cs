@@ -7,11 +7,11 @@ public static class ColorManager
 {
     private static readonly Dictionary<string, string> colorCode = new()
     {
-        {"grey", "787878FF"},
-        {"yellow", "FFFF00FF"},
-        {"green", "00FF00FF"},
-        {"blue", "0000FFFF"},
-        {"white", "FFFFFFFF"}
+        {"grey", "808080FF"},
+        {"blue1", "DCFBFFFF"},
+        {"blue2", "3399FFFF"},
+        {"blue3", "0066CCFF"},
+        {"blue4", "004C99FF"}
     };
 
     /// <summary>
@@ -26,30 +26,39 @@ public static class ColorManager
     /// <returns>
     /// color code
     /// </returns>
-    public static string GetColorCodeInShort(int page_cnt, int min_read_times) // 進捗の簡潔な表示
+    public static string GetColorCodeInShort(int page_cnt, int min_read_times)
     {
-        if (page_cnt == 0) // page_cnt: 0-> 未読; 1以上-> 途中or読了
+        if (page_cnt == 0)
         {
             return colorCode["grey"];
         }
 
         return min_read_times switch
         {
-            0 => colorCode["yellow"],
-            1 => colorCode["green"],
-            2 => colorCode["blue"],
-            _ => colorCode["white"],
+            0 => colorCode["blue1"],
+            1 => colorCode["blue2"],
+            2 => colorCode["blue3"],
+            _ => colorCode["blue4"],
         };
     }
 
-    public static string GetColorCodeProgress(int progressNum) // 進捗の詳細な表示
+    /// <summary>
+    /// get color to display book progress page by page
+    /// </summary>
+    /// <param name="progressNum">
+    /// The number of times the page has been read.
+    /// </param>
+    /// <returns>
+    /// color code
+    /// </returns>
+    public static string GetColorCodeProgress(int progressNum)
     {
         return progressNum switch
         {
             0 => colorCode["grey"],
-            1 => colorCode["green"],
-            2 => colorCode["blue"],
-            _ => colorCode["white"],// 3回以上読んだ場合は白
+            1 => colorCode["blue2"],
+            2 => colorCode["blue3"],
+            _ => colorCode["blue4"],
         };
     }
 }
