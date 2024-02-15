@@ -1,40 +1,44 @@
 using System;
+using System.Collections.Generic;
 using UnityEngine;
 
-public enum ChatColor : uint
-{
-    RED = 0xFF0000FF, // 赤
-    GRN = 0x00FF00FF, // 緑
-    BLR = 0x0000FFFF, // 青
-    GRY = 0x808080FF, // 灰
-    YEL = 0xFFFF00FF, // 黄
-}
 
 public static class ColorManager
 {
-    public static Color GetColorFromChatColor(ChatColor chatColor)
+    private static readonly Dictionary<string, string> colorCode = new()
     {
-        return new Color(
-            (((uint) chatColor & 0xFF000000) >> 24) / 255.0f,
-            (((uint) chatColor & 0x00FF0000) >> 16) / 255.0f,
-            (((uint) chatColor & 0x0000FF00) >> 8) / 255.0f,
-            ((uint) chatColor & 0x000000FF) / 255.0f
-        );
-    }
+        {"grey", "787878FF"},
+        {"yellow", "FFFF00FF"},
+        {"green", "00FF00FF"},
+        {"blue", "0000FFFF"},
+        {"white", "FFFFFFFF"}
+    };
 
-    public static string GetColorCode(int page_cnt, int min_read_times) // 進捗の簡潔な表示
+    /// <summary>
+    /// get color to display book progress in short
+    /// </summary>
+    /// <param name="page_cnt">
+    /// number of pages being read (0: not read; 1 or more (<= 10): in progress or read)
+    /// </param>
+    /// <param name="min_read_times">
+    /// The number of times the least read page has been read among the target pages.
+    /// </param>
+    /// <returns>
+    /// color code
+    /// </returns>
+    public static string GetColorCodeInShort(int page_cnt, int min_read_times) // 進捗の簡潔な表示
     {
         if (page_cnt == 0) // page_cnt: 0-> 未読; 1以上-> 途中or読了
         {
-            return ColorUtility.ToHtmlStringRGBA(GetColorFromChatColor(ChatColor.GRY));
+            return colorCode["grey"];
         }
 
         return min_read_times switch
         {
-            0 => ColorUtility.ToHtmlStringRGBA(GetColorFromChatColor(ChatColor.YEL)),
-            1 => ColorUtility.ToHtmlStringRGBA(GetColorFromChatColor(ChatColor.GRN)),
-            2 => ColorUtility.ToHtmlStringRGBA(GetColorFromChatColor(ChatColor.BLR)),
-            _ => "FFFFFF",// 全てのページを3回以上読んだ場合は白色
+            0 => colorCode["yellow"],
+            1 => colorCode["green"],
+            2 => colorCode["blue"],
+            _ => colorCode["white"],
         };
     }
 
@@ -42,10 +46,10 @@ public static class ColorManager
     {
         return progressNum switch
         {
-            0 => ColorUtility.ToHtmlStringRGBA(GetColorFromChatColor(ChatColor.GRY)),
-            1 => ColorUtility.ToHtmlStringRGBA(GetColorFromChatColor(ChatColor.GRN)),
-            2 => ColorUtility.ToHtmlStringRGBA(GetColorFromChatColor(ChatColor.BLR)),
-            _ => "FFFFFF",// 3回以上読んだ場合は白
+            0 => colorCode["grey"],
+            1 => colorCode["green"],
+            2 => colorCode["blue"],
+            _ => colorCode["white"],// 3回以上読んだ場合は白
         };
     }
 }
