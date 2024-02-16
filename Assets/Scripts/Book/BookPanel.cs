@@ -22,7 +22,6 @@ public class BookPanel : MonoBehaviour
             string colorCode = ColorManager.GetColorCodeInShort(progressShort.page_cnt[i], progressShort.min_read_times[i]);
             progressText += $"<color=#{colorCode}>■</color>";
         }
-        progress.GetComponent<TextMeshProUGUI>().richText = true; // richTextを有効にする
         progress.GetComponent<TextMeshProUGUI>().text = progressText;
     }
 }

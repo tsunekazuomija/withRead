@@ -1,5 +1,5 @@
-# Wizardry
-a unity based reading management tool  
+# withRead
+a unity based reading management application  
 <img src="./images/screenshot1.png" width="300px"/>
 <img src="./images/screenshot2.png" width="300px"/>
 
@@ -13,4 +13,4 @@ the font used in this project is JF Dot Shinonome 12px, which belongs to public 
 [you can download JF Dot Shinonome 12px from this page](http://jikasei.me/font/jf-dotfont/)
 
 ## Detailed Description
-please refer to [wiki](https://github.com/tsunekazuomija/Wizardry/wiki).
+please refer to [wiki](https://github.com/tsunekazuomija/withRead/wiki).
