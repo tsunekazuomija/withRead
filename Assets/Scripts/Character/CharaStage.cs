@@ -15,7 +15,7 @@ public class CharaStage : MonoBehaviour
         charaImage = this.GetComponent<Image>();
 
         charaId = PlayerPrefs.GetInt("charaId", 1);
-        charaImage.sprite = await Addressables.LoadAssetAsync<Sprite>("StandingChara" + charaId + ".png").Task;
+        charaImage.sprite = await Addressables.LoadAssetAsync<Sprite>("Standing" + charaId + ".png").Task;
     }
 
     async public void SwitchCharacter(int id)
@@ -25,7 +25,7 @@ public class CharaStage : MonoBehaviour
             return;
         }
         charaId = id;
-        charaImage.sprite = await Addressables.LoadAssetAsync<Sprite>("StandingChara" + charaId + ".png").Task;
+        charaImage.sprite = await Addressables.LoadAssetAsync<Sprite>("Standing" + charaId + ".png").Task;
         PlayerPrefs.SetInt("charaId", charaId);
     }
 }

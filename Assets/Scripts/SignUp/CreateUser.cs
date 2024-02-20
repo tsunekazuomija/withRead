@@ -23,6 +23,7 @@ public class Character
     public string name;
     public int exp;
     public int level;
+    public bool isUnlocked;
 }
 
 public class CreateUser : MonoBehaviour
@@ -65,24 +66,41 @@ public class CreateUser : MonoBehaviour
                 }
             },
 
-            characters = new Character[2]
+            characters = new Character[4]
             {
                 new()
                 {
                     id = 1,
-                    name = "dragon",
+                    name = "ヨム",
                     exp = 0,
-                    level = 1
+                    level = 1,
+                    isUnlocked = true
                 },
                 new()
                 {
                     id = 2,
-                    name = "kero",
+                    name = "ロボ",
                     exp = 0,
-                    level = 1
+                    level = 1,
+                    isUnlocked = true
+                },
+                new()
+                {
+                    id = 3,
+                    name = "ミズ",
+                    exp = 0,
+                    level = 1,
+                    isUnlocked = true
+                },
+                new()
+                {
+                    id = 4,
+                    name = "ボス",
+                    exp = 0,
+                    level = 1,
+                    isUnlocked = true
                 }
             }
-
         };
 
         string jsonString = JsonUtility.ToJson(newData, true);
