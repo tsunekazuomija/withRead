@@ -16,6 +16,7 @@ public class DeletePopup : MonoBehaviour
     [SerializeField] private GameObject deleteButton;
     [SerializeField] private GameObject cancelButton;
     [SerializeField] private GameObject playerData;
+    [SerializeField] private GameObject editPopup;
     [SerializeField] private GameObject bookDisplay;
 
 
@@ -46,6 +47,7 @@ public class DeletePopup : MonoBehaviour
         playerData.GetComponent<PlayerData>().SetData(_saveData);
 
         gameObject.SetActive(false);
+        editPopup.SetActive(false);
         bookDisplay.GetComponent<ApplyBook>().Reload();
     }
 
