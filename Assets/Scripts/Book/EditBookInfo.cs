@@ -74,6 +74,10 @@ public class EditBookInfo : MonoBehaviour
 
             _book[targetIndex].progress_short = GetProgressShortFromProgress(_book[targetIndex].progress, pagesNew);
 
+            if (_book[targetIndex].last_read > pagesNew)
+            {
+                _book[targetIndex].last_read = pagesNew;
+            }
         }
         _saveData.book = _book;
         playerData.GetComponent<PlayerData>().SetData(_saveData);
