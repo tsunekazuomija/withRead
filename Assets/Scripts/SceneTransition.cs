@@ -11,6 +11,7 @@ public enum SCENE
     SignUp,
     Character,
     UserStatus,
+    StageSelect,
 }
 
 public class SceneTransition : MonoBehaviour
