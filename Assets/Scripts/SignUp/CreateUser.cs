@@ -16,16 +16,6 @@ public class User
     public int selectedCharaId;
 }
 
-[Serializable]
-public class Character
-{
-    public int id;
-    public string name;
-    public int exp;
-    public int level;
-    public bool isUnlocked;
-}
-
 public class CreateUser : MonoBehaviour
 {
     private TMP_InputField _userName;
@@ -67,39 +57,11 @@ public class CreateUser : MonoBehaviour
             },
 
             characters = new Character[4]
-            {
-                new()
-                {
-                    id = 1,
-                    name = "ヨム",
-                    exp = 0,
-                    level = 1,
-                    isUnlocked = true
-                },
-                new()
-                {
-                    id = 2,
-                    name = "ロボ",
-                    exp = 0,
-                    level = 1,
-                    isUnlocked = true
-                },
-                new()
-                {
-                    id = 3,
-                    name = "ミズ",
-                    exp = 0,
-                    level = 1,
-                    isUnlocked = true
-                },
-                new()
-                {
-                    id = 4,
-                    name = "ボス",
-                    exp = 0,
-                    level = 1,
-                    isUnlocked = true
-                }
+            { 
+                new (1, "ヨム", 0, 1, true),
+                new (2, "ロボ", 0, 1, true),
+                new (3, "ミズ", 0, 1, true),
+                new (4, "ボス", 0, 1, true)
             }
         };
 

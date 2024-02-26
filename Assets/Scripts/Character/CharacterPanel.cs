@@ -15,9 +15,9 @@ public class CharacterPanel : MonoBehaviour
 
     public async void SetCharacter(Character character)
     {
-        charaId = character.id;
+        charaId = character.Id;
         charaImage.sprite = await Addressables.LoadAssetAsync<Sprite>("Thumbnail" + charaId + ".png").Task;
-        charaLevelText.text = character.level.ToString();
+        charaLevelText.text = character.Level.ToString();
 
         Button button = GetComponent<Button>();
         button.onClick.AddListener ( () => 

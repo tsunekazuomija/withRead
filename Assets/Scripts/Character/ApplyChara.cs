@@ -15,7 +15,7 @@ public class ApplyChara : MonoBehaviour
 
         foreach (var character in characters)
         {
-            if (character.isUnlocked)
+            if (character.IsUnlocked)
             {
                 GameObject chara = Instantiate(charaPrefab, transform);
                 chara.GetComponent<CharacterPanel>().SetCharacter(character);

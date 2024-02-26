@@ -11,6 +11,7 @@ public class PlayerData : MonoBehaviour
         string filePath = Application.persistentDataPath + "/UserData/data.json";
         string inputString = File.ReadAllText(filePath);
         _saveData = JsonUtility.FromJson<SaveData>(inputString);
+
         loadingDone = true;
     }
 
@@ -47,20 +48,20 @@ public class PlayerData : MonoBehaviour
     {
         int charaId = PlayerPrefs.GetInt("charaId", 1);
         int Idx = GetCharaIndexFromId(charaId);
-        _saveData.characters[Idx].exp += exp;
+        _saveData.characters[Idx].Exp += exp;
         _saveData.user.exp += exp;
 
-        int levelBefore = _saveData.characters[Idx].level;
+        int levelBefore = _saveData.characters[Idx].Level;
         int uLevelBefore = _saveData.user.level;
 
         // Todo: level max の処理
-        _saveData.characters[Idx].level = _saveData.characters[Idx].exp / 100 + 1 ;
+        _saveData.characters[Idx].Level = _saveData.characters[Idx].Exp / 100 + 1 ;
         _saveData.user.level = _saveData.user.exp / 500 + 1;
         SetData(_saveData);
 
-        if (levelBefore != _saveData.characters[Idx].level)
+        if (levelBefore != _saveData.characters[Idx].Level)
         {
-            return _saveData.characters[Idx].level;
+            return _saveData.characters[Idx].Level;
         }
 
         return 0;
@@ -70,7 +71,7 @@ public class PlayerData : MonoBehaviour
     {
         for (int i = 0; i < _saveData.characters.Length; i++)
         {
-            if (_saveData.characters[i].id == charaId)
+            if (_saveData.characters[i].Id == charaId)
             {
                 return i;
             }
@@ -83,7 +84,7 @@ public class PlayerData : MonoBehaviour
     {
         int charaId = PlayerPrefs.GetInt("charaId", 1);
         int Idx = GetCharaIndexFromId(charaId);
-        return _saveData.characters[Idx].name;
+        return _saveData.characters[Idx].Name;
     }
 
     public User GetUser()
