@@ -39,6 +39,11 @@ public class Party : MonoBehaviour
 
         saveButton.onClick.AddListener(() =>
         {
+            if (partyMemberIndex.Length == 0)
+            {
+                Debug.Log("Party is empty");
+                return;
+            }
             Save();
         });
         Load();
