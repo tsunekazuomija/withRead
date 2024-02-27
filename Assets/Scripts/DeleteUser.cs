@@ -8,37 +8,13 @@ public class DeleteUser : MonoBehaviour
 
     public void OnClickDeleteUser()
     {
-        DeleteData();
-        DeleteCharaBank();
+        RemoveDirectory();
+        SceneManager.LoadScene(startScene.ToString());
     }
 
-    private void DeleteData()
+    private void RemoveDirectory()
     {
-        string filePath = Application.persistentDataPath + "/UserData/data.json";
-
-        if (File.Exists(filePath))
-        {
-            File.Delete(filePath);
-
-            SceneManager.LoadScene(startScene.ToString());
-        }
-        else
-        {
-            Debug.LogWarning("File not found: " + filePath);
-        }
-    }
-
-    private void DeleteCharaBank()
-    {
-        string filePath = Application.persistentDataPath + "/UserData/CharaBank.json";
-
-        if (File.Exists(filePath))
-        {
-            File.Delete(filePath);
-        }
-        else
-        {
-            Debug.LogWarning("File not found: " + filePath);
-        }
+        string dirPath = Application.persistentDataPath + "/UserData";
+        Directory.Delete(dirPath, true);
     }
 }
