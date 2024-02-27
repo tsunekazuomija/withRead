@@ -45,15 +45,15 @@ public class RegisterProgress : MonoBehaviour
         // register experience point
         int readPage = _endPage - _startPage + 1;
         int exp = readPage * 10;
-        string charaName = playerData.GetComponent<PlayerData>().GetCharaName();
-        int level = playerData.GetComponent<PlayerData>().SetExp(exp);
+        // string charaName = playerData.GetComponent<PlayerData>().GetCharaName();
+        // int level = playerData.GetComponent<PlayerData>().SetExp(exp);
         string message = targetBook.title + " を " + readPage + "ページ よんだ。\n";
-        message += charaName + " の かしこさが " + exp + " あがった。\n";
+        // message += charaName + " の かしこさが " + exp + " あがった。\n";
 
-        if (level > 0)
-        {
-            message += "レベルが " + level + " になった。";
-        }
+        // if (level > 0)
+        // {
+        //     message += "レベルが " + level + " になった。";
+        // }
 
         messageBoard.GetComponent<Console>().SetMessage(message);
 

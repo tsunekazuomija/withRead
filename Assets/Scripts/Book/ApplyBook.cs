@@ -64,14 +64,6 @@ public static class ColorManager
 }
 
 [Serializable]
-public class SaveData
-{
-    public User user;
-    public Character[] characters;
-    public BookInfo[] book;
-}
-
-[Serializable]
 public class BookInfo
 {
     public int id;

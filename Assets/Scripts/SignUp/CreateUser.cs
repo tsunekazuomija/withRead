@@ -6,6 +6,7 @@ using System.IO;
 using TMPro;
 using UnityEngine.SceneManagement;
 using System.Linq;
+using System.Runtime.CompilerServices;
 
 [Serializable]
 public class User
@@ -21,6 +22,8 @@ public class CreateUser : MonoBehaviour
     private TMP_InputField _userName;
     [SerializeField] private GameObject inputUserName;
     [SerializeField] private SCENE mainScene;
+
+    [SerializeField] private CharaBank refCharaBank;
 
     void Start()
     {
@@ -55,14 +58,6 @@ public class CreateUser : MonoBehaviour
                     }
                 }
             },
-
-            characters = new Character[4]
-            { 
-                new (1, "ヨム", 0, 1, true),
-                new (2, "ロボ", 0, 1, true),
-                new (3, "ミズ", 0, 1, true),
-                new (4, "ボス", 0, 1, true)
-            }
         };
 
         string jsonString = JsonUtility.ToJson(newData, true);
@@ -73,6 +68,29 @@ public class CreateUser : MonoBehaviour
         }
         File.WriteAllText(Application.persistentDataPath + "/UserData/data.json", jsonString);
 
+        CreateCharaBank();
+
         SceneManager.LoadScene(mainScene.ToString());
+    }
+
+    /// <summary>
+    /// 初期データをまとめたクラス。
+    /// </summary>
+    private static class Params
+    {
+        public static Character[] initialChara = new Character[]
+        {
+            new (1, "ヨム", 0, 1, true),
+            new (2, "ロボ", 0, 1, true),
+            new (3, "ミズ", 0, 1, true),
+            new (4, "ボス", 0, 1, true),
+        };
+    }
+
+    private void CreateCharaBank()
+    {
+        refCharaBank.Init(
+            Params.initialChara
+        );
     }
 }
