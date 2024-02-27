@@ -615,6 +615,7 @@ MonoBehaviour:
   - {fileID: 563906376}
   - {fileID: 2051788786}
   charaBank: {fileID: 1016205245}
+  party: {fileID: 1016205246}
 --- !u!1 &785981847
 GameObject:
   m_ObjectHideFlags: 0
@@ -1058,6 +1059,7 @@ GameObject:
   - component: {fileID: 1016205244}
   - component: {fileID: 1016205243}
   - component: {fileID: 1016205245}
+  - component: {fileID: 1016205246}
   m_Layer: 0
   m_Name: PlayerData
   m_TagString: Untagged
@@ -1105,6 +1107,19 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   characterArray: []
+  forInit: 0
+--- !u!114 &1016205246
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1016205242}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f7045f62308184faeb91b9eb6cf13af7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
   partyMemberIndex: 
   forInit: 0
 --- !u!1 &1121297190

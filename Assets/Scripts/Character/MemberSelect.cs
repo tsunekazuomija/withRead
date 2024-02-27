@@ -8,11 +8,12 @@ public class MemberSelect : MonoBehaviour
     [SerializeField] private PartyMember[] members;
 
     [SerializeField] private CharaBank charaBank;
+    [SerializeField] private Party party;
     private List<int> partyMemberIndex = new();
 
     void Start()
     {
-        partyMemberIndex = charaBank.PartyMemberIndex.ToList();
+        partyMemberIndex = party.PartyMemberIndex.ToList();
 
         Reflesh();
     }
@@ -22,7 +23,7 @@ public class MemberSelect : MonoBehaviour
     {
         if (!partyMemberIndex.Contains(charaId))
         {
-            if (partyMemberIndex.Count < CharaBank.Params.maxPartyMember)
+            if (partyMemberIndex.Count < Party.Params.MaxMember)
             {
                 partyMemberIndex.Add(charaId);
                 Reflesh();
@@ -44,7 +45,7 @@ public class MemberSelect : MonoBehaviour
 
     private void Reflesh()
     {
-        for (int i=0; i < CharaBank.Params.maxPartyMember; i++)
+        for (int i=0; i < Party.Params.MaxMember; i++)
         {
             if (partyMemberIndex.Count > i)
             {

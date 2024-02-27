@@ -288,6 +288,7 @@ MonoBehaviour:
   inputUserName: {fileID: 1349320954}
   mainScene: 1
   refCharaBank: {fileID: 376852330}
+  refParty: {fileID: 376852332}
 --- !u!1 &260752613
 GameObject:
   m_ObjectHideFlags: 0
@@ -432,6 +433,7 @@ GameObject:
   m_Component:
   - component: {fileID: 376852331}
   - component: {fileID: 376852330}
+  - component: {fileID: 376852332}
   m_Layer: 0
   m_Name: DataReference
   m_TagString: Untagged
@@ -451,6 +453,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a85620f9abaca43db8ad551be3238028, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  characterArray: []
   forInit: 1
 --- !u!4 &376852331
 Transform:
@@ -467,6 +470,20 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &376852332
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 376852329}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f7045f62308184faeb91b9eb6cf13af7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  partyMemberIndex: 
+  forInit: 1
 --- !u!1 &593179761
 GameObject:
   m_ObjectHideFlags: 0

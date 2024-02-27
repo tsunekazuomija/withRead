@@ -24,13 +24,6 @@ public class CharaBank : MonoBehaviour
     /// </summary>
     [SerializeField][HideInInspector] private Character[] characterArray;
 
-    [SerializeField][HideInInspector] private int[] partyMemberIndex;
-    public int[] PartyMemberIndex
-    {
-        get { return partyMemberIndex; }
-        set { partyMemberIndex = value; }
-    }
-
     private bool _loadingDone = false;
     public bool LoadingDone
     {
@@ -135,11 +128,6 @@ public class CharaBank : MonoBehaviour
         {
             return pageNum * 10;
         }
-    }
-
-    public static class Params
-    {
-        public static readonly int maxPartyMember = 4;
     }
 }
 

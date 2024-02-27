@@ -24,6 +24,7 @@ public class CreateUser : MonoBehaviour
     [SerializeField] private SCENE mainScene;
 
     [SerializeField] private CharaBank refCharaBank;
+    [SerializeField] private Party refParty;
 
     void Start()
     {
@@ -69,6 +70,7 @@ public class CreateUser : MonoBehaviour
         File.WriteAllText(Application.persistentDataPath + "/UserData/data.json", jsonString);
 
         CreateCharaBank();
+        CreateParty();
 
         SceneManager.LoadScene(mainScene.ToString());
     }
@@ -85,12 +87,21 @@ public class CreateUser : MonoBehaviour
             new (3, "ミズ", 0, 1, true),
             new (4, "ボス", 0, 1, true),
         };
+
+        public static int[] initialParty = new int[] { 1, }; 
     }
 
     private void CreateCharaBank()
     {
         refCharaBank.Init(
             Params.initialChara
+        );
+    }
+
+    private void CreateParty()
+    {
+        refParty.Init(
+            Params.initialParty
         );
     }
 }
