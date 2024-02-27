@@ -1121,6 +1121,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   partyMemberIndex: 
+  saveButton: {fileID: 1121297193}
   forInit: 0
 --- !u!1 &1121297190
 GameObject:

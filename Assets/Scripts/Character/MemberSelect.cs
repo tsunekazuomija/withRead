@@ -15,10 +15,27 @@ public class MemberSelect : MonoBehaviour
     {
         partyMemberIndex = party.PartyMemberIndex.ToList();
 
-        Reflesh();
+        Reflesh(true);
     }
 
 
+    public void MemberClicked(int index)
+    {
+        for (int i = 0; i < partyMemberIndex.Count; i++)
+        {
+            if (partyMemberIndex[i] == index)
+            {
+                partyMemberIndex.RemoveAt(i);
+                Reflesh();
+                return;
+            }
+        }
+    }
+
+    /// <summary>
+    /// called when CharacterPannel(a thmbnail of a character) is clicked.
+    /// </summary>
+    /// <param name="charaId"></param>
     public void CharacterClicked(int charaId)
     {
         if (!partyMemberIndex.Contains(charaId))
@@ -43,18 +60,44 @@ public class MemberSelect : MonoBehaviour
     }
 
 
-    private void Reflesh()
+    private void Reflesh(bool initial=false) // todo: 冗長なのでリファクタリング
     {
-        for (int i=0; i < Party.Params.MaxMember; i++)
+        Reflect();
+        if (initial)
         {
-            if (partyMemberIndex.Count > i)
+            for (int i=0; i < Party.Params.MaxMember; i++)
             {
-                members[i].SetCharacter(partyMemberIndex[i]);
-            }
-            else
-            {
-                members[i].RemoveCharacter();
+                members[i].MemberSelect = this;
+                if (partyMemberIndex.Count > i)
+                {
+                    
+                    members[i].SetCharacter(partyMemberIndex[i]);
+                }
+                else
+                {
+
+                    members[i].RemoveCharacter();
+                }
             }
         }
+        else
+        {
+            for (int i = 0; i < Party.Params.MaxMember; i++)
+            {
+                if (partyMemberIndex.Count > i)
+                {
+                    members[i].SetCharacter(partyMemberIndex[i]);
+                }
+                else
+                {
+                    members[i].RemoveCharacter();
+                }
+            }
+        }
+    }
+
+    private void Reflect()
+    {
+        party.PartyMemberIndex = partyMemberIndex.ToArray();
     }
 }

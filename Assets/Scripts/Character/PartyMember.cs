@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.AddressableAssets;
+using Unity.VisualScripting;
 
 public class PartyMember : MonoBehaviour
 {
@@ -13,8 +14,17 @@ public class PartyMember : MonoBehaviour
         get { return isEmpty; }
     }
 
+    private int charaId;
+
+    [SerializeField] private MemberSelect memberSelect;
+    public MemberSelect MemberSelect
+    {
+        set { memberSelect = value; }
+    }
+
     async public void SetCharacter(int id)
     {
+        charaId = id;
         charaImage.sprite = await Addressables.LoadAssetAsync<Sprite>("Standing" + id + ".png").Task;
         isEmpty = false;
     }
@@ -23,5 +33,21 @@ public class PartyMember : MonoBehaviour
     {
         charaImage.sprite = null;
         isEmpty = true;
+    }
+
+    private void Start()
+    {
+        this.AddComponent<Button>().onClick.AddListener(
+            Clicked
+        );
+    }
+
+    private void Clicked()
+    {
+        if (!isEmpty)
+        {
+            Debug.Log("Clicked " + charaId);
+            memberSelect.MemberClicked(charaId);
+        }
     }
 }

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using System;
 using System.IO;
+using UnityEngine.UI;
 
 /// <summary>
 /// パーティのデータを保持するクラス。パーティに所属するキャラクターのIDのみ保持すれば十分かも。
@@ -26,6 +27,8 @@ public class Party : MonoBehaviour
         set { partyMemberIndex = value; }
     }
 
+    [SerializeField] Button saveButton;
+
     [SerializeField] private bool forInit;
     private void Awake()
     {
@@ -33,6 +36,11 @@ public class Party : MonoBehaviour
         {
             return;
         }
+
+        saveButton.onClick.AddListener(() =>
+        {
+            Save();
+        });
         Load();
     }
 
@@ -56,7 +64,6 @@ public class Party : MonoBehaviour
         partyMemberIndex = initialMemberIndex;
         Save();
     }
-
 
     private void Save()
     {
