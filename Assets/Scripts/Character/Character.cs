@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using System;
 
+
 [Serializable]
 public class Character
 {
@@ -38,6 +39,14 @@ public class Character
         set { _isUnlocked = value; }
     }
 
+    [SerializeField] private int _mp;
+    public int MP
+    {
+        get { return _mp; }
+        set { _mp = value; }
+    }
+
+
     public Character(int id, string name, int exp, int level, bool isUnlocked)
     {
         _id = id;
@@ -45,7 +54,36 @@ public class Character
         _exp = exp;
         _level = level;
         _isUnlocked = isUnlocked;
+        _mp = 0;
     }
+
+
+    public int CapacityMP()
+    {
+        return Calc.MaxMP(_level) - _mp;
+    }
+
+    public string[] GainMagicPoint(int mp)
+    {
+        var messages = new List<string>();
+        int mpTmp = _mp + mp;
+        if (mpTmp > Calc.MaxMP(_level))
+        {
+            Debug.Log("Invalid input: exceeded max mp");
+            return messages.ToArray();
+        }
+
+
+        _mp = mpTmp;
+        messages.Add($"{_name} は {mp} の魔力を獲得した.\n");
+
+        if (mpTmp == Calc.MaxMP(_level))
+        {
+            messages.Add($"{_name} の魔力が満タンになった.\n");
+        }
+        return messages.ToArray();
+    }
+
 
     /// <summary>
     /// 経験値を加算する。同時にレベルアップの処理も行う。
@@ -92,6 +130,11 @@ public class Character
         public static int CalculateLevel(int exp)
         {
             return exp / 200 + 1;
+        }
+
+        public static int MaxMP(int level)
+        {
+            return level * 100;
         }
     }
 

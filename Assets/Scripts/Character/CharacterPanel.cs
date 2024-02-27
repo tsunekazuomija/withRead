@@ -9,7 +9,8 @@ public class CharacterPanel : MonoBehaviour
 {
     [SerializeField] private Image charaImage;
     [SerializeField] private TextMeshProUGUI charaLevelText;
-    private GameObject stage;
+
+    [SerializeField] private MemberSelect memberSelect;
 
     private int charaId;
 
@@ -26,13 +27,18 @@ public class CharacterPanel : MonoBehaviour
         } );
     }
 
-    public void SetStage(GameObject stagePanel)
+    public void SetMemberSelect(MemberSelect memberSelect)
     {
-        stage = stagePanel;
+        this.memberSelect = memberSelect;
     }
 
     private void Clicked()
     {
-        stage.GetComponent<CharaStage>().SwitchCharacter(charaId);
+        CharacterClicked();
+    }
+
+    private void CharacterClicked()
+    {
+        memberSelect.CharacterClicked(charaId);
     }
 }

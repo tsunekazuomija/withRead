@@ -4,7 +4,7 @@ using UnityEngine;
 public class ApplyChara : MonoBehaviour
 {
     [SerializeField] private GameObject charaPrefab;
-    [SerializeField] private GameObject stage;
+    [SerializeField] private MemberSelect memberSelect;
     [SerializeField] private CharaBank charaBank;
 
     private Dictionary<int, Character> characters;
@@ -19,7 +19,7 @@ public class ApplyChara : MonoBehaviour
             {
                 GameObject chara = Instantiate(charaPrefab, transform);
                 chara.GetComponent<CharacterPanel>().SetCharacter(character);
-                chara.GetComponent<CharacterPanel>().SetStage(stage);
+                chara.GetComponent<CharacterPanel>().SetMemberSelect(memberSelect);
             }
         }
     }
