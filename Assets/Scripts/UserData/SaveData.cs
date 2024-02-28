@@ -7,5 +7,4 @@ using System;
 public class SaveData
 {
     public User user;
-    public BookInfo[] book;
 }

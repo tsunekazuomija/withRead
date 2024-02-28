@@ -38,12 +38,6 @@ public class PlayerData : MonoBehaviour
         File.WriteAllText(Application.persistentDataPath + "/UserData/data.json", outputString);
     }
 
-    public void SetBookData(BookInfo[] book)
-    {
-        _saveData.book = book;
-        SetData(_saveData);
-    }
-
     public User GetUser()
     {
         return _saveData.user;

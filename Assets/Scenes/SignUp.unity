@@ -287,6 +287,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   inputUserName: {fileID: 1349320954}
   mainScene: 1
+  refBookShelf: {fileID: 376852333}
   refCharaBank: {fileID: 376852330}
   refParty: {fileID: 376852332}
 --- !u!1 &260752613
@@ -434,6 +435,7 @@ GameObject:
   - component: {fileID: 376852331}
   - component: {fileID: 376852330}
   - component: {fileID: 376852332}
+  - component: {fileID: 376852333}
   m_Layer: 0
   m_Name: DataReference
   m_TagString: Untagged
@@ -483,6 +485,21 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   partyMemberIndex: 
+  saveButton: {fileID: 0}
+  forInit: 1
+--- !u!114 &376852333
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 376852329}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f4ca892d66a154ba6a4a9aaf3308f733, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  bookArray: []
   forInit: 1
 --- !u!1 &593179761
 GameObject:

@@ -5,8 +5,7 @@ using System;
 using System.IO;
 using TMPro;
 using UnityEngine.SceneManagement;
-using System.Linq;
-using System.Runtime.CompilerServices;
+
 
 [Serializable]
 public class User
@@ -23,6 +22,7 @@ public class CreateUser : MonoBehaviour
     [SerializeField] private GameObject inputUserName;
     [SerializeField] private SCENE mainScene;
 
+    [SerializeField] private BookShelf refBookShelf;
     [SerializeField] private CharaBank refCharaBank;
     [SerializeField] private Party refParty;
 
@@ -33,8 +33,6 @@ public class CreateUser : MonoBehaviour
 
     public void OnClickCreateUser()
     {
-        int pages = 100;
-
         SaveData newData = new()
         {
             user = new User
@@ -43,21 +41,6 @@ public class CreateUser : MonoBehaviour
                 exp = 0,
                 level = 1,
                 selectedCharaId = 1
-            },
-
-            book = new BookInfo[1]
-            {
-                new() {
-                    id = 0,
-                    title = "bocchi the rock!",
-                    pages = pages,
-                    progress = Enumerable.Repeat(0, pages).ToArray(),
-                    progress_short = new PageCell
-                    {
-                        page_cnt = Enumerable.Repeat(0, Mathf.CeilToInt(pages / 10f)).ToArray(),
-                        min_read_times = Enumerable.Repeat(0, Mathf.CeilToInt(pages / 10f)).ToArray()
-                    }
-                }
             },
         };
 
@@ -69,6 +52,7 @@ public class CreateUser : MonoBehaviour
         }
         File.WriteAllText(Application.persistentDataPath + "/UserData/data.json", jsonString);
 
+        CreateBookShelf();
         CreateCharaBank();
         CreateParty();
 
@@ -80,6 +64,11 @@ public class CreateUser : MonoBehaviour
     /// </summary>
     private static class Params
     {
+        public static Book[] initialBook = new Book[]
+        {
+            new (0, "bocchi the rock!", 100),
+        };
+
         public static Character[] initialChara = new Character[]
         {
             new (1, "ヨム", 0, 1, true),
@@ -89,6 +78,14 @@ public class CreateUser : MonoBehaviour
         };
 
         public static int[] initialParty = new int[] { 1, }; 
+    }
+
+
+    private void CreateBookShelf()
+    {
+        refBookShelf.Init(
+            Params.initialBook
+        );
     }
 
     private void CreateCharaBank()
@@ -104,4 +101,5 @@ public class CreateUser : MonoBehaviour
             Params.initialParty
         );
     }
+
 }

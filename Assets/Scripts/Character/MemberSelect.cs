@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using System.Linq;
 
+// ToDo: Partyクラスと密に結合している。より簡潔な構造にする。
 public class MemberSelect : MonoBehaviour
 {
     [SerializeField] private PartyMember[] members;

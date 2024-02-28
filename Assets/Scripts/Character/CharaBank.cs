@@ -115,9 +115,20 @@ public class CharaBank : MonoBehaviour
             }
         }
 
+        /// <summary>
+        /// forInitフィールドを無視してJsonファイルからデータをロードする。
+        /// </summary>
+        /// <param name="charaBankString"></param>
+        void OverwriteExceptForInit(string charaBankString)
+        {
+            bool forInitTmp = forInit;
+            JsonUtility.FromJsonOverwrite(charaBankString, this);
+            forInit = forInitTmp;
+        }
+
         string filePath = Application.persistentDataPath + "/UserData/CharaBank.json";
         string charaBankString = File.ReadAllText(filePath);
-        JsonUtility.FromJsonOverwrite(charaBankString, this);
+        OverwriteExceptForInit(charaBankString);
         LoadToCharacterDict();
     }
 

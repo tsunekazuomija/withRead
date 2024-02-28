@@ -27,11 +27,12 @@ public class PartyMember : MonoBehaviour
         charaId = id;
         charaImage.sprite = await Addressables.LoadAssetAsync<Sprite>("Standing" + id + ".png").Task;
         isEmpty = false;
+        charaImage.enabled = true;
     }
 
     public void RemoveCharacter()
     {
-        charaImage.sprite = null;
+        charaImage.enabled = false;
         isEmpty = true;
     }
 

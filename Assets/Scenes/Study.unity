@@ -208,7 +208,6 @@ GameObject:
   m_Component:
   - component: {fileID: 58449945}
   - component: {fileID: 58449946}
-  - component: {fileID: 58449947}
   m_Layer: 0
   m_Name: ProgressPopup
   m_TagString: Untagged
@@ -245,26 +244,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1d4a3e5411c1145849b1130cf4ac7e61, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  bookIdHolder: {fileID: 58449947}
   slider1: {fileID: 1438242960}
   slider2: {fileID: 1711132907}
   bookTitle: {fileID: 1092071569}
   bookProgress: {fileID: 1815744333}
   text1: {fileID: 1141359386}
   text2: {fileID: 1292758319}
-  playerData: {fileID: 317593990}
---- !u!114 &58449947
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 58449944}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 008b7433cb7f44145877634ea9b81786, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &69007862
 GameObject:
   m_ObjectHideFlags: 0
@@ -847,8 +832,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   BookPrefab: {fileID: 7874733584314137426, guid: 267acd631a4a6424cae919ab41b47de9, type: 3}
-  popup: {fileID: 58449944}
-  playerData: {fileID: 317593990}
+  progressPopup: {fileID: 58449946}
+  bookShelf: {fileID: 317593993}
 --- !u!1 &317593990
 GameObject:
   m_ObjectHideFlags: 0
@@ -859,6 +844,7 @@ GameObject:
   m_Component:
   - component: {fileID: 317593992}
   - component: {fileID: 317593991}
+  - component: {fileID: 317593993}
   m_Layer: 0
   m_Name: PlayerData
   m_TagString: Untagged
@@ -893,6 +879,20 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &317593993
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 317593990}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f4ca892d66a154ba6a4a9aaf3308f733, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  bookArray: []
+  forInit: 0
 --- !u!1 &326615033
 GameObject:
   m_ObjectHideFlags: 0
@@ -4296,8 +4296,10 @@ MonoBehaviour:
   slider2: {fileID: 1711132907}
   popup: {fileID: 58449944}
   bookDisplay: {fileID: 260476582}
-  playerData: {fileID: 317593990}
   messageBoard: {fileID: 1450149142}
+  bookShelf: {fileID: 0}
+  charaBank: {fileID: 0}
+  party: {fileID: 0}
 --- !u!114 &1703587874
 MonoBehaviour:
   m_ObjectHideFlags: 0
