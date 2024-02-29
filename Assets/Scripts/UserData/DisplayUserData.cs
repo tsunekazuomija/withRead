@@ -5,7 +5,7 @@ using TMPro;
 
 public class DisplayUserData : MonoBehaviour
 {
-    [SerializeField] private GameObject playerData;
+    [SerializeField] private User user;
 
     [SerializeField] private TextMeshProUGUI uName;
     [SerializeField] private TextMeshProUGUI uLevel;
@@ -14,10 +14,9 @@ public class DisplayUserData : MonoBehaviour
 
     void Start()
     {
-        User pData = playerData.GetComponent<PlayerData>().GetUser();
-        uName.text = pData.name;
-        uLevel.text = pData.level.ToString();
-        uExp.text = pData.exp.ToString();
+        uName.text = user.Name;
+        uLevel.text = user.Level.ToString();
+        uExp.text = user.Exp.ToString();
     }
 
 }

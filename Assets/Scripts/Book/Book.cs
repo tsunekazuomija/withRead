@@ -3,8 +3,6 @@ using System.Collections.Generic;
 using UnityEngine;
 using System;
 using System.Linq;
-using System.Runtime.CompilerServices;
-using UnityEngine.Rendering;
 
 
 [Serializable]
@@ -14,18 +12,10 @@ public class Book
     public class ProgressInShort
     {
         [SerializeField] private int[] _pageCountArray;
-        public int[] PageCountArray
-        {
-            get { return _pageCountArray; }
-            set { _pageCountArray = value; }
-        }
+        public int[] PageCountArray { get => _pageCountArray; set => _pageCountArray = value; }
 
         [SerializeField] private int[] _MinReadTimesArray;
-        public int[] MinReadTimesArray
-        {
-            get { return _MinReadTimesArray; }
-            set { _MinReadTimesArray = value; }
-        }
+        public int[] MinReadTimesArray { get => _MinReadTimesArray; set => _MinReadTimesArray = value; }
 
         /// <summary>
         /// constructor
@@ -66,40 +56,22 @@ public class Book
     }
 
     [SerializeField] private int _id;
-    public int Id
-    {
-        get { return _id; }
-    }
+    public int Id { get => _id; }
 
     [SerializeField] private string _title;
-    public string Title
-    {
-        get { return _title; }
-    }
+    public string Title { get => _title; }
 
     [SerializeField] private int _pageNum;
-    public int PageNum
-    {
-        get { return _pageNum; }
-    }
+    public int PageNum { get => _pageNum; }
 
     [SerializeField] private int _lastReadPage;
-    public int LastReadPage
-    {
-        get { return _lastReadPage; }
-    }
+    public int LastReadPage { get => _lastReadPage; }
 
     [SerializeField] private int[] _progress;
-    public int[] Progress
-    {
-        get { return _progress; }
-    }
+    public int[] Progress { get => _progress; }
 
     [SerializeField] private ProgressInShort _progressShort;
-    public ProgressInShort ProgressShort
-    {
-        get { return _progressShort; }
-    }
+    public ProgressInShort ProgressShort { get => _progressShort; }
 
     /// <summary>
     /// constructor

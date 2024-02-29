@@ -9,12 +9,11 @@ public class StartButton : MonoBehaviour
     [SerializeField] private SCENE signUpScene;
 
     [SerializeField] Button startButton;
-    string filePath;
 
     public void Start()
     {
-        filePath = Application.persistentDataPath + "/UserData/data.json";
-        if (File.Exists(filePath))
+        string dirPath = Application.persistentDataPath + "/UserData";
+        if (Directory.Exists(dirPath))
         {
             startButton.onClick.AddListener( () => SceneManager.LoadScene(mainScene.ToString()) );
         }

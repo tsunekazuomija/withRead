@@ -224,8 +224,8 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 224238400}
-        m_TargetAssemblyTypeName: CreateUser, Assembly-CSharp
-        m_MethodName: OnClickCreateUser
+        m_TargetAssemblyTypeName: CreateNewData, Assembly-CSharp
+        m_MethodName: OnClickCreateNewData
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -287,6 +287,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   inputUserName: {fileID: 1349320954}
   mainScene: 1
+  refUser: {fileID: 376852334}
   refBookShelf: {fileID: 376852333}
   refCharaBank: {fileID: 376852330}
   refParty: {fileID: 376852332}
@@ -436,6 +437,7 @@ GameObject:
   - component: {fileID: 376852330}
   - component: {fileID: 376852332}
   - component: {fileID: 376852333}
+  - component: {fileID: 376852334}
   m_Layer: 0
   m_Name: DataReference
   m_TagString: Untagged
@@ -501,6 +503,19 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   bookArray: []
   forInit: 1
+--- !u!114 &376852334
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 376852329}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4345416c74956484397d8edd28af0888, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _forInit: 1
 --- !u!1 &593179761
 GameObject:
   m_ObjectHideFlags: 0

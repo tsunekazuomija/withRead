@@ -2,7 +2,7 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 using System.IO;
 
-public class DeleteUser : MonoBehaviour
+public class DeleteData : MonoBehaviour
 {
     [SerializeField] private SCENE startScene;
 
