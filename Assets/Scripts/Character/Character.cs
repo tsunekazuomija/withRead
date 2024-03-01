@@ -8,43 +8,22 @@ using System;
 public class Character
 {
     [SerializeField] private int _id;
-    public int Id {
-        get { return _id; }
-    }
+    public int Id { get => _id; } 
 
     [SerializeField] private string _name;
-    public string Name
-    {
-        get { return _name; }
-    }
+    public string Name { get => _name; }
 
     [SerializeField] private int _exp;
-    public int Exp
-    {
-        get { return _exp; }
-        set { _exp = value; }
-    }
+    public int Exp { get => _exp; set => _exp = value; }
 
     [SerializeField] private int _level;
-    public int Level
-    {
-        get { return _level; }
-        set { _level = value; }
-    }
+    public int Level { get => _level; set => _level = value; }
 
     [SerializeField] private bool _isUnlocked;
-    public bool IsUnlocked
-    {
-        get { return _isUnlocked; }
-        set { _isUnlocked = value; }
-    }
+    public bool IsUnlocked { get => _isUnlocked; set => _isUnlocked = value; }
 
-    [SerializeField] private int _mp;
-    public int MP
-    {
-        get { return _mp; }
-        set { _mp = value; }
-    }
+    [SerializeField] private int _mp; // magic point 魔力
+    public int MP { get => _mp; set => _mp = value; }
 
 
     public Character(int id, string name, int exp, int level, bool isUnlocked)
@@ -72,7 +51,6 @@ public class Character
             Debug.Log("Invalid input: exceeded max mp");
             return messages.ToArray();
         }
-
 
         _mp = mpTmp;
         messages.Add($"{_name} は {mp} の魔力を獲得した.\n");

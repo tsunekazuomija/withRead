@@ -12,16 +12,33 @@ using System.Collections;
 public class ProgressPopup : MonoBehaviour
 {
     private Book _book;
+    private BookShelf _bookShelf;
+    [SerializeField]private CharaBank _charaBank;
+    [SerializeField]private Party _party;
 
-    [SerializeField] Slider slider1;
-    [SerializeField] Slider slider2;
+    [SerializeField] private Slider slider1;
+    [SerializeField] private Slider slider2;
     [SerializeField] private GameObject bookTitle;
     [SerializeField] private GameObject bookProgress;
     [SerializeField] private TextMeshProUGUI text1;
     [SerializeField] private TextMeshProUGUI text2;
+    [SerializeField] private Button registerButton;
 
-    public void Pop(Book book)
+    [SerializeField] private ApplyBookProgress abp;
+
+    public void Awake()
     {
+        registerButton.onClick.AddListener(() =>
+        {
+            RegisterProgress();
+            Debug.Log("read page: " + ((int)slider2.value - (int)slider1.value + 1));
+            RegisterMP((int)slider2.value - (int)slider1.value + 1);
+        });
+    }
+
+    public void Pop(BookShelf bookShelf, Book book)
+    {
+        _bookShelf = bookShelf;
         _book = book;
 
         bookTitle.GetComponent<TextMeshProUGUI>().text = _book.Title;
@@ -52,5 +69,30 @@ public class ProgressPopup : MonoBehaviour
             s1.value = book.PageNum;
             s2.value = book.PageNum;
         }
+    }
+
+    private void RegisterProgress()
+    {
+        int startPage = (int) slider1.value;
+        int endPage = (int) slider2.value;
+        if (endPage < startPage)
+        {
+            Debug.Log("num of start page is larger than that of end page");
+            return;
+        }
+
+        _bookShelf.RegisterProgress(_book.Id, startPage, endPage);
+    }
+
+    private void RegisterMP(int pageRead)
+    {
+        string[] strArray = _charaBank.GainMagicPoint(_party.PartyMemberIndex, pageRead);
+        for (int i = 0; i < strArray.Length; i++)
+        {
+            Debug.Log(strArray[i]);
+        }
+
+        gameObject.SetActive(false);
+        abp.Refresh();
     }
 }

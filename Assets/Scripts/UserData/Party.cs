@@ -30,6 +30,7 @@ public class Party : MonoBehaviour
     [SerializeField] Button saveButton;
 
     [SerializeField] private bool forInit;
+    [SerializeField] private bool forSwitch;
     private void Awake()
     {
         if (forInit)
@@ -37,15 +38,18 @@ public class Party : MonoBehaviour
             return;
         }
 
-        saveButton.onClick.AddListener(() =>
+        if (forSwitch)
         {
-            if (partyMemberIndex.Length == 0)
+            saveButton.onClick.AddListener(() =>
             {
-                Debug.Log("Party is empty");
-                return;
-            }
-            Save();
-        });
+                if (partyMemberIndex.Length == 0)
+                {
+                    Debug.Log("Party is empty");
+                    return;
+                }
+                Save();
+            });
+        }
         Load();
     }
 
@@ -82,5 +86,33 @@ public class Party : MonoBehaviour
         string filePath = Application.persistentDataPath + "/UserData/Party.json";
         string partyString = File.ReadAllText(filePath);
         JsonUtility.FromJsonOverwrite(partyString, this);
+    }
+
+    public void Remove(int id)
+    {
+        if (partyMemberIndex.Length == 0)
+        {
+            Debug.Log("Party is empty");
+            return;
+        }
+
+        List<int> list = new(partyMemberIndex);
+        list.Remove(id);
+        partyMemberIndex = list.ToArray();
+        Save();
+    }
+
+    public void Add(int id)
+    {
+        if (partyMemberIndex.Length >= Params.MaxMember)
+        {
+            Debug.Log("Party is full");
+            return;
+        }
+
+        var list = new List<int>(partyMemberIndex);
+        list.Add(id);
+        partyMemberIndex = list.ToArray();
+        Save();
     }
 }

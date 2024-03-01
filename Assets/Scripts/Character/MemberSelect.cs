@@ -10,27 +10,17 @@ public class MemberSelect : MonoBehaviour
 
     [SerializeField] private CharaBank charaBank;
     [SerializeField] private Party party;
-    private List<int> partyMemberIndex = new();
 
     void Start()
     {
-        partyMemberIndex = party.PartyMemberIndex.ToList();
-
-        Reflesh(true);
+        Display();
     }
 
 
     public void MemberClicked(int index)
     {
-        for (int i = 0; i < partyMemberIndex.Count; i++)
-        {
-            if (partyMemberIndex[i] == index)
-            {
-                partyMemberIndex.RemoveAt(i);
-                Reflesh();
-                return;
-            }
-        }
+        party.Remove(index);
+        Reflesh();
     }
 
     /// <summary>
@@ -39,11 +29,11 @@ public class MemberSelect : MonoBehaviour
     /// <param name="charaId"></param>
     public void CharacterClicked(int charaId)
     {
-        if (!partyMemberIndex.Contains(charaId))
+        if (!party.PartyMemberIndex.Contains(charaId))
         {
-            if (partyMemberIndex.Count < Party.Params.MaxMember)
+            if (party.PartyMemberIndex.Length < Party.Params.MaxMember)
             {
-                partyMemberIndex.Add(charaId);
+                party.Add(charaId);
                 Reflesh();
                 return;
             }
@@ -61,44 +51,35 @@ public class MemberSelect : MonoBehaviour
     }
 
 
-    private void Reflesh(bool initial=false) // todo: 冗長なのでリファクタリング
+    private void Reflesh()
     {
-        Reflect();
-        if (initial)
+        for (int i = 0; i < Party.Params.MaxMember; i++)
         {
-            for (int i=0; i < Party.Params.MaxMember; i++)
+            if (party.PartyMemberIndex.Length > i)
             {
-                members[i].MemberSelect = this;
-                if (partyMemberIndex.Count > i)
-                {
-                    
-                    members[i].SetCharacter(partyMemberIndex[i]);
-                }
-                else
-                {
+                members[i].SetCharacter(party.PartyMemberIndex[i]);
+            }
+            else
+            {
+                members[i].RemoveCharacter();
+            }
+        }
 
-                    members[i].RemoveCharacter();
-                }
-            }
-        }
-        else
-        {
-            for (int i = 0; i < Party.Params.MaxMember; i++)
-            {
-                if (partyMemberIndex.Count > i)
-                {
-                    members[i].SetCharacter(partyMemberIndex[i]);
-                }
-                else
-                {
-                    members[i].RemoveCharacter();
-                }
-            }
-        }
     }
 
-    private void Reflect()
+    private void Display()
     {
-        party.PartyMemberIndex = partyMemberIndex.ToArray();
+        for (int i = 0; i < Party.Params.MaxMember; i++)
+        {
+            members[i].MemberSelect = this;  // Refreshとの差分
+            if (party.PartyMemberIndex.Length > i)
+            {
+                members[i].SetCharacter(party.PartyMemberIndex[i]);
+            }
+            else
+            {
+                members[i].RemoveCharacter();
+            }
+        }
     }
 }

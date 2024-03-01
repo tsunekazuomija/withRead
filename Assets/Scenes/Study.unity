@@ -244,12 +244,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1d4a3e5411c1145849b1130cf4ac7e61, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _charaBank: {fileID: 317593995}
+  _party: {fileID: 317593994}
   slider1: {fileID: 1438242960}
   slider2: {fileID: 1711132907}
   bookTitle: {fileID: 1092071569}
   bookProgress: {fileID: 1815744333}
   text1: {fileID: 1141359386}
   text2: {fileID: 1292758319}
+  registerButton: {fileID: 1703587875}
+  abp: {fileID: 260476586}
 --- !u!1 &69007862
 GameObject:
   m_ObjectHideFlags: 0
@@ -844,6 +848,8 @@ GameObject:
   m_Component:
   - component: {fileID: 317593992}
   - component: {fileID: 317593993}
+  - component: {fileID: 317593995}
+  - component: {fileID: 317593994}
   m_Layer: 0
   m_Name: PlayerData
   m_TagString: Untagged
@@ -879,6 +885,36 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   bookArray: []
+  forInit: 0
+--- !u!114 &317593994
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 317593990}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f7045f62308184faeb91b9eb6cf13af7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  partyMemberIndex: 
+  saveButton: {fileID: 0}
+  forInit: 0
+  forSwitch: 0
+--- !u!114 &317593995
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 317593990}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a85620f9abaca43db8ad551be3238028, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  characterArray: []
   forInit: 0
 --- !u!1 &326615033
 GameObject:
@@ -4239,7 +4275,6 @@ GameObject:
   - component: {fileID: 1703587876}
   - component: {fileID: 1703587875}
   - component: {fileID: 1703587874}
-  - component: {fileID: 1703587873}
   m_Layer: 5
   m_Name: RegisterButton
   m_TagString: Untagged
@@ -4267,26 +4302,6 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 100}
   m_SizeDelta: {x: 300, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
---- !u!114 &1703587873
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1703587871}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6e18ede2c53004d1e90322aba158c0ad, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  slider1: {fileID: 1438242960}
-  slider2: {fileID: 1711132907}
-  popup: {fileID: 58449944}
-  bookDisplay: {fileID: 260476582}
-  messageBoard: {fileID: 1450149142}
-  bookShelf: {fileID: 0}
-  charaBank: {fileID: 0}
-  party: {fileID: 0}
 --- !u!114 &1703587874
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4345,19 +4360,7 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1703587876}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 1703587873}
-        m_TargetAssemblyTypeName: RegisterProgress, Assembly-CSharp
-        m_MethodName: OnClickRegisterProgress
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
+      m_Calls: []
 --- !u!114 &1703587876
 MonoBehaviour:
   m_ObjectHideFlags: 0

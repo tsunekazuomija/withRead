@@ -20,7 +20,7 @@ public class ApplyBookProgress : MonoBehaviour
     {
         Book book = bookShelf.BookDict[bookId];
 
-        progressPopup.Pop(book);
+        progressPopup.Pop(bookShelf, book);
     }
 
     public void Refresh()
