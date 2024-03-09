@@ -27,28 +27,12 @@ public class Party : MonoBehaviour
         set { partyMemberIndex = value; }
     }
 
-    [SerializeField] Button saveButton;
-
     [SerializeField] private bool forInit;
-    [SerializeField] private bool forSwitch;
     private void Awake()
     {
         if (forInit)
         {
             return;
-        }
-
-        if (forSwitch)
-        {
-            saveButton.onClick.AddListener(() =>
-            {
-                if (partyMemberIndex.Length == 0)
-                {
-                    Debug.Log("Party is empty");
-                    return;
-                }
-                Save();
-            });
         }
         Load();
     }
