@@ -1546,6 +1546,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cf3ca92b7d5a1450e827f01cc1d4422d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  stageDatabase: {fileID: 11400000, guid: 91fea4aa6b7d341848c5e1943c816c20, type: 2}
 --- !u!4 &1601705490
 Transform:
   m_ObjectHideFlags: 0

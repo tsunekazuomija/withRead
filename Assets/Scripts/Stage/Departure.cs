@@ -8,7 +8,7 @@ public class Departure : MonoBehaviour
     public async void Depart()
     {
         int stage = stageCursor.StagePointer;
-        var enemy = await SceneLoader.Load<Enemy>("Battle");
+        var enemy = await SceneLoader.Load<Stage>("Battle");
         enemy.GetStage(stage);
     }
 }
