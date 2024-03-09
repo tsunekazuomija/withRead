@@ -10,9 +10,8 @@ public class Enemy : MonoBehaviour
         
     }
 
-    // Update is called once per frame
-    void Update()
+    public void GetStage(int stage)
     {
-        
+        Debug.Log("Stage: " + stage);
     }
 }

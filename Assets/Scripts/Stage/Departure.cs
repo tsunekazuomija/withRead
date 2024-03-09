@@ -3,14 +3,12 @@ using UnityEngine.SceneManagement;
 
 public class Departure : MonoBehaviour
 {
-    private void Depart(int stage)
-    {
+    [SerializeField] private StageCursor stageCursor;
 
-    }
-
-    private void putStageNum(int stage)
+    public async void Depart()
     {
-        var enemy = GameObject.Find("Enemy");
-        // enemy.GetComponent<Enemy>().SetStageNum(stage);
+        int stage = stageCursor.StagePointer;
+        var enemy = await SceneLoader.Load<Enemy>("Battle");
+        enemy.GetStage(stage);
     }
 }
