@@ -8,7 +8,6 @@ using UnityEngine.SceneManagement; // forDebug
 public class Enemy : MonoBehaviour
 {
     [SerializeField] private Image enemyImage;
-    [SerializeField] private HitPoint hitPoint;
     [SerializeField] private CharaBank _charaBank;
 
     private int enemyId;
@@ -18,7 +17,7 @@ public class Enemy : MonoBehaviour
         Debug.Log(stageData.StageNumber);
         enemyId = stageData.EnemyId;
         enemyImage.sprite = await Addressables.LoadAssetAsync<Sprite>($"Standing{enemyId}.png").Task;
-        hitPoint.SetHP(stageData.EnemyLevel);
+        //hitPoint.SetHP(stageData.EnemyLevel);
     }
 
     public string Name()
@@ -37,16 +36,18 @@ public class Enemy : MonoBehaviour
     {
         int attackerLevel = _charaBank.Characters[attackerId].Level;
         int damage = Calc.GetOrdAttackDamage(attackerLevel);
-        hitPoint.TakeDamage(damage);
-        return hitPoint.IsDead();
+        // hitPoint.TakeDamage(damage);
+        // return hitPoint.IsDead();
+        return true;
     }
 
     public bool TakeSkillAttackDamage(int attackerId)
     {
         int attackerMP = _charaBank.Characters[attackerId].MP;
         int damage = Calc.GetSkillAttackDamage(attackerMP);
-        hitPoint.TakeDamage(damage);
-        return hitPoint.IsDead();
+        // hitPoint.TakeDamage(damage);
+        // return hitPoint.IsDead();
+        return true;
     }
 
     private static class Calc

@@ -49,11 +49,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7e2924f7d929b482a8e5d04105e2d1f0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  charaId: 0
   unitName: "\u4ECA\u5DDD\u713C\u304D"
   unitLevel: 15
-  damage: 0
+  offense: 0
   maxHP: 50
   currentHP: 50
+  imagePanel: {fileID: 5771295114616962980}
 --- !u!1 &5771295114616962980
 GameObject:
   m_ObjectHideFlags: 0
@@ -71,7 +73,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &3085092173765130079
 RectTransform:
   m_ObjectHideFlags: 0

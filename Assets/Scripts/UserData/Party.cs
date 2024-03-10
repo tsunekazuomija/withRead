@@ -6,8 +6,7 @@ using System.IO;
 using UnityEngine.UI;
 
 /// <summary>
-/// パーティのデータを保持するクラス。パーティに所属するキャラクターのIDのみ保持すれば十分かも。
-/// であれば、今のところ、このクラスは不要かも。
+/// パーティのデータを保持するクラス。
 /// </summary>
 [Serializable]
 public class Party : MonoBehaviour

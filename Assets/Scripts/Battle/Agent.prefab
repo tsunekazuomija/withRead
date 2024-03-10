@@ -49,11 +49,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7e2924f7d929b482a8e5d04105e2d1f0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  charaId: 0
   unitName: "\u305F\u3044\u3084\u304D"
   unitLevel: 1
-  damage: 5
+  offense: 5
   maxHP: 30
   currentHP: 15
+  imagePanel: {fileID: 4472074017723272804}
 --- !u!1 &4472074017723272804
 GameObject:
   m_ObjectHideFlags: 0
@@ -71,7 +73,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1099787055673538981
 RectTransform:
   m_ObjectHideFlags: 0
@@ -119,7 +121,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: cbf6cfb3396f54e659a476b6cb6b2511, type: 3}
+  m_Sprite: {fileID: 0}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1

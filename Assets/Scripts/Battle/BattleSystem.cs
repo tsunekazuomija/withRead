@@ -1,8 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using TMPro;
-using UnityEngine.UI;
+
 
 public enum BattleState { START, PLAYERTURN, ENEMYTURN, BUSY, WON, LOST }
 
@@ -10,22 +9,64 @@ public class BattleSystem : MonoBehaviour
 {
     public BattleState state;
 
+    [SerializeField] private StageDatabase stageDatabase;
+    [SerializeField] private CharaBank charaBank;
+    [SerializeField] private PartyManager partyManager;
+
     public GameObject playerPrefab;
     public GameObject enemyPrefab;
 
     public Transform playerBattleStation;
     public Transform enemyBattleStation;
 
-    public TextMeshProUGUI dialogText;
+    [SerializeField] private BattleDialogBox battleDialogBox;
+    [SerializeField] private GameObject operationPanel;
 
     public Unit playerUnit;
     public Unit enemyUnit;
 
     public BattleHUD enemyHUD;
 
-    public void GetStageNum(int stageNum)
+    private int stageNum;
+
+    /// <summary>
+    /// Called by <c>Departure</c> in SelectStage scene
+    /// </summary>
+    public void GetStageNum(int num)
     {
-        Debug.Log("Stage " + stageNum);
+        Debug.Log("Stage " + num);
+        stageNum = num;
+    }
+
+    private void SetEnemyUnit(Unit enemyUnit, int stageNum)
+    {
+        // ToDo: a function only for development. remove this.
+        if (stageNum == 0)
+        {
+            Debug.Log("redirect stageNum to 1.");
+            stageNum = 1;
+        }
+
+        var stageData = stageDatabase.GetStageData(stageNum);
+        enemyUnit.charaId = stageData.EnemyId;
+        enemyUnit.GetImage(stageData.EnemyId);
+        enemyUnit.unitName = charaBank.Characters[stageData.EnemyId].Name;
+        enemyUnit.unitLevel = stageData.EnemyLevel;
+        enemyUnit.offense = stageData.EnemyLevel * 10;
+        enemyUnit.maxHP = stageData.EnemyLevel * 100;
+        enemyUnit.currentHP = stageData.EnemyLevel * 100;
+    }
+
+    private void SetPlayerUnit(Unit playerUnit)
+    {
+        int charaId = partyManager.GetFirstMember();
+        playerUnit.charaId = charaId;
+        playerUnit.GetImage(charaId);
+        playerUnit.unitName = charaBank.Characters[charaId].Name;
+        playerUnit.unitLevel = charaBank.Characters[charaId].Level;
+        playerUnit.offense = charaBank.Characters[charaId].Level * 10;
+        playerUnit.maxHP = charaBank.Characters[charaId].Level * 100;
+        playerUnit.currentHP = charaBank.Characters[charaId].Level * 100;
     }
 
     void Start()
@@ -38,33 +79,38 @@ public class BattleSystem : MonoBehaviour
     {
         GameObject playerGO = Instantiate(playerPrefab, playerBattleStation);
         playerUnit = playerGO.GetComponent<Unit>();
+        SetPlayerUnit(playerUnit);
 
         GameObject enemyGO = Instantiate(enemyPrefab, enemyBattleStation);
         enemyUnit = enemyGO.GetComponent<Unit>();
+        SetEnemyUnit(enemyUnit, stageNum);
         
-        dialogText.text = "A wild " + enemyUnit.unitName + " approaches...";
+        yield return battleDialogBox.TypeDialog($"{enemyUnit.unitName} が あらわれた！");
 
         enemyHUD.SetHUD(enemyUnit);
 
-        yield return new WaitForSeconds(2f);
+        yield return new WaitForSeconds(1f);
 
         state = BattleState.PLAYERTURN;
-        PlayerTurn();
+        yield return PlayerTurn();
     }
 
     IEnumerator PlayerAttack()
     {
-        bool isDead = enemyUnit.TakeDamage(playerUnit.damage);
+        bool isDead = enemyUnit.TakeDamage(playerUnit.offense);
 
+        yield return StartCoroutine(battleDialogBox.TypeDialog("一般攻撃魔法を 使った！"));
         enemyHUD.UpdateHP(enemyUnit.currentHP);
-        dialogText.text = "The attack is successful!";
+
+        yield return new WaitForSeconds(1f);
+        yield return StartCoroutine(battleDialogBox.TypeDialog("こうげきが あたった！"));
 
         yield return new WaitForSeconds(2f);
 
         if (isDead)
         {
             state = BattleState.WON;
-            EndBattle();
+            yield return EndBattle();
         }
         else
         {
@@ -75,17 +121,20 @@ public class BattleSystem : MonoBehaviour
 
     IEnumerator PlayerSkillAttack()
     {
-        bool isDead = enemyUnit.TakeDamage(playerUnit.damage);
+        bool isDead = enemyUnit.TakeDamage(playerUnit.offense);
 
+        yield return StartCoroutine(battleDialogBox.TypeDialog("特殊攻撃魔法を 使った！"));
         enemyHUD.UpdateHP(enemyUnit.currentHP);
-        dialogText.text = "The attack is successful!";
+
+        yield return new WaitForSeconds(1f);
+        yield return StartCoroutine(battleDialogBox.TypeDialog("こうげきが あたった！"));
 
         yield return new WaitForSeconds(2f);
 
         if (isDead)
         {
             state = BattleState.WON;
-            EndBattle();
+            yield return EndBattle();
         }
         else
         {
@@ -94,9 +143,23 @@ public class BattleSystem : MonoBehaviour
         } 
     }
 
+    IEnumerator WaitInLine()
+    {
+        string message = $"{playerUnit.unitName} は 列の最後尾に 戻っていった。";
+        partyManager.WaitInLine();
+        SetPlayerUnit(playerUnit);
+
+        yield return StartCoroutine(battleDialogBox.TypeDialog(message));
+
+        yield return new WaitForSeconds(1f);
+
+        state = BattleState.PLAYERTURN;
+        yield return PlayerTurn();
+    }
+
     IEnumerator EnemyTurn()
     {
-        dialogText.text = enemyUnit.unitName + " attacks!";
+        yield return battleDialogBox.TypeDialog($"{enemyUnit.unitName} の こうげき！");
 
         yield return new WaitForSeconds(1f);
 
@@ -107,32 +170,55 @@ public class BattleSystem : MonoBehaviour
 
         if (isDead)
         {
-            state = BattleState.LOST;
-            EndBattle();
+            state = BattleState.BUSY;
+            StartCoroutine(WithdrawPlayer());
         }
         else
         {
             state = BattleState.PLAYERTURN;
-            PlayerTurn();
+            yield return PlayerTurn();
         }
-
     }
 
-    void EndBattle()
+    IEnumerator WithdrawPlayer()
+    {
+        partyManager.WithdrawMember();
+        yield return battleDialogBox.TypeDialog($"{playerUnit.unitName} は 帰っていった。");
+
+        yield return new WaitForSeconds(1f);
+
+        if (partyManager.IsAnihilated())
+        {
+            state = BattleState.LOST;
+            yield return EndBattle();
+        }
+        else
+        {
+            SetPlayerUnit(playerUnit);
+            state = BattleState.PLAYERTURN;
+
+            yield return new WaitForSeconds(1f);
+
+            yield return PlayerTurn();
+        }
+    }
+
+    IEnumerator EndBattle()
     {
         if (state == BattleState.WON)
         {
-            dialogText.text = "You won the battle!";
+            yield return battleDialogBox.TypeDialog($"{enemyUnit.unitName} に しょうりした！");
         }
         else if (state == BattleState.LOST)
         {
-            dialogText.text = "You were defeated.";
+            yield return battleDialogBox.TypeDialog("パーティ は ぜんめつした。");
         }
     }
 
-    void PlayerTurn()
+    IEnumerator PlayerTurn()
     {
-        dialogText.text = "Choose an action:";
+        yield return battleDialogBox.TypeDialog($"{playerUnit.unitName} は どうするか考えている...");
+        operationPanel.SetActive(true);
     }
 
 
@@ -147,6 +233,7 @@ public class BattleSystem : MonoBehaviour
 
         state = BattleState.BUSY; // workaround for multiple button presses
         StartCoroutine(PlayerAttack());
+        operationPanel.SetActive(false);
     }
 
     public void OnSkillAttackButton()
@@ -157,6 +244,7 @@ public class BattleSystem : MonoBehaviour
         }
 
         state = BattleState.BUSY;
+        operationPanel.SetActive(false);
         StartCoroutine(PlayerSkillAttack());
     }
 
@@ -175,6 +263,9 @@ public class BattleSystem : MonoBehaviour
         {
             return;
         }
-        return;
+        
+        state = BattleState.BUSY;
+        operationPanel.SetActive(false);
+        StartCoroutine(WaitInLine());
     }
 }
