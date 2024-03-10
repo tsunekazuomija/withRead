@@ -13,9 +13,19 @@ public class Agent : MonoBehaviour
 
     private List<int> _partyMemberIdx;
 
-    async void Start()
+    async public void Appear()
     {
         _partyMemberIdx = new List<int>(_party.PartyMemberIndex);
         _charaImage.sprite = await Addressables.LoadAssetAsync<Sprite>("Standing" + _partyMemberIdx[0] + ".png").Task;
+    }
+
+    public string Name()
+    {
+        return _charaBank.Characters[_partyMemberIdx[0]].Name;
+    }
+
+    public int Id()
+    {
+        return _partyMemberIdx[0];
     }
 }

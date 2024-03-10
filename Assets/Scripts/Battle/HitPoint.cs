@@ -15,6 +15,25 @@ public class HitPoint : MonoBehaviour
         Debug.Log("HP: " + hp);
     }
 
+    public void TakeDamage(int damage)
+    {
+        if (hpBar.value - damage < 0)
+        {
+            hpBar.value = 0;
+        }
+        else
+        {
+            hpBar.value -= damage;
+        }
+        Debug.Log("HP: " + hpBar.value);
+        return;
+    }
+
+    public bool IsDead()
+    {
+        return hpBar.value == 0;
+    }
+
     private static class Calc
     {
         public static int GetHP(int level)

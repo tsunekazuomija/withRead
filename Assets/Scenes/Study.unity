@@ -266,7 +266,7 @@ GameObject:
   - component: {fileID: 69007865}
   - component: {fileID: 69007864}
   m_Layer: 5
-  m_Name: Bubble
+  m_Name: DialogBox
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -899,9 +899,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   partyMemberIndex: 
-  saveButton: {fileID: 0}
   forInit: 0
-  forSwitch: 0
 --- !u!114 &317593995
 MonoBehaviour:
   m_ObjectHideFlags: 0
