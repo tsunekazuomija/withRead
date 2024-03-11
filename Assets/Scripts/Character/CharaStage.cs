@@ -12,6 +12,7 @@ public class CharaStage : MonoBehaviour
 
     [SerializeField] private GameObject[] memberStation;
     [SerializeField] private GameObject memberPrefab;
+    [SerializeField] private MPGage mpGage;
 
 
     async private void Start()
@@ -32,6 +33,7 @@ public class CharaStage : MonoBehaviour
 
             member.GetComponent<MemberUI>().GetAttention(i == 0);
         }
+        mpGage.SetGage(charaBank.Characters[partyIndexList[0]]);
     }
 
     private void SwitchAttention(int index)
@@ -41,5 +43,6 @@ public class CharaStage : MonoBehaviour
             Debug.Log($"i: {i}, index: {index}");
             memberStation[i].GetComponentInChildren<MemberUI>().GetAttention(i == index);
         }
+        mpGage.SetGage(charaBank.Characters[party.PartyMemberIndex[index]]);
     }
 }

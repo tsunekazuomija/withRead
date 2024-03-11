@@ -36,6 +36,10 @@ public class Character
         _mp = 0;
     }
 
+    public int MaxMP()
+    {
+        return Calc.MaxMP(_level);
+    }
 
     public int CapacityMP()
     {
