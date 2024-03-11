@@ -1,25 +1,25 @@
+using System.Collections.Generic;
 using UnityEngine;
 
 public class ApplyChara : MonoBehaviour
 {
     [SerializeField] private GameObject charaPrefab;
-    [SerializeField] private GameObject stage;
-    [SerializeField] private GameObject playerData;
+    [SerializeField] private MemberSelect memberSelect;
+    [SerializeField] private CharaBank charaBank;
 
-    private Character[] characters;
+    private Dictionary<int, Character> characters;
 
     void Start()
     {
-        SaveData saveData = playerData.GetComponent<PlayerData>().GetData();
-        characters = saveData.characters;
+        characters = charaBank.Characters;
 
-        foreach (var character in characters)
+        foreach (var character in characters.Values)
         {
-            if (character.isUnlocked)
+            if (character.IsUnlocked)
             {
                 GameObject chara = Instantiate(charaPrefab, transform);
                 chara.GetComponent<CharacterPanel>().SetCharacter(character);
-                chara.GetComponent<CharacterPanel>().SetStage(stage);
+                chara.GetComponent<CharacterPanel>().SetMemberSelect(memberSelect);
             }
         }
     }

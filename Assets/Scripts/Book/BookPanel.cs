@@ -8,20 +8,9 @@ public class BookPanel : MonoBehaviour
     [SerializeField] private GameObject title;
     [SerializeField] private GameObject progress;
 
-    public void SetBook(BookInfo book)
+    public void SetBook(Book book)
     {
-        title.GetComponent<TextMeshProUGUI>().text = book.title;
-        ShowProgress(book.progress_short);
-    }
-
-    public void ShowProgress(PageCell progressShort)
-    {
-        string progressText = "";
-        for (int i=0; i < progressShort.page_cnt.Length; ++i)
-        {
-            string colorCode = ColorManager.GetColorCodeInShort(progressShort.page_cnt[i], progressShort.min_read_times[i]);
-            progressText += $"<color=#{colorCode}>■</color>";
-        }
-        progress.GetComponent<TextMeshProUGUI>().text = progressText;
+        title.GetComponent<TextMeshProUGUI>().text = book.Title;
+        progress.GetComponent<TextMeshProUGUI>().text = book.ProgressInShortString();
     }
 }

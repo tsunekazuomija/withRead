@@ -1121,6 +1121,7 @@ MonoBehaviour:
   playerData: {fileID: 2060195417}
   popup: {fileID: 348598801}
   bookList: {fileID: 1003682573}
+  _bookShelf: {fileID: 2060195420}
 --- !u!1 &319972484
 GameObject:
   m_ObjectHideFlags: 0
@@ -2427,7 +2428,6 @@ GameObject:
   m_Component:
   - component: {fileID: 648825087}
   - component: {fileID: 648825088}
-  - component: {fileID: 648825089}
   m_Layer: 0
   m_Name: DeleteBookPopup
   m_TagString: Untagged
@@ -2464,24 +2464,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e773b0d0c8a2f415783d0ca6e9e6ccfc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  bookIdHolder: {fileID: 648825089}
   bookTitle: {fileID: 486601157}
   deleteButton: {fileID: 2121470756}
   cancelButton: {fileID: 1256014400}
   playerData: {fileID: 2060195417}
+  _editPopup: {fileID: 0}
   bookDisplay: {fileID: 1003682573}
---- !u!114 &648825089
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 648825086}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 008b7433cb7f44145877634ea9b81786, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &713575836
 GameObject:
   m_ObjectHideFlags: 0
@@ -3198,7 +3186,6 @@ GameObject:
   m_Component:
   - component: {fileID: 903001593}
   - component: {fileID: 903001595}
-  - component: {fileID: 903001594}
   m_Layer: 0
   m_Name: EditBookPopup
   m_TagString: Untagged
@@ -3223,18 +3210,6 @@ Transform:
   - {fileID: 893010825}
   m_Father: {fileID: 1970446364}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &903001594
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 903001592}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 008b7433cb7f44145877634ea9b81786, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &903001595
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3247,16 +3222,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8dbf46a3f3d014656824942249828652, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  bookIdHolder: {fileID: 903001594}
   bookTitle: {fileID: 713575836}
   deleteButton: {fileID: 860584754}
   cancelButton: {fileID: 245892785}
   applyButton: {fileID: 1511531080}
-  playerData: {fileID: 2060195417}
   newBookTitle: {fileID: 937378750}
   newBookPages: {fileID: 1195447214}
   bookDisplay: {fileID: 1003682573}
-  deletePopup: {fileID: 648825086}
+  deletePopup: {fileID: 648825088}
 --- !u!1 &937378748
 GameObject:
   m_ObjectHideFlags: 0
@@ -3580,8 +3553,8 @@ GameObject:
   m_Component:
   - component: {fileID: 1003682574}
   - component: {fileID: 1003682577}
-  - component: {fileID: 1003682575}
   - component: {fileID: 1003682578}
+  - component: {fileID: 1003682579}
   m_Layer: 5
   m_Name: Content
   m_TagString: Untagged
@@ -3608,21 +3581,6 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0.000061035156}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0, y: 1}
---- !u!114 &1003682575
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1003682573}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ec63a503508bf42f2903fa1a271f7e0c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  BookPrefab: {fileID: 7874733584314137426, guid: 267acd631a4a6424cae919ab41b47de9, type: 3}
-  popup: {fileID: 903001592}
-  playerData: {fileID: 2060195417}
 --- !u!114 &1003682577
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3663,6 +3621,21 @@ MonoBehaviour:
   m_ChildScaleWidth: 0
   m_ChildScaleHeight: 0
   m_ReverseArrangement: 0
+--- !u!114 &1003682579
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1003682573}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a622c12917f7c44a982395b23139c22d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  BookPrefab: {fileID: 7874733584314137426, guid: af1fb2f4c52244c6bbf84e49340e4310, type: 3}
+  editPopup: {fileID: 903001595}
+  bookShelf: {fileID: 2060195420}
 --- !u!1 &1052469769
 GameObject:
   m_ObjectHideFlags: 0
@@ -6323,7 +6296,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2060195419}
-  - component: {fileID: 2060195418}
+  - component: {fileID: 2060195420}
   m_Layer: 0
   m_Name: PlayerData
   m_TagString: Untagged
@@ -6331,18 +6304,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &2060195418
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2060195417}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b968225aae6374e31849db1acb6eec5a, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!4 &2060195419
 Transform:
   m_ObjectHideFlags: 0
@@ -6358,6 +6319,20 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &2060195420
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2060195417}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f4ca892d66a154ba6a4a9aaf3308f733, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  bookArray: []
+  forInit: 0
 --- !u!1 &2088390046
 GameObject:
   m_ObjectHideFlags: 0
