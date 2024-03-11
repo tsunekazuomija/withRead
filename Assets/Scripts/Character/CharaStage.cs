@@ -4,28 +4,42 @@ using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.AddressableAssets;
 
+
 public class CharaStage : MonoBehaviour
 {
-    private int charaId;
-    //private Image charaImage;
-    private Image charaImage;
+    [SerializeField] private Party party;
+    [SerializeField] private CharaBank charaBank;
 
-    async void Start()
+    [SerializeField] private GameObject[] memberStation;
+    [SerializeField] private GameObject memberPrefab;
+
+
+    async private void Start()
     {
-        charaImage = this.GetComponent<Image>();
+        int[] partyIndexList = party.PartyMemberIndex;
 
-        charaId = PlayerPrefs.GetInt("charaId", 1);
-        charaImage.sprite = await Addressables.LoadAssetAsync<Sprite>("Standing" + charaId + ".png").Task;
+        for (int i = 0; i < partyIndexList.Length; i++)
+        {
+            memberStation[i].SetActive(true);
+        }
+
+        for (int i = 0; i < partyIndexList.Length; i++)
+        {
+            GameObject member = Instantiate(memberPrefab, memberStation[i].transform);
+            member.GetComponent<Image>().sprite = await Addressables.LoadAssetAsync<Sprite>("Standing" + partyIndexList[i] + ".png").Task;
+            int index = i;
+            member.GetComponent<Button>().onClick.AddListener(() => SwitchAttention(index));
+
+            member.GetComponent<MemberUI>().GetAttention(i == 0);
+        }
     }
 
-    async public void SwitchCharacter(int id)
+    private void SwitchAttention(int index)
     {
-        if (id == charaId)
+        for (int i = 0; i < memberStation.Length; i++)
         {
-            return;
+            Debug.Log($"i: {i}, index: {index}");
+            memberStation[i].GetComponentInChildren<MemberUI>().GetAttention(i == index);
         }
-        charaId = id;
-        charaImage.sprite = await Addressables.LoadAssetAsync<Sprite>("Standing" + charaId + ".png").Task;
-        PlayerPrefs.SetInt("charaId", charaId);
     }
 }
