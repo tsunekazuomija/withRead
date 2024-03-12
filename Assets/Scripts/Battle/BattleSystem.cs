@@ -102,13 +102,20 @@ public class BattleSystem : MonoBehaviour
 
     IEnumerator PlayerAttack()
     {
-        bool isDead = enemyUnit.TakeDamage(playerUnit.offense);
-
         yield return battleDialogBox.TypeDialog("一般攻撃魔法を 使った！");
-        enemyHUD.UpdateHP(enemyUnit.currentHP);
-
         yield return new WaitForSeconds(1f);
-        yield return battleDialogBox.TypeDialog("こうげきが あたった！");
+        bool isDead = false;
+        for (int i = 0; i < 3; i++)
+        {
+            isDead = enemyUnit.TakeDamage(playerUnit.offense);
+            enemyHUD.UpdateHP(enemyUnit.currentHP);
+            yield return battleDialogBox.TypeDialog("こうげきが あたった！");
+            yield return new WaitForSeconds(1f);
+            if (isDead)
+            {
+                break;
+            }
+        }
 
         yield return new WaitForSeconds(2f);
 
