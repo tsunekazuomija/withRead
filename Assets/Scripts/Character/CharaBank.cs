@@ -142,6 +142,12 @@ public class CharaBank : MonoBehaviour
         Save();
     }
 
+    public void SpendAllMagicPoint(int charaId)
+    {
+        _characterDict[charaId].SpendAllMagicPoint();
+        Save();
+    }
+
     private static class Calc
     {
         public static int GetMPFromPage(int pageNum)

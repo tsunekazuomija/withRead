@@ -59,6 +59,12 @@ public class Character
         return;
     }
 
+    public void SpendAllMagicPoint()
+    {
+        _mp = 0;
+        return;
+    }
+
 
     /// <summary>
     /// 経験値を加算する。同時にレベルアップの処理も行う。

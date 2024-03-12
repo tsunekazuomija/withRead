@@ -126,10 +126,14 @@ public class BattleSystem : MonoBehaviour
 
     IEnumerator PlayerSkillAttack()
     {
-        bool isDead = enemyUnit.TakeDamage(playerUnit.offense);
+        int skillOffense = (int) (3 * playerUnit.offense + 0.4f * playerUnit.currentMP * (1 + playerUnit.unitLevel * 0.2f));
+        bool isDead = enemyUnit.TakeDamage(skillOffense);
+        charaBank.SpendAllMagicPoint(playerUnit.charaId);
+        playerUnit.currentMP = 0;
 
         yield return battleDialogBox.TypeDialog("特殊攻撃魔法を 使った！");
         enemyHUD.UpdateHP(enemyUnit.currentHP);
+        playerHUD.UpdateMP(playerUnit.currentMP);
 
         yield return new WaitForSeconds(1f);
         yield return battleDialogBox.TypeDialog("こうげきが あたった！");
@@ -201,6 +205,7 @@ public class BattleSystem : MonoBehaviour
         else
         {
             SetPlayerUnit(playerUnit);
+            playerHUD.SetMP(playerUnit);
             state = BattleState.PLAYERTURN;
 
             yield return new WaitForSeconds(1f);
