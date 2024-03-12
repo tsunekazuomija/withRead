@@ -1,7 +1,6 @@
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
-using System.Collections;
 
 /// <summary>
 /// This class is assigned to the popup window.
@@ -25,14 +24,14 @@ public class ProgressPopup : MonoBehaviour
     [SerializeField] private Button registerButton;
 
     [SerializeField] private ApplyBookProgress abp;
+    [SerializeField] private StudySystem studySystem;
 
     public void Awake()
     {
         registerButton.onClick.AddListener(() =>
         {
-            RegisterProgress();
-            Debug.Log("read page: " + ((int)slider2.value - (int)slider1.value + 1));
-            RegisterMP((int)slider2.value - (int)slider1.value + 1);
+            gameObject.SetActive(false);
+            studySystem.Study(_book.Id, (int)slider1.value, (int)slider2.value);
         });
     }
 
@@ -69,30 +68,5 @@ public class ProgressPopup : MonoBehaviour
             s1.value = book.PageNum;
             s2.value = book.PageNum;
         }
-    }
-
-    private void RegisterProgress()
-    {
-        int startPage = (int) slider1.value;
-        int endPage = (int) slider2.value;
-        if (endPage < startPage)
-        {
-            Debug.Log("num of start page is larger than that of end page");
-            return;
-        }
-
-        _bookShelf.RegisterProgress(_book.Id, startPage, endPage);
-    }
-
-    private void RegisterMP(int pageRead)
-    {
-        string[] strArray = _charaBank.GainMagicPoint(_party.PartyMemberIndex, pageRead);
-        for (int i = 0; i < strArray.Length; i++)
-        {
-            Debug.Log(strArray[i]);
-        }
-
-        gameObject.SetActive(false);
-        abp.Refresh();
     }
 }

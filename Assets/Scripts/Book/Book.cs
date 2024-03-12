@@ -115,7 +115,7 @@ public class Book
                 minReadTimes[i] = 0;
                 for (int j = 0; j < 10; ++j)
                 {
-                    if (i * 10 + j > endPage) // finish if exceed endPage
+                    if (i * 10 + j > _pageNum - 1)
                     {
                         break;
                     }
