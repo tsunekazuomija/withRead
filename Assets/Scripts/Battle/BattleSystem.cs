@@ -13,19 +13,21 @@ public class BattleSystem : MonoBehaviour
     [SerializeField] private CharaBank charaBank;
     [SerializeField] private PartyManager partyManager;
 
-    public GameObject playerPrefab;
-    public GameObject enemyPrefab;
+    public GameObject unitPrefab;
 
     public Transform playerBattleStation;
     public Transform enemyBattleStation;
 
+    [Header("UI")]
+
     [SerializeField] private BattleDialogBox battleDialogBox;
     [SerializeField] private GameObject operationPanel;
 
-    public Unit playerUnit;
-    public Unit enemyUnit;
+    private Unit playerUnit;
+    private Unit enemyUnit;
 
-    public BattleHUD enemyHUD;
+    [SerializeField]private BattleHUD enemyHUD;
+    [SerializeField]private BattleHUD playerHUD;
 
     private int stageNum;
 
@@ -77,11 +79,11 @@ public class BattleSystem : MonoBehaviour
 
     IEnumerator SetupBattle()
     {
-        GameObject playerGO = Instantiate(playerPrefab, playerBattleStation);
+        GameObject playerGO = Instantiate(unitPrefab, playerBattleStation);
         playerUnit = playerGO.GetComponent<Unit>();
         SetPlayerUnit(playerUnit);
 
-        GameObject enemyGO = Instantiate(enemyPrefab, enemyBattleStation);
+        GameObject enemyGO = Instantiate(unitPrefab, enemyBattleStation);
         enemyUnit = enemyGO.GetComponent<Unit>();
         SetEnemyUnit(enemyUnit, stageNum);
         
