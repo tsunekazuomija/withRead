@@ -15,6 +15,9 @@ public class Unit : MonoBehaviour
     public int maxHP;
     public int currentHP;
 
+    public int maxMP;
+    public int currentMP;
+
     [SerializeField] private GameObject imagePanel;
 
     async public void GetImage(int charaId)

@@ -13,19 +13,21 @@ public class BattleSystem : MonoBehaviour
     [SerializeField] private CharaBank charaBank;
     [SerializeField] private PartyManager partyManager;
 
-    public GameObject playerPrefab;
-    public GameObject enemyPrefab;
+    public GameObject unitPrefab;
 
     public Transform playerBattleStation;
     public Transform enemyBattleStation;
 
+    [Header("UI")]
+
     [SerializeField] private BattleDialogBox battleDialogBox;
     [SerializeField] private GameObject operationPanel;
 
-    public Unit playerUnit;
-    public Unit enemyUnit;
+    private Unit playerUnit;
+    private Unit enemyUnit;
 
-    public BattleHUD enemyHUD;
+    [SerializeField]private BattleHUD enemyHUD;
+    [SerializeField]private BattleHUD playerHUD;
 
     private int stageNum;
 
@@ -67,6 +69,8 @@ public class BattleSystem : MonoBehaviour
         playerUnit.offense = charaBank.Characters[charaId].Level * 10;
         playerUnit.maxHP = charaBank.Characters[charaId].Level * 100;
         playerUnit.currentHP = charaBank.Characters[charaId].Level * 100;
+        playerUnit.maxMP = charaBank.Characters[charaId].MaxMP();
+        playerUnit.currentMP = charaBank.Characters[charaId].MP;
     }
 
     void Start()
@@ -77,16 +81,17 @@ public class BattleSystem : MonoBehaviour
 
     IEnumerator SetupBattle()
     {
-        GameObject playerGO = Instantiate(playerPrefab, playerBattleStation);
+        GameObject playerGO = Instantiate(unitPrefab, playerBattleStation);
         playerUnit = playerGO.GetComponent<Unit>();
         SetPlayerUnit(playerUnit);
 
-        GameObject enemyGO = Instantiate(enemyPrefab, enemyBattleStation);
+        GameObject enemyGO = Instantiate(unitPrefab, enemyBattleStation);
         enemyUnit = enemyGO.GetComponent<Unit>();
         SetEnemyUnit(enemyUnit, stageNum);
         
         yield return battleDialogBox.TypeDialog($"{enemyUnit.unitName} が あらわれた！");
 
+        playerHUD.SetMP(playerUnit);
         enemyHUD.SetHUD(enemyUnit);
 
         yield return new WaitForSeconds(1f);
@@ -97,13 +102,20 @@ public class BattleSystem : MonoBehaviour
 
     IEnumerator PlayerAttack()
     {
-        bool isDead = enemyUnit.TakeDamage(playerUnit.offense);
-
-        yield return StartCoroutine(battleDialogBox.TypeDialog("一般攻撃魔法を 使った！"));
-        enemyHUD.UpdateHP(enemyUnit.currentHP);
-
+        yield return battleDialogBox.TypeDialog("一般攻撃魔法を 使った！");
         yield return new WaitForSeconds(1f);
-        yield return StartCoroutine(battleDialogBox.TypeDialog("こうげきが あたった！"));
+        bool isDead = false;
+        for (int i = 0; i < 3; i++)
+        {
+            isDead = enemyUnit.TakeDamage(playerUnit.offense);
+            enemyHUD.UpdateHP(enemyUnit.currentHP);
+            yield return battleDialogBox.TypeDialog("こうげきが あたった！");
+            yield return new WaitForSeconds(1f);
+            if (isDead)
+            {
+                break;
+            }
+        }
 
         yield return new WaitForSeconds(2f);
 
@@ -121,13 +133,17 @@ public class BattleSystem : MonoBehaviour
 
     IEnumerator PlayerSkillAttack()
     {
-        bool isDead = enemyUnit.TakeDamage(playerUnit.offense);
+        int skillOffense = (int) (3 * playerUnit.offense + 0.4f * playerUnit.currentMP * (1 + playerUnit.unitLevel * 0.2f));
+        bool isDead = enemyUnit.TakeDamage(skillOffense);
+        charaBank.SpendAllMagicPoint(playerUnit.charaId);
+        playerUnit.currentMP = 0;
 
-        yield return StartCoroutine(battleDialogBox.TypeDialog("特殊攻撃魔法を 使った！"));
+        yield return battleDialogBox.TypeDialog("特殊攻撃魔法を 使った！");
         enemyHUD.UpdateHP(enemyUnit.currentHP);
+        playerHUD.UpdateMP(playerUnit.currentMP);
 
         yield return new WaitForSeconds(1f);
-        yield return StartCoroutine(battleDialogBox.TypeDialog("こうげきが あたった！"));
+        yield return battleDialogBox.TypeDialog("こうげきが あたった！");
 
         yield return new WaitForSeconds(2f);
 
@@ -148,8 +164,9 @@ public class BattleSystem : MonoBehaviour
         string message = $"{playerUnit.unitName} は 列の最後尾に 戻っていった。";
         partyManager.WaitInLine();
         SetPlayerUnit(playerUnit);
+        playerHUD.SetMP(playerUnit);
 
-        yield return StartCoroutine(battleDialogBox.TypeDialog(message));
+        yield return battleDialogBox.TypeDialog(message);
 
         yield return new WaitForSeconds(1f);
 
@@ -195,6 +212,7 @@ public class BattleSystem : MonoBehaviour
         else
         {
             SetPlayerUnit(playerUnit);
+            playerHUD.SetMP(playerUnit);
             state = BattleState.PLAYERTURN;
 
             yield return new WaitForSeconds(1f);
@@ -244,8 +262,8 @@ public class BattleSystem : MonoBehaviour
         }
 
         state = BattleState.BUSY;
-        operationPanel.SetActive(false);
         StartCoroutine(PlayerSkillAttack());
+        operationPanel.SetActive(false);
     }
 
     public void OnCallButton()
