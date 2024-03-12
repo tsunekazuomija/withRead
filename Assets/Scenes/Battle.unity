@@ -2361,6 +2361,7 @@ MonoBehaviour:
   state: 0
   stageDatabase: {fileID: 11400000, guid: 91fea4aa6b7d341848c5e1943c816c20, type: 2}
   charaBank: {fileID: 655371237}
+  party: {fileID: 655371238}
   partyManager: {fileID: 1281516006}
   previousBattle: {fileID: 655371240}
   unitPrefab: {fileID: 2835198654162367165, guid: 2e4fcc2ab0e4345f0b4512be2402e556, type: 3}

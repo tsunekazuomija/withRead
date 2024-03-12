@@ -148,6 +148,15 @@ public class CharaBank : MonoBehaviour
         Save();
     }
 
+    public void GainExp(int charaId, int exp)
+    {
+        if (exp <= 0)
+            return;
+
+        _characterDict[charaId].GainExp(exp);
+        Save();
+    }
+
     private static class Calc
     {
         public static int GetMPFromPage(int pageNum)
