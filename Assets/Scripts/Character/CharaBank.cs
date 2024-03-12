@@ -133,45 +133,13 @@ public class CharaBank : MonoBehaviour
         LoadToCharacterDict();
     }
 
-    public string[] GainMagicPoint(int[] partyMemberIndex, int pageRead)
+    public void GainMagicPoint(int charaId, int mp)
     {
-        int remainingMP = pageRead * 5;
-        List<int> remainingMember = new(partyMemberIndex);
-
-        var messages = new List<string>();
-
-        while (remainingMember.Count > 0)
-        {
-            int remainingNumTmp = remainingMember.Count;
-            int remainingMPtmp = remainingMP;
-
-            List<int> memberTmp = new(remainingMember);
-            foreach (var idx in remainingMember)
-            {
-                if (_characterDict[idx].CapacityMP() < remainingMPtmp/remainingNumTmp)
-                {
-                    remainingMP -= _characterDict[idx].CapacityMP();
-                    messages = messages.Concat(_characterDict[idx].GainMagicPoint(_characterDict[idx].CapacityMP())).ToList();
-                    memberTmp.Remove(idx);
-                }
-            }
-            remainingMember = memberTmp;
-
-            Debug.Log(remainingMember.Count);
-            Debug.Log(remainingNumTmp);
-            if (remainingMember.Count == remainingNumTmp)
-            {
-                Debug.Log(remainingMember);
-                foreach (var idx in remainingMember)
-                {
-                    messages=messages.Concat(_characterDict[idx].GainMagicPoint(remainingMPtmp/remainingNumTmp)).ToList();
-                }
-                remainingMember.Clear();
-            }
-
-        }
+        if (mp <= 0)
+            return;
+        
+        _characterDict[charaId].GainMagicPoint(mp);
         Save();
-        return messages.ToArray();
     }
 
     private static class Calc

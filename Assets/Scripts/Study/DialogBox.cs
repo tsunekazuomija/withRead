@@ -1,19 +1,22 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.UI;
 using TMPro;
 
-// todo: dialogboxと機能が同じなら、共通化できるかも
-public class BattleDialogBox : MonoBehaviour
+public class DialogBox : MonoBehaviour
 {
     [SerializeField] private TextMeshProUGUI dialogText;
     [SerializeField] int letterPerSecond;
 
-    // public void SetDialog(string dialog)
-    // {
-    //     dialogText.text = dialog;
-    // }
+    private void Start()
+    {
+        dialogText.text = "";
+    }
+
+    public void SetDialog(string dialog)
+    {
+        dialogText.text = dialog;
+    }
 
     public IEnumerator TypeDialog(string dialog)
     {

@@ -36,30 +36,27 @@ public class Character
         _mp = 0;
     }
 
+    public int MaxMP()
+    {
+        return Calc.MaxMP(_level);
+    }
 
     public int CapacityMP()
     {
         return Calc.MaxMP(_level) - _mp;
     }
 
-    public string[] GainMagicPoint(int mp)
+    public void GainMagicPoint(int mp)
     {
-        var messages = new List<string>();
         int mpTmp = _mp + mp;
         if (mpTmp > Calc.MaxMP(_level))
         {
             Debug.Log("Invalid input: exceeded max mp");
-            return messages.ToArray();
+            return;
         }
 
         _mp = mpTmp;
-        messages.Add($"{_name} は {mp} の魔力を獲得した.\n");
-
-        if (mpTmp == Calc.MaxMP(_level))
-        {
-            messages.Add($"{_name} の魔力が満タンになった.\n");
-        }
-        return messages.ToArray();
+        return;
     }
 
 
