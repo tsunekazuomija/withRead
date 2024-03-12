@@ -291,6 +291,7 @@ MonoBehaviour:
   refBookShelf: {fileID: 376852333}
   refCharaBank: {fileID: 376852330}
   refParty: {fileID: 376852332}
+  refPreviousBattle: {fileID: 376852335}
 --- !u!1 &260752613
 GameObject:
   m_ObjectHideFlags: 0
@@ -438,6 +439,7 @@ GameObject:
   - component: {fileID: 376852332}
   - component: {fileID: 376852333}
   - component: {fileID: 376852334}
+  - component: {fileID: 376852335}
   m_Layer: 0
   m_Name: DataReference
   m_TagString: Untagged
@@ -487,7 +489,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   partyMemberIndex: 
-  saveButton: {fileID: 0}
   forInit: 1
 --- !u!114 &376852333
 MonoBehaviour:
@@ -515,7 +516,26 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4345416c74956484397d8edd28af0888, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _name: 
+  _exp: 0
+  _level: 0
   _forInit: 1
+--- !u!114 &376852335
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 376852329}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a0f250637bcbe439a94cb120905df2fb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  isBattleFinished: 0
+  forInit: 1
+  stageNum: 0
+  enemyHP: 0
 --- !u!1 &593179761
 GameObject:
   m_ObjectHideFlags: 0

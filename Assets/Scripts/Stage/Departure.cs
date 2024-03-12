@@ -11,4 +11,10 @@ public class Departure : MonoBehaviour
         var battleSystem = await SceneLoader.Load<BattleSystem>("Battle");
         battleSystem.GetStageNum(stage);
     }
+
+    public async void Resume(int stageNum, int enemyHP)
+    {
+        var battleSystem = await SceneLoader.Load<BattleSystem>("Battle");
+        battleSystem.GetPreviousBattleData(stageNum, enemyHP);
+    }
 }

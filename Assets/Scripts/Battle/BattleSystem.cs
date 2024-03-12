@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 
 public enum BattleState { START, PLAYERTURN, ENEMYTURN, BUSY, WON, LOST }
@@ -12,6 +13,7 @@ public class BattleSystem : MonoBehaviour
     [SerializeField] private StageDatabase stageDatabase;
     [SerializeField] private CharaBank charaBank;
     [SerializeField] private PartyManager partyManager;
+    [SerializeField] private PreviousBattle previousBattle;
 
     public GameObject unitPrefab;
 
@@ -31,6 +33,9 @@ public class BattleSystem : MonoBehaviour
 
     private int stageNum;
 
+    private bool resumed;
+    private int remainingEnemyHP;  // use only when the battle is resumed
+
     /// <summary>
     /// Called by <c>Departure</c> in SelectStage scene
     /// </summary>
@@ -38,6 +43,13 @@ public class BattleSystem : MonoBehaviour
     {
         Debug.Log("Stage " + num);
         stageNum = num;
+    }
+
+    public void GetPreviousBattleData(int stage, int enemyHP)
+    {
+        resumed = true;
+        stageNum = stage;
+        remainingEnemyHP = enemyHP;
     }
 
     private void SetEnemyUnit(Unit enemyUnit, int stageNum)
@@ -56,7 +68,14 @@ public class BattleSystem : MonoBehaviour
         enemyUnit.unitLevel = stageData.EnemyLevel;
         enemyUnit.offense = stageData.EnemyLevel * 10;
         enemyUnit.maxHP = stageData.EnemyLevel * 100;
-        enemyUnit.currentHP = stageData.EnemyLevel * 100;
+        if (resumed)
+        {
+            enemyUnit.currentHP = remainingEnemyHP;
+        }
+        else
+        {
+            enemyUnit.currentHP = stageData.EnemyLevel * 100;
+        }
     }
 
     private void SetPlayerUnit(Unit playerUnit)
@@ -180,7 +199,7 @@ public class BattleSystem : MonoBehaviour
 
         yield return new WaitForSeconds(1f);
 
-        bool isDead = true; // playerUnit.TakeDamage(enemyUnit.damage);
+        bool isDead = true;
         // 疲れて帰っていく
 
         yield return new WaitForSeconds(1f);
@@ -190,7 +209,7 @@ public class BattleSystem : MonoBehaviour
             state = BattleState.BUSY;
             StartCoroutine(WithdrawPlayer());
         }
-        else
+        else // ここには来ない
         {
             state = BattleState.PLAYERTURN;
             yield return PlayerTurn();
@@ -225,11 +244,16 @@ public class BattleSystem : MonoBehaviour
     {
         if (state == BattleState.WON)
         {
+            previousBattle.BattleFinished();
             yield return battleDialogBox.TypeDialog($"{enemyUnit.unitName} に しょうりした！");
         }
         else if (state == BattleState.LOST)
         {
+            previousBattle.BattleStopped(stageNum, enemyUnit.currentHP);
             yield return battleDialogBox.TypeDialog("パーティ は ぜんめつした。");
+            yield return new WaitForSeconds(1f);
+            yield return battleDialogBox.TypeDialog("退却 します。");
+            SceneManager.LoadScene("Study");
         }
     }
 
