@@ -276,7 +276,7 @@ public class BattleSystem : MonoBehaviour
             previousBattle.BattleStopped(stageNum, enemyUnit.currentHP);
             yield return battleDialogBox.TypeDialog("パーティ は ぜんめつした。");
             yield return new WaitForSeconds(1f);
-            yield return battleDialogBox.TypeDialog("退却 します。");
+            yield return battleDialogBox.TypeDialog("きかん します。");
             SceneManager.LoadScene("Study");
         }
     }
