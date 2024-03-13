@@ -39,12 +39,10 @@ public class StudySystem : MonoBehaviour
         public int charaIndex;
         public int mpCapacity;
         public int mpGain;
-        public string message;
     }
 
     private IEnumerator RegisterMagicPoint(int mp)
     {
-        Debug.Log("called");
         int remainingMP = mp;
 
         List<DistMP> distMPList = new();

@@ -932,6 +932,7 @@ GameObject:
   - component: {fileID: 655371239}
   - component: {fileID: 655371238}
   - component: {fileID: 655371237}
+  - component: {fileID: 655371240}
   m_Layer: 0
   m_Name: PlayerData
   m_TagString: Untagged
@@ -982,6 +983,22 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &655371240
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 655371236}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a0f250637bcbe439a94cb120905df2fb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  isBattleFinished: 0
+  forInit: 0
+  stageNum: 0
+  enemyHP: 0
 --- !u!1 &931500065
 GameObject:
   m_ObjectHideFlags: 0
@@ -2344,7 +2361,9 @@ MonoBehaviour:
   state: 0
   stageDatabase: {fileID: 11400000, guid: 91fea4aa6b7d341848c5e1943c816c20, type: 2}
   charaBank: {fileID: 655371237}
+  party: {fileID: 655371238}
   partyManager: {fileID: 1281516006}
+  previousBattle: {fileID: 655371240}
   unitPrefab: {fileID: 2835198654162367165, guid: 2e4fcc2ab0e4345f0b4512be2402e556, type: 3}
   playerBattleStation: {fileID: 2107306914}
   enemyBattleStation: {fileID: 965388508}

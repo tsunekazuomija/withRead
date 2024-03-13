@@ -66,23 +66,20 @@ public class Character
     }
 
 
-    /// <summary>
-    /// 経験値を加算する。同時にレベルアップの処理も行う。
-    /// </summary>
-    /// <returns>
-    /// string[] 獲得した経験値、レベルアップのメッセージを返す。
-    /// </returns>
-    public string[] GainExp(int exp)
+    public int CapacityExp()
     {
-        var messages = new List<string>();
+        return Params.MaxExp - _exp;
+    }
+
+    public void GainExp(int exp)
+    {
         _exp += exp;
-        messages.Add($"{_name} は {exp} の経験値を獲得した.\n");
         if (WillLevelUp(exp))
         {
             _level = Calc.CalculateLevel(_exp);
-            messages.Add($"{_name} は レベル{_level} になった.\n");
+            Debug.Log($"{_name} は レベル{_level} になった.\n");
         }
-        return messages.ToArray();
+        return;
     }
 
     /// <summary>
@@ -125,5 +122,6 @@ public class Character
     private static class Params
     {
         public static int MaxLevel = 20;
+        public static int MaxExp = (MaxLevel-1) * 200;
     }
 }

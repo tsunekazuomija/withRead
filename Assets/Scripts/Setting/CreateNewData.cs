@@ -10,10 +10,12 @@ public class CreateNewData : MonoBehaviour
     [SerializeField] private GameObject inputUserName;
     [SerializeField] private SCENE mainScene;
 
+    [Header("DataReference")]
     [SerializeField] private User refUser;
     [SerializeField] private BookShelf refBookShelf;
     [SerializeField] private CharaBank refCharaBank;
     [SerializeField] private Party refParty;
+    [SerializeField] private PreviousBattle refPreviousBattle;
 
     void Start()
     {
@@ -32,6 +34,7 @@ public class CreateNewData : MonoBehaviour
         CreateBookShelf();
         CreateCharaBank();
         CreateParty();
+        CreatePreviousBattle();
 
         SceneManager.LoadScene(mainScene.ToString());
     }
@@ -62,6 +65,11 @@ public class CreateNewData : MonoBehaviour
         refParty.Init(
             Params.initialParty
         );
+    }
+
+    private void CreatePreviousBattle()
+    {
+        refPreviousBattle.Init();
     }
 
 

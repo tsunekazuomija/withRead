@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 
 public enum BattleState { START, PLAYERTURN, ENEMYTURN, BUSY, WON, LOST }
@@ -11,7 +12,9 @@ public class BattleSystem : MonoBehaviour
 
     [SerializeField] private StageDatabase stageDatabase;
     [SerializeField] private CharaBank charaBank;
+    [SerializeField] private Party party;
     [SerializeField] private PartyManager partyManager;
+    [SerializeField] private PreviousBattle previousBattle;
 
     public GameObject unitPrefab;
 
@@ -31,6 +34,9 @@ public class BattleSystem : MonoBehaviour
 
     private int stageNum;
 
+    private bool resumed;
+    private int remainingEnemyHP;  // use only when the battle is resumed
+
     /// <summary>
     /// Called by <c>Departure</c> in SelectStage scene
     /// </summary>
@@ -38,6 +44,25 @@ public class BattleSystem : MonoBehaviour
     {
         Debug.Log("Stage " + num);
         stageNum = num;
+    }
+
+    public void LoadParty(bool overWrite, List<int> partyIndexList)
+    {
+        if (overWrite)
+        {
+            partyManager.LoadFromList(partyIndexList);
+        }
+        else
+        {
+            partyManager.Load();
+        }
+    }
+
+    public void GetPreviousBattleData(int stage, int enemyHP)
+    {
+        resumed = true;
+        stageNum = stage;
+        remainingEnemyHP = enemyHP;
     }
 
     private void SetEnemyUnit(Unit enemyUnit, int stageNum)
@@ -56,7 +81,14 @@ public class BattleSystem : MonoBehaviour
         enemyUnit.unitLevel = stageData.EnemyLevel;
         enemyUnit.offense = stageData.EnemyLevel * 10;
         enemyUnit.maxHP = stageData.EnemyLevel * 100;
-        enemyUnit.currentHP = stageData.EnemyLevel * 100;
+        if (resumed)
+        {
+            enemyUnit.currentHP = remainingEnemyHP;
+        }
+        else
+        {
+            enemyUnit.currentHP = stageData.EnemyLevel * 100;
+        }
     }
 
     private void SetPlayerUnit(Unit playerUnit)
@@ -180,7 +212,7 @@ public class BattleSystem : MonoBehaviour
 
         yield return new WaitForSeconds(1f);
 
-        bool isDead = true; // playerUnit.TakeDamage(enemyUnit.damage);
+        bool isDead = true;
         // 疲れて帰っていく
 
         yield return new WaitForSeconds(1f);
@@ -190,7 +222,7 @@ public class BattleSystem : MonoBehaviour
             state = BattleState.BUSY;
             StartCoroutine(WithdrawPlayer());
         }
-        else
+        else // ここには来ない
         {
             state = BattleState.PLAYERTURN;
             yield return PlayerTurn();
@@ -223,13 +255,29 @@ public class BattleSystem : MonoBehaviour
 
     IEnumerator EndBattle()
     {
+        async void Clear()
+        {
+            var clearFlag = await SceneLoader.Load<ClearFlag>("StageSelect");
+            clearFlag.GetRemainingMember(partyManager.PartyIndexList);
+            Debug.Log(partyManager.PartyIndexList.Count);
+        }
+
         if (state == BattleState.WON)
         {
+            previousBattle.BattleFinished();
             yield return battleDialogBox.TypeDialog($"{enemyUnit.unitName} に しょうりした！");
+            yield return new WaitForSeconds(1f);
+            yield return RegisterExperience(enemyUnit.unitLevel * 100);
+
+            Clear();
         }
         else if (state == BattleState.LOST)
         {
+            previousBattle.BattleStopped(stageNum, enemyUnit.currentHP);
             yield return battleDialogBox.TypeDialog("パーティ は ぜんめつした。");
+            yield return new WaitForSeconds(1f);
+            yield return battleDialogBox.TypeDialog("きかん します。");
+            SceneManager.LoadScene("Study");
         }
     }
 
@@ -285,5 +333,103 @@ public class BattleSystem : MonoBehaviour
         state = BattleState.BUSY;
         operationPanel.SetActive(false);
         StartCoroutine(WaitInLine());
+    }
+
+    private class DistExp
+    {
+        public int partyIndex;
+        public int charaIndex;
+        public int expCapacity;
+        public int expGain;
+        public int beforeLevel;
+        public int afterLevel;
+    }
+
+    private IEnumerator RegisterExperience(int exp)
+    {
+        int remainingExp = exp;
+
+        List<DistExp> distExpList = new();
+
+        for (int i = 0; i < party.PartyMemberIndex.Length; i++)
+        {
+            distExpList.Add(new DistExp
+            {
+                partyIndex = i,
+                charaIndex = party.PartyMemberIndex[i],
+                expCapacity = charaBank.Characters[party.PartyMemberIndex[i]].CapacityExp(),
+                expGain = 0,
+                beforeLevel = charaBank.Characters[party.PartyMemberIndex[i]].Level,
+                afterLevel = charaBank.Characters[party.PartyMemberIndex[i]].Level,
+            });
+        }
+
+
+        // distExpListをCapacityExpが小さい順にソート
+        for (int i = 0; i < distExpList.Count; i++)
+        {
+            int indexTmp = i;
+            for (int j = i + 1; j < distExpList.Count; j++)
+            {
+                if (distExpList[j].expCapacity < distExpList[indexTmp].expCapacity)
+                {
+                    indexTmp = j;
+                }
+            }
+            var tmp = distExpList[i];
+            distExpList[i] = distExpList[indexTmp];
+            distExpList[indexTmp] = tmp;
+        }
+
+        int remainingMember = distExpList.Count;
+        for (int i=0; i<distExpList.Count; i++)
+        {
+            if (distExpList[i].expCapacity == 0)
+            {
+                // 経験値が最大まで溜まっている
+                remainingMember--;
+                continue;
+            }
+
+            if (remainingExp / remainingMember > distExpList[i].expCapacity)
+            {
+                distExpList[i].expGain = distExpList[i].expCapacity;
+                remainingExp -= distExpList[i].expCapacity;
+                remainingMember--;
+            }
+            else
+            {
+                distExpList[i].expGain = remainingExp / remainingMember;
+                remainingExp -= distExpList[i].expGain;
+                remainingMember--;
+            }
+        }
+
+        // distExpListをpartyIndexが小さい順にソート
+        for (int i = 0; i < distExpList.Count; i++)
+        {
+            int indexTmp = i;
+            for (int j = i + 1; j < distExpList.Count; j++)
+            {
+                if (distExpList[j].partyIndex < distExpList[indexTmp].partyIndex)
+                {
+                    indexTmp = j;
+                }
+            }
+            (distExpList[indexTmp], distExpList[i]) = (distExpList[i], distExpList[indexTmp]);
+        }
+
+        Debug.Log("saving exp");
+        foreach (var distExp in distExpList)
+        {
+            charaBank.Characters[distExp.charaIndex].GainExp(distExp.expGain);
+            distExp.afterLevel = charaBank.Characters[distExp.charaIndex].Level;
+            string msg = $"{charaBank.Characters[distExp.charaIndex].Name} は {distExp.expGain} の経験値を得た。";
+            if (distExp.beforeLevel < distExp.afterLevel)
+            {
+                msg += $"\nレベルが {distExp.afterLevel} に 上がった！";
+            }
+            yield return battleDialogBox.TypeDialog(msg);
+        }
     }
 }
